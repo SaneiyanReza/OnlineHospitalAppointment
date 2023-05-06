@@ -6,6 +6,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
     public partial class FrmRegistration : Form
     {
         private SqlCommand cmd;
+        private SqlDataReader dr;
         private SqlConnection cnn;
 
         public FrmRegistration()
@@ -24,26 +25,48 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             string userName = FrmIdentity.UserName;
             string hashPassword = PasswordHelper.HashPassword(FrmIdentity.Password);
 
-            if ((TxtName.Name.Length < 3 && TxtName.Name.Length > 50) || (TxtLastName.Text.Length < 4 && TxtLastName.Text.Length > 50))
+            if ((TxtName.Text.Length < 3 || TxtName.Text.Length > 50) ||
+                (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
             {
                 MessageBox.Show("Please Enter currect value");
             }
+
+            cmd = new SqlCommand($"SELECT * FROM Users WHERE NationalCode = {TxtNationalCode.Text} OR" +
+                $" PhoneNumber = {TxtPhoneNumber.Text}", cnn);
+            dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dr.Close();
+            }
             else
             {
-                cmd = new SqlCommand("insert into Logins values(@UserName,@Password)", cnn);
-                cmd.Parameters.AddWithValue("UserName", userName);
-                cmd.Parameters.AddWithValue("Password", hashPassword);
-                cmd = new SqlCommand("insert into Users values(@UserName,@NationalCode,@Name,@LastName" +
-                    ",@Gender,@PhoneNumber,@BirthDay)", cnn);
-                cmd.Parameters.AddWithValue("UserName", userName);
-                cmd.Parameters.AddWithValue("NationalCode", TxtNationalCode.Text);
-                cmd.Parameters.AddWithValue("Name", TxtName.Text);
-                cmd.Parameters.AddWithValue("LastName", TxtLastName.Text);
-                cmd.Parameters.AddWithValue("Gender", RbIsMale.Checked ? 1 : 0);
-                cmd.Parameters.AddWithValue("PhoneNumber", TxtPhoneNumber.Text);
-                cmd.Parameters.AddWithValue("BirthDay", DateOfBirthTimePicker.Value.ToString("yyyy/mm/dd"));
-                cmd.ExecuteNonQuery();
-                BtnSubmit.Enabled = false;
+                dr.Close();
+                using (SqlCommand cmd = new("INSERT INTO Logins VALUES(@UserName,@Password)", cnn))
+                {
+                    cmd.Parameters.AddWithValue("UserName", userName);
+                    cmd.Parameters.AddWithValue("Password", hashPassword);
+                    cmd.ExecuteNonQuery();
+                }
+
+                using (SqlCommand cmd = new("INSERT INTO Users VALUES(@UserName,@NationalCode,@Name,@LastName" +
+                    ",@Gender,@PhoneNumber,@BirthDay)", cnn))
+                {
+                    cmd.Parameters.AddWithValue("UserName", userName);
+                    cmd.Parameters.AddWithValue("NationalCode", TxtNationalCode.Text);
+                    cmd.Parameters.AddWithValue("Name", TxtName.Text);
+                    cmd.Parameters.AddWithValue("LastName", TxtLastName.Text);
+                    cmd.Parameters.AddWithValue("Gender", RbIsMale.Checked ? 1 : 0);
+                    cmd.Parameters.AddWithValue("PhoneNumber", TxtPhoneNumber.Text);
+                    cmd.Parameters.AddWithValue("BirthDay", DateOfBirthTimePicker.Value.ToString("yyyy/mm/dd"));
+                    cmd.ExecuteNonQuery();
+                }
+
+                foreach (Control control in this.Controls)
+                {
+                    control.Enabled = false;
+                }
+
                 BackColor = Color.Green;
                 MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

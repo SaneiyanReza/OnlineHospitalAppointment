@@ -7,7 +7,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
         public static string UserName;
         public static string Password;
 
-        private SqlCommand cmd;
         private SqlConnection cnn;
         private SqlDataReader dr;
 
@@ -44,11 +43,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                cmd = new SqlCommand("select * from Logins where username='" + TxtUserName.Text + "'", cnn);
+                using SqlCommand cmd = new($"SELECT * FROM Logins WHERE UserName = '{TxtUserName.Text}'", cnn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
                     MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dr.Close();
                 }
                 else
                 {
@@ -56,9 +56,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     UserName = TxtUserName.Text;
                     Password = TxtPassword.Text;
                     frmRegistration.ShowDialog();
+                    dr.Close();
                 }
-
-                dr.Close();
             }
             else
             {
