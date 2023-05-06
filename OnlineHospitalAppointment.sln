@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrmIdentity", "FrmIdentity\FrmIdentity.csproj", "{D689F400-2A9E-422B-B28D-0C1FE43DDBE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineHospitalAppointment.Dll.Tools", "OnlineHospitalAppointment.Dll.Tools\OnlineHospitalAppointment.Dll.Tools.csproj", "{99E57867-BE93-4D48-969E-EDBC4FA61EE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineHospitalAppointment.WinForm.Panel", "OnlineHospitalAppointment.WinForm.Panel\OnlineHospitalAppointment.WinForm.Panel.csproj", "{7EC0A3D2-34FE-4199-B420-E665C90F745A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D689F400-2A9E-422B-B28D-0C1FE43DDBE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D689F400-2A9E-422B-B28D-0C1FE43DDBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D689F400-2A9E-422B-B28D-0C1FE43DDBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D689F400-2A9E-422B-B28D-0C1FE43DDBE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E57867-BE93-4D48-969E-EDBC4FA61EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E57867-BE93-4D48-969E-EDBC4FA61EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E57867-BE93-4D48-969E-EDBC4FA61EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E57867-BE93-4D48-969E-EDBC4FA61EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EC0A3D2-34FE-4199-B420-E665C90F745A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC0A3D2-34FE-4199-B420-E665C90F745A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC0A3D2-34FE-4199-B420-E665C90F745A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC0A3D2-34FE-4199-B420-E665C90F745A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,11 @@
-using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Data.SqlClient;
 
-namespace FrmIdentity
+namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
     public partial class FrmIdentity : Form
     {
-        private const string passwordHash = "919%6Ande919";
+        public static string UserName;
+        public static string Password;
 
         private SqlCommand cmd;
         private SqlConnection cnn;
@@ -17,7 +16,7 @@ namespace FrmIdentity
             InitializeComponent();
         }
 
-        private void FrmIdentity_Load(object sender, EventArgs e)
+        private void FrmRegistration_Load(object sender, EventArgs e)
         {
             cnn = new(@"Server=.;Database=OnlineHospitalAppointmentDB;Trusted_Connection=True;");
             cnn.Open();
@@ -45,41 +44,31 @@ namespace FrmIdentity
 
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                string encryptPassword;
-                byte[] data = Encoding.UTF8.GetBytes(TxtPassword.Text);
-                using (MD5CryptoServiceProvider md5 = new())
-                {
-                    byte[] keys = md5.ComputeHash(Encoding.UTF8.GetBytes(passwordHash));
-                    using (TripleDESCryptoServiceProvider tripleDes = new()
-                    { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
-                    {
-                        ICryptoTransform transform = tripleDes.CreateEncryptor();
-                        byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
-                        encryptPassword = Convert.ToBase64String(results);
-                    }
-                }
-
                 cmd = new SqlCommand("select * from Logins where username='" + TxtUserName.Text + "'", cnn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    dr.Close();
                     MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    dr.Close();
-                    cmd = new SqlCommand("insert into Logins values(@UserName,@Password)", cnn);
-                    cmd.Parameters.AddWithValue("UserName", TxtUserName.Text);
-                    cmd.Parameters.AddWithValue("Password", encryptPassword);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmRegistration frmRegistration = new();
+                    UserName = TxtUserName.Text;
+                    Password = TxtPassword.Text;
+                    frmRegistration.ShowDialog();
                 }
+
+                dr.Close();
             }
             else
             {
                 MessageBox.Show("Please Enter currect value");
             }
+        }
+
+        private void BtnLogIn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Good job");
         }
     }
 }
