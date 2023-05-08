@@ -185,7 +185,6 @@
             this.Name = "FrmRegistration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmRegistration";
-            this.Load += new System.EventHandler(this.FrmRegistration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

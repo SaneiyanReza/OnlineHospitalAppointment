@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using OnlineHospitalAppointment.Dll.Tools;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
@@ -7,18 +7,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
         public static string UserName;
         public static string Password;
 
-        private SqlConnection cnn;
-        private SqlDataReader dr;
-
         public FrmIdentity()
         {
             InitializeComponent();
-        }
-
-        private void FrmRegistration_Load(object sender, EventArgs e)
-        {
-            cnn = new(@"Server=.;Database=OnlineHospitalAppointmentDB;Trusted_Connection=True;");
-            cnn.Open();
         }
 
         private void BtnSignUp_Click(object sender, EventArgs e)
@@ -43,12 +34,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                using SqlCommand cmd = new($"SELECT * FROM Logins WHERE UserName = '{TxtUserName.Text}'", cnn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueUserName, new
+                {
+                    UserName = TxtUserName.Text
+                });
+
+                if (!string.IsNullOrWhiteSpace(result))
                 {
                     MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    dr.Close();
                 }
                 else
                 {
@@ -56,7 +49,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     UserName = TxtUserName.Text;
                     Password = TxtPassword.Text;
                     frmRegistration.ShowDialog();
-                    dr.Close();
                 }
             }
             else
