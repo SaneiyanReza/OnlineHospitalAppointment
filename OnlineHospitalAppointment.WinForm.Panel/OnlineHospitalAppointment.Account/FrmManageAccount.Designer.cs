@@ -73,6 +73,7 @@
             // RbIsMale
             // 
             resources.ApplyResources(this.RbIsMale, "RbIsMale");
+            this.RbIsMale.Checked = true;
             this.RbIsMale.Name = "RbIsMale";
             this.RbIsMale.TabStop = true;
             this.RbIsMale.UseVisualStyleBackColor = true;
@@ -136,7 +137,6 @@
             // 
             resources.ApplyResources(this.RbIsFemale, "RbIsFemale");
             this.RbIsFemale.Name = "RbIsFemale";
-            this.RbIsFemale.TabStop = true;
             this.RbIsFemale.UseVisualStyleBackColor = true;
             // 
             // FrmManageAccount

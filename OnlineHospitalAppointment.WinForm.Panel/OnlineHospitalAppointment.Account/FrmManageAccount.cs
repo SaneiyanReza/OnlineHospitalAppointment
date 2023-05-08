@@ -24,8 +24,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             TxtNationalCode.Text = manageAccountDto.NationalCode;
             TxtName.Text = manageAccountDto.Name;
             TxtLastName.Text = manageAccountDto.LastName;
-            RbIsMale.Checked = manageAccountDto.Gender;
-            RbIsFemale.Checked = !manageAccountDto.Gender;
+            RbIsMale.Checked = manageAccountDto.IsMale;
+            RbIsFemale.Checked = !manageAccountDto.IsMale;
             TxtPhoneNumber.Text = manageAccountDto.PhoneNumber;
             DateOfBirthTimePicker.Text = manageAccountDto.BirthDay;
         }
@@ -36,6 +36,19 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
             {
                 MessageBox.Show("Please Enter currect value");
+                return;
+            }
+
+            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript, new
+            {
+                NationalCode = TxtNationalCode.Text,
+                PhoneNumber = TxtPhoneNumber.Text,
+                userName
+            });
+
+            if (result is not null)
+            {
+                MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -44,14 +57,15 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                     NationalCode = TxtNationalCode.Text,
                     Name = TxtName.Text,
                     LastName = TxtLastName.Text,
-                    BirthDay = DateOfBirthTimePicker.Value.ToString("yyyy/mm/dd"),
-                    Gender = RbIsMale.Checked ? 1 : 0,
+                    BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
+                    IsMale = RbIsMale.Checked ? 1 : 0,
                     PhoneNumber = TxtPhoneNumber.Text,
                     userName
                 });
 
                 BackColor = Color.Green;
                 MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BackColor = Color.Empty;
             }
         }
 

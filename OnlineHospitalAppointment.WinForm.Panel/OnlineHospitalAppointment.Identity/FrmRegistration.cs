@@ -14,19 +14,13 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             string userName = FrmIdentity.userName;
             string hashPassword = PasswordHelper.HashPassword(FrmIdentity.password);
 
-            if ((TxtName.Text.Length < 3 || TxtName.Text.Length > 50) ||
-                (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
-            {
-                MessageBox.Show("Please Enter currect value");
-            }
-
             string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript, new
             {
                 NationalCode = TxtNationalCode.Text,
                 PhoneNumber = TxtPhoneNumber.Text
             });
 
-            if (!string.IsNullOrWhiteSpace(result))
+            if (result is not null)
             {
                 MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -44,9 +38,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     NationalCode = TxtNationalCode.Text,
                     Name = TxtName.Text,
                     LastName = TxtLastName.Text,
-                    Gender = RbIsMale.Checked ? 1 : 0,
+                    IsMale = RbIsMale.Checked ? 1 : 0,
                     PhoneNumber = TxtPhoneNumber.Text,
-                    BirthDay = DateOfBirthTimePicker.Value.ToString("yyyy/mm/dd"),
+                    BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
                 });
 
                 foreach (Control control in Controls)
@@ -56,6 +50,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
                 BackColor = Color.Green;
                 MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BackColor = Color.Empty;
             }
         }
 
@@ -84,6 +79,34 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
+            }
+        }
+
+        private void TxtName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!TxtName.Text.All(char.IsLetter) || (TxtName.Text.Length < 3 || TxtName.Text.Length > 50))
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect Name! Name between 3 to 50 digit");
+            }
+            else
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtName, string.Empty);
+            }
+        }
+
+        private void TxtLastName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!TxtLastName.Text.All(char.IsLetter) || (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect LastName! LastName between 3 to 50 digit");
+            }
+            else
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtLastName, string.Empty);
             }
         }
     }

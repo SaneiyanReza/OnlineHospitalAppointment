@@ -1,6 +1,7 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
+using System.Text.RegularExpressions;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
@@ -31,6 +32,13 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             {
                 MessageBox.Show("passwod must bigger than 8 char");
                 TxtPassword.Clear();
+                return;
+            }
+
+            if (!Regex.IsMatch(TxtUserName.Text, "^[a-zA-Z0-9_]+$"))
+            {
+                MessageBox.Show("username must contain a-z , A-Z , 0-9 , _");
+                TxtUserName.Clear();
                 return;
             }
 

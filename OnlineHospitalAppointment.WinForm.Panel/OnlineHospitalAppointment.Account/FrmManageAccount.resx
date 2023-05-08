@@ -105,9 +105,6 @@
   <data name="&gt;&gt;RbIsFemale.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="BtnEditProfile.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="BtnEditProfile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>

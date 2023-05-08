@@ -18,9 +18,9 @@
         public static string CreateUserScript =
             $"INSERT INTO dbo.Users" +
             $"(UserName,NationalCode,Name,LastName" +
-            ",Gender,PhoneNumber,BirthDay)" +
+            ",IsMale,PhoneNumber,BirthDay)" +
             $"VALUES" +
             $"(@UserName,@NationalCode,@Name,@LastName" +
-            ",@Gender,@PhoneNumber,@BirthDay)";
+            ",@IsMale,@PhoneNumber,@BirthDay)";
     }
 }

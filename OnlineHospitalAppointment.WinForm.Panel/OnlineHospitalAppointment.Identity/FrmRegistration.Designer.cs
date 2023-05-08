@@ -115,6 +115,7 @@
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(209, 23);
             this.TxtName.TabIndex = 7;
+            this.TxtName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtName_Validating);
             // 
             // TxtLastName
             // 
@@ -122,6 +123,7 @@
             this.TxtLastName.Name = "TxtLastName";
             this.TxtLastName.Size = new System.Drawing.Size(209, 23);
             this.TxtLastName.TabIndex = 8;
+            this.TxtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtLastName_Validating);
             // 
             // TxtPhoneNumber
             // 
@@ -144,6 +146,7 @@
             // RbIsMale
             // 
             this.RbIsMale.AutoSize = true;
+            this.RbIsMale.Checked = true;
             this.RbIsMale.Location = new System.Drawing.Point(111, 228);
             this.RbIsMale.Name = "RbIsMale";
             this.RbIsMale.Size = new System.Drawing.Size(59, 19);
@@ -171,7 +174,6 @@
             this.RbIsFemale.Name = "RbIsFemale";
             this.RbIsFemale.Size = new System.Drawing.Size(71, 19);
             this.RbIsFemale.TabIndex = 13;
-            this.RbIsFemale.TabStop = true;
             this.RbIsFemale.Text = "IsFemale";
             this.RbIsFemale.UseVisualStyleBackColor = true;
             // 
