@@ -32,7 +32,7 @@
             this.LblNationalCode = new System.Windows.Forms.Label();
             this.LblName = new System.Windows.Forms.Label();
             this.LblLastName = new System.Windows.Forms.Label();
-            this.LblDateOfBirth = new System.Windows.Forms.Label();
+            this.LblBirthDay = new System.Windows.Forms.Label();
             this.LblGender = new System.Windows.Forms.Label();
             this.LblPhoneNumber = new System.Windows.Forms.Label();
             this.TxtNationalCode = new System.Windows.Forms.TextBox();
@@ -43,6 +43,7 @@
             this.RbIsMale = new System.Windows.Forms.RadioButton();
             this.DateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
             this.ErrorProviderApp = new System.Windows.Forms.ErrorProvider(this.components);
+            this.RbIsFemale = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,14 +74,14 @@
             this.LblLastName.TabIndex = 2;
             this.LblLastName.Text = "LastName";
             // 
-            // LblDateOfBirth
+            // LblBirthDay
             // 
-            this.LblDateOfBirth.AutoSize = true;
-            this.LblDateOfBirth.Location = new System.Drawing.Point(13, 145);
-            this.LblDateOfBirth.Name = "LblDateOfBirth";
-            this.LblDateOfBirth.Size = new System.Drawing.Size(69, 15);
-            this.LblDateOfBirth.TabIndex = 3;
-            this.LblDateOfBirth.Text = "DateOfBirth";
+            this.LblBirthDay.AutoSize = true;
+            this.LblBirthDay.Location = new System.Drawing.Point(13, 145);
+            this.LblBirthDay.Name = "LblBirthDay";
+            this.LblBirthDay.Size = new System.Drawing.Size(52, 15);
+            this.LblBirthDay.TabIndex = 3;
+            this.LblBirthDay.Text = "BirthDay";
             // 
             // LblGender
             // 
@@ -163,11 +164,23 @@
             // 
             this.ErrorProviderApp.ContainerControl = this;
             // 
+            // RbIsFemale
+            // 
+            this.RbIsFemale.AutoSize = true;
+            this.RbIsFemale.Location = new System.Drawing.Point(193, 228);
+            this.RbIsFemale.Name = "RbIsFemale";
+            this.RbIsFemale.Size = new System.Drawing.Size(71, 19);
+            this.RbIsFemale.TabIndex = 13;
+            this.RbIsFemale.TabStop = true;
+            this.RbIsFemale.Text = "IsFemale";
+            this.RbIsFemale.UseVisualStyleBackColor = true;
+            // 
             // FrmRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 311);
+            this.Controls.Add(this.RbIsFemale);
             this.Controls.Add(this.DateOfBirthTimePicker);
             this.Controls.Add(this.RbIsMale);
             this.Controls.Add(this.BtnSubmit);
@@ -177,7 +190,7 @@
             this.Controls.Add(this.TxtNationalCode);
             this.Controls.Add(this.LblPhoneNumber);
             this.Controls.Add(this.LblGender);
-            this.Controls.Add(this.LblDateOfBirth);
+            this.Controls.Add(this.LblBirthDay);
             this.Controls.Add(this.LblLastName);
             this.Controls.Add(this.LblName);
             this.Controls.Add(this.LblNationalCode);
@@ -196,7 +209,7 @@
         private Label LblNationalCode;
         private Label LblName;
         private Label LblLastName;
-        private Label LblDateOfBirth;
+        private Label LblBirthDay;
         private Label LblGender;
         private Label LblPhoneNumber;
         private TextBox TxtNationalCode;
@@ -207,5 +220,6 @@
         private RadioButton RbIsMale;
         private DateTimePicker DateOfBirthTimePicker;
         private ErrorProvider ErrorProviderApp;
+        private RadioButton RbIsFemale;
     }
 }

@@ -1,11 +1,13 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
     public partial class FrmIdentity : Form
     {
-        public static string UserName;
-        public static string Password;
+        public static string userName;
+        public static string password;
 
         public FrmIdentity()
         {
@@ -34,20 +36,21 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueUserName, new
-                {
-                    UserName = TxtUserName.Text
-                });
+                LoginLogsDto loginLogsDto = DapperHelper
+                    .QueryFirstOrDefault<LoginLogsDto>(IdentityScripts.GetLoginLogsByUserName, new
+                    {
+                        UserName = TxtUserName.Text.ToLower()
+                    });
 
-                if (!string.IsNullOrWhiteSpace(result))
+                if (loginLogsDto is not null)
                 {
                     MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     FrmRegistration frmRegistration = new();
-                    UserName = TxtUserName.Text;
-                    Password = TxtPassword.Text;
+                    userName = TxtUserName.Text.ToLower();
+                    password = TxtPassword.Text;
                     frmRegistration.ShowDialog();
                 }
             }
@@ -59,7 +62,31 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Good job");
+            LoginLogsDto loginLogsDto = DapperHelper
+                .QueryFirstOrDefault<LoginLogsDto>(IdentityScripts.GetLoginLogsByUserName, new
+                {
+                    UserName = TxtUserName.Text.ToLower()
+                });
+
+            if (loginLogsDto is null)
+            {
+                MessageBox.Show("UserName Not Found!");
+            }
+            else
+            {
+                bool equalPassword = PasswordHelper.HashPassword(TxtPassword.Text).Equals(loginLogsDto.Password);
+
+                if (!equalPassword)
+                {
+                    MessageBox.Show("Incurrect Password");
+                }
+                else
+                {
+                    FrmManageAccount frmManageAccount = new();
+                    userName = TxtUserName.Text.ToLower();
+                    frmManageAccount.ShowDialog();
+                }
+            }
         }
     }
 }

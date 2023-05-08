@@ -7,7 +7,7 @@ namespace OnlineHospitalAppointment.Dll.Tools
     {
         private static SqlConnection con;
 
-        public static void Connection()
+        private static void Connection()
         {
             con = new SqlConnection(@"Server=.;Database=OnlineHospitalAppointmentDB;Trusted_Connection=True;");
         }
@@ -40,6 +40,17 @@ namespace OnlineHospitalAppointment.Dll.Tools
             con.Close();
 
             return result;
+        }
+
+        public static void QueryMultiple(string query, Action<SqlMapper.GridReader> action, object param = null)
+        {
+            Connection();
+            con.Open();
+            using (var multi = con.QueryMultiple(query, param, commandTimeout: 120))
+            {
+                action(multi);
+            }
+            con.Close();
         }
     }
 }

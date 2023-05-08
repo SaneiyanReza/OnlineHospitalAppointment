@@ -31,12 +31,21 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmManageAccount));
             this.ErrorProviderApp = new System.Windows.Forms.ErrorProvider(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.TxtNationalCode = new System.Windows.Forms.TextBox();
+            this.TxtName = new System.Windows.Forms.TextBox();
+            this.TxtPhoneNumber = new System.Windows.Forms.TextBox();
+            this.RbIsMale = new System.Windows.Forms.RadioButton();
+            this.DateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.TxtLastName = new System.Windows.Forms.TextBox();
+            this.LblNationalCode = new System.Windows.Forms.Label();
+            this.LblName = new System.Windows.Forms.Label();
+            this.LblLastName = new System.Windows.Forms.Label();
+            this.LblBirthDay = new System.Windows.Forms.Label();
+            this.LblPhoneNumber = new System.Windows.Forms.Label();
+            this.LblGender = new System.Windows.Forms.Label();
+            this.BtnAppointmentReservation = new System.Windows.Forms.Button();
+            this.BtnEditProfile = new System.Windows.Forms.Button();
+            this.RbIsFemale = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,50 +53,114 @@
             // 
             this.ErrorProviderApp.ContainerControl = this;
             // 
-            // textBox1
+            // TxtNationalCode
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            resources.ApplyResources(this.TxtNationalCode, "TxtNationalCode");
+            this.TxtNationalCode.Name = "TxtNationalCode";
+            this.TxtNationalCode.Validating += new System.ComponentModel.CancelEventHandler(this.TxtNationalCode_Validating);
             // 
-            // textBox2
+            // TxtName
             // 
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
+            resources.ApplyResources(this.TxtName, "TxtName");
+            this.TxtName.Name = "TxtName";
             // 
-            // textBox3
+            // TxtPhoneNumber
             // 
-            resources.ApplyResources(this.textBox3, "textBox3");
-            this.textBox3.Name = "textBox3";
+            resources.ApplyResources(this.TxtPhoneNumber, "TxtPhoneNumber");
+            this.TxtPhoneNumber.Name = "TxtPhoneNumber";
+            this.TxtPhoneNumber.Validating += new System.ComponentModel.CancelEventHandler(this.TxtPhoneNumber_Validating);
             // 
-            // textBox4
+            // RbIsMale
             // 
-            resources.ApplyResources(this.textBox4, "textBox4");
-            this.textBox4.Name = "textBox4";
+            resources.ApplyResources(this.RbIsMale, "RbIsMale");
+            this.RbIsMale.Name = "RbIsMale";
+            this.RbIsMale.TabStop = true;
+            this.RbIsMale.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // DateOfBirthTimePicker
             // 
-            resources.ApplyResources(this.radioButton1, "radioButton1");
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.DateOfBirthTimePicker, "DateOfBirthTimePicker");
+            this.DateOfBirthTimePicker.Name = "DateOfBirthTimePicker";
             // 
-            // dateTimePicker1
+            // TxtLastName
             // 
-            resources.ApplyResources(this.dateTimePicker1, "dateTimePicker1");
-            this.dateTimePicker1.Name = "dateTimePicker1";
+            resources.ApplyResources(this.TxtLastName, "TxtLastName");
+            this.TxtLastName.Name = "TxtLastName";
+            // 
+            // LblNationalCode
+            // 
+            resources.ApplyResources(this.LblNationalCode, "LblNationalCode");
+            this.LblNationalCode.Name = "LblNationalCode";
+            // 
+            // LblName
+            // 
+            resources.ApplyResources(this.LblName, "LblName");
+            this.LblName.Name = "LblName";
+            // 
+            // LblLastName
+            // 
+            resources.ApplyResources(this.LblLastName, "LblLastName");
+            this.LblLastName.Name = "LblLastName";
+            // 
+            // LblBirthDay
+            // 
+            resources.ApplyResources(this.LblBirthDay, "LblBirthDay");
+            this.LblBirthDay.Name = "LblBirthDay";
+            // 
+            // LblPhoneNumber
+            // 
+            resources.ApplyResources(this.LblPhoneNumber, "LblPhoneNumber");
+            this.LblPhoneNumber.Name = "LblPhoneNumber";
+            // 
+            // LblGender
+            // 
+            resources.ApplyResources(this.LblGender, "LblGender");
+            this.LblGender.Name = "LblGender";
+            // 
+            // BtnAppointmentReservation
+            // 
+            this.BtnAppointmentReservation.BackColor = System.Drawing.SystemColors.Info;
+            resources.ApplyResources(this.BtnAppointmentReservation, "BtnAppointmentReservation");
+            this.BtnAppointmentReservation.Name = "BtnAppointmentReservation";
+            this.BtnAppointmentReservation.UseVisualStyleBackColor = false;
+            // 
+            // BtnEditProfile
+            // 
+            this.BtnEditProfile.BackColor = System.Drawing.SystemColors.Info;
+            resources.ApplyResources(this.BtnEditProfile, "BtnEditProfile");
+            this.BtnEditProfile.Name = "BtnEditProfile";
+            this.BtnEditProfile.UseVisualStyleBackColor = false;
+            this.BtnEditProfile.Click += new System.EventHandler(this.BtnEditProfile_Click);
+            // 
+            // RbIsFemale
+            // 
+            resources.ApplyResources(this.RbIsFemale, "RbIsFemale");
+            this.RbIsFemale.Name = "RbIsFemale";
+            this.RbIsFemale.TabStop = true;
+            this.RbIsFemale.UseVisualStyleBackColor = true;
             // 
             // FrmManageAccount
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.RbIsFemale);
+            this.Controls.Add(this.BtnEditProfile);
+            this.Controls.Add(this.BtnAppointmentReservation);
+            this.Controls.Add(this.LblGender);
+            this.Controls.Add(this.LblPhoneNumber);
+            this.Controls.Add(this.LblBirthDay);
+            this.Controls.Add(this.LblLastName);
+            this.Controls.Add(this.LblName);
+            this.Controls.Add(this.LblNationalCode);
+            this.Controls.Add(this.TxtLastName);
+            this.Controls.Add(this.DateOfBirthTimePicker);
+            this.Controls.Add(this.RbIsMale);
+            this.Controls.Add(this.TxtPhoneNumber);
+            this.Controls.Add(this.TxtName);
+            this.Controls.Add(this.TxtNationalCode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FrmManageAccount";
+            this.Load += new System.EventHandler(this.FrmManageAccount_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -97,11 +170,20 @@
         #endregion
 
         private ErrorProvider ErrorProviderApp;
-        private DateTimePicker dateTimePicker1;
-        private RadioButton radioButton1;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private DateTimePicker DateOfBirthTimePicker;
+        private RadioButton RbIsMale;
+        private TextBox TxtPhoneNumber;
+        private TextBox TxtName;
+        private TextBox TxtNationalCode;
+        private TextBox TxtLastName;
+        private Label LblGender;
+        private Label LblPhoneNumber;
+        private Label LblBirthDay;
+        private Label LblLastName;
+        private Label LblName;
+        private Label LblNationalCode;
+        private Button BtnEditProfile;
+        private Button BtnAppointmentReservation;
+        private RadioButton RbIsFemale;
     }
 }

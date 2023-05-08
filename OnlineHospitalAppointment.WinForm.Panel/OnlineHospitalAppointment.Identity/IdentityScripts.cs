@@ -2,20 +2,20 @@
 {
     public static class IdentityScripts
     {
-        public static string IsUniqueUserName =
-            $"SELECT Top 1 * FROM dbo.Logins WHERE UserName = @UserName";
+        public static string GetLoginLogsByUserName =
+            $"SELECT Top 1 * FROM dbo.LoginLogs WHERE UserName = @UserName";
 
-        public static string IsUniqueNationalCodeOrPhoneNumber =
+        public static string IsUniqueNationalCodeOrPhoneNumberScript =
             $"SELECT * FROM dbo.Users WHERE NationalCode = @NationalCode OR" +
                 $" PhoneNumber = @PhoneNumber";
 
-        public static string CreatLoginLog =
-            $"INSERT INTO dbo.Logins" +
+        public static string CreatLoginLogScript =
+            $"INSERT INTO dbo.LoginLogs" +
             $"(UserName,Password)" +
             $"VALUES" +
             $"(@UserName,@Password)";
 
-        public static string CreateUser =
+        public static string CreateUserScript =
             $"INSERT INTO dbo.Users" +
             $"(UserName,NationalCode,Name,LastName" +
             ",Gender,PhoneNumber,BirthDay)" +

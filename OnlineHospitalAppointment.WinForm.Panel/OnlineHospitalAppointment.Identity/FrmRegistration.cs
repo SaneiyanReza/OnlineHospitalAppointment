@@ -11,8 +11,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void BtnSubmit_Click(object sender, EventArgs e)
         {
-            string userName = FrmIdentity.UserName;
-            string hashPassword = PasswordHelper.HashPassword(FrmIdentity.Password);
+            string userName = FrmIdentity.userName;
+            string hashPassword = PasswordHelper.HashPassword(FrmIdentity.password);
 
             if ((TxtName.Text.Length < 3 || TxtName.Text.Length > 50) ||
                 (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
@@ -20,7 +20,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 MessageBox.Show("Please Enter currect value");
             }
 
-            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumber, new
+            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript, new
             {
                 NationalCode = TxtNationalCode.Text,
                 PhoneNumber = TxtPhoneNumber.Text
@@ -32,13 +32,13 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
             else
             {
-                DapperHelper.ExecuteNonQuery(IdentityScripts.CreatLoginLog, new
+                DapperHelper.ExecuteNonQuery(IdentityScripts.CreatLoginLogScript, new
                 {
                     userName,
                     Password = hashPassword
                 });
 
-                DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUser, new
+                DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
                 {
                     userName,
                     NationalCode = TxtNationalCode.Text,
@@ -49,7 +49,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     BirthDay = DateOfBirthTimePicker.Value.ToString("yyyy/mm/dd"),
                 });
 
-                foreach (Control control in this.Controls)
+                foreach (Control control in Controls)
                 {
                     control.Enabled = false;
                 }
@@ -69,7 +69,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             else
             {
                 e.Cancel = false;
-                ErrorProviderApp.SetError(TxtNationalCode, "");
+                ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
             }
         }
 
@@ -83,7 +83,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             else
             {
                 e.Cancel = false;
-                ErrorProviderApp.SetError(TxtPhoneNumber, "");
+                ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
             }
         }
     }
