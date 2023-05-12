@@ -44,11 +44,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                LoginLogsDto loginLogsDto = DapperHelper
-                    .QueryFirstOrDefault<LoginLogsDto>(IdentityScripts.GetLoginLogsByUserName, new
-                    {
-                        UserName = TxtUserName.Text.ToLower()
-                    });
+                LoginLogsDto loginLogsDto = GetLoginLogByUserName();
 
                 if (loginLogsDto is not null)
                 {
@@ -70,11 +66,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            LoginLogsDto loginLogsDto = DapperHelper
-                .QueryFirstOrDefault<LoginLogsDto>(IdentityScripts.GetLoginLogsByUserName, new
-                {
-                    UserName = TxtUserName.Text.ToLower()
-                });
+            LoginLogsDto loginLogsDto = GetLoginLogByUserName();
 
             if (loginLogsDto is null)
             {
@@ -95,6 +87,15 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     frmManageAccount.ShowDialog();
                 }
             }
+        }
+
+        private LoginLogsDto GetLoginLogByUserName()
+        {
+            return DapperHelper
+                .QueryFirstOrDefault<LoginLogsDto>(IdentityScripts.GetLoginLogsByUserName, new
+                {
+                    UserName = TxtUserName.Text.ToLower()
+                });
         }
     }
 }

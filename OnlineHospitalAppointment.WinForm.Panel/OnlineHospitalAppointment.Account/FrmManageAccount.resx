@@ -85,13 +85,13 @@
     <value>231, 252</value>
   </data>
   <data name="RbIsFemale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 19</value>
+    <value>63, 19</value>
   </data>
   <data name="RbIsFemale.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
   <data name="RbIsFemale.Text" xml:space="preserve">
-    <value>IsFemale</value>
+    <value>Female</value>
   </data>
   <data name="&gt;&gt;RbIsFemale.Name" xml:space="preserve">
     <value>RbIsFemale</value>
@@ -382,13 +382,13 @@
     <value>111, 252</value>
   </data>
   <data name="RbIsMale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 19</value>
+    <value>51, 19</value>
   </data>
   <data name="RbIsMale.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="RbIsMale.Text" xml:space="preserve">
-    <value>IsMale</value>
+    <value>Male</value>
   </data>
   <data name="&gt;&gt;RbIsMale.Name" xml:space="preserve">
     <value>RbIsMale</value>

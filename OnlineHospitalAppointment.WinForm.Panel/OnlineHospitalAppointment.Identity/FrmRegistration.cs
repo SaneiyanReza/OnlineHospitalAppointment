@@ -26,22 +26,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
             else
             {
-                DapperHelper.ExecuteNonQuery(IdentityScripts.CreatLoginLogScript, new
-                {
-                    userName,
-                    Password = hashPassword
-                });
-
-                DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
-                {
-                    userName,
-                    NationalCode = TxtNationalCode.Text,
-                    Name = TxtName.Text,
-                    LastName = TxtLastName.Text,
-                    IsMale = RbIsMale.Checked ? 1 : 0,
-                    PhoneNumber = TxtPhoneNumber.Text,
-                    BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
-                });
+                CreateUser(userName, hashPassword);
 
                 foreach (Control control in Controls)
                 {
@@ -108,6 +93,28 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtLastName, string.Empty);
             }
+        }
+
+        private void CreateUser(string userName, string hashPassword)
+        {
+            DapperHelper.ExecuteNonQuery(IdentityScripts.CreatLoginLogScript, new
+            {
+                userName,
+                Password = hashPassword,
+                CreateDateTime = DateTimeExtension.ToUnixTime(DateTime.UtcNow)
+            });
+
+            DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
+            {
+                userName,
+                NationalCode = TxtNationalCode.Text,
+                Name = TxtName.Text,
+                LastName = TxtLastName.Text,
+                IsMale = RbIsMale.Checked ? 1 : 0,
+                PhoneNumber = TxtPhoneNumber.Text,
+                BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
+                CreateDateTime = DateTimeExtension.ToUnixTime(DateTime.UtcNow)
+            });
         }
     }
 }

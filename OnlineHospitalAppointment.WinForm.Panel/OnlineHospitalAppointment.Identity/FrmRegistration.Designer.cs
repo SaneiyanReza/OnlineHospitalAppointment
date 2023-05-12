@@ -149,10 +149,10 @@
             this.RbIsMale.Checked = true;
             this.RbIsMale.Location = new System.Drawing.Point(111, 228);
             this.RbIsMale.Name = "RbIsMale";
-            this.RbIsMale.Size = new System.Drawing.Size(59, 19);
+            this.RbIsMale.Size = new System.Drawing.Size(51, 19);
             this.RbIsMale.TabIndex = 11;
             this.RbIsMale.TabStop = true;
-            this.RbIsMale.Text = "IsMale";
+            this.RbIsMale.Text = "Male";
             this.RbIsMale.UseVisualStyleBackColor = true;
             // 
             // DateOfBirthTimePicker
@@ -172,9 +172,9 @@
             this.RbIsFemale.AutoSize = true;
             this.RbIsFemale.Location = new System.Drawing.Point(193, 228);
             this.RbIsFemale.Name = "RbIsFemale";
-            this.RbIsFemale.Size = new System.Drawing.Size(71, 19);
+            this.RbIsFemale.Size = new System.Drawing.Size(63, 19);
             this.RbIsFemale.TabIndex = 13;
-            this.RbIsFemale.Text = "IsFemale";
+            this.RbIsFemale.Text = "Female";
             this.RbIsFemale.UseVisualStyleBackColor = true;
             // 
             // FrmRegistration

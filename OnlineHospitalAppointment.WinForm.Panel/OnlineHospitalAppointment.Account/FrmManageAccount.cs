@@ -39,18 +39,15 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 return;
             }
 
-            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript, new
-            {
-                NationalCode = TxtNationalCode.Text,
-                PhoneNumber = TxtPhoneNumber.Text,
-                userName
-            });
+            string result = DapperHelper
+                .QueryFirstOrDefault<string>(IdentityScripts.IsUniqueUser, new
+                {
+                    NationalCode = TxtNationalCode.Text,
+                    PhoneNumber = TxtPhoneNumber.Text,
+                    userName
+                });
 
-            if (result is not null)
-            {
-                MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
+            if (result is null)
             {
                 DapperHelper.ExecuteNonQuery(ManageAccountScripts.UpdateUserAccountScript, new
                 {
@@ -67,6 +64,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 BackColor = Color.Empty;
             }
+            else
+            {
+                MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void TxtNationalCode_Validating(object sender, CancelEventArgs e)
@@ -79,7 +80,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             else
             {
                 e.Cancel = false;
-                ErrorProviderApp.SetError(TxtNationalCode, "");
+                ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
             }
         }
 
@@ -93,7 +94,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             else
             {
                 e.Cancel = false;
-                ErrorProviderApp.SetError(TxtPhoneNumber, "");
+                ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
             }
         }
     }
