@@ -35,8 +35,8 @@
             this.TxtPassword = new System.Windows.Forms.TextBox();
             this.BtnLogIn = new System.Windows.Forms.Button();
             this.BtnSignUp = new System.Windows.Forms.Button();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.ErrorProviderApp = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
             // LblUserName
@@ -63,6 +63,7 @@
             this.TxtUserName.Name = "TxtUserName";
             this.TxtUserName.Size = new System.Drawing.Size(150, 23);
             this.TxtUserName.TabIndex = 2;
+            this.TxtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtUserName_Validating);
             // 
             // TxtPassword
             // 
@@ -70,6 +71,7 @@
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.Size = new System.Drawing.Size(150, 23);
             this.TxtPassword.TabIndex = 3;
+            this.TxtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.TxtPassword_Validating);
             // 
             // BtnLogIn
             // 
@@ -91,9 +93,9 @@
             this.BtnSignUp.UseVisualStyleBackColor = true;
             this.BtnSignUp.Click += new System.EventHandler(this.BtnSignUp_Click);
             // 
-            // errorProvider1
+            // ErrorProviderApp
             // 
-            this.errorProvider1.ContainerControl = this;
+            this.ErrorProviderApp.ContainerControl = this;
             // 
             // FrmIdentity
             // 
@@ -112,7 +114,7 @@
             this.Name = "FrmIdentity";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmRegistration";
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,6 +128,6 @@
         private TextBox TxtPassword;
         private Button BtnLogIn;
         private Button BtnSignUp;
-        private ErrorProvider errorProvider1;
+        private ErrorProvider ErrorProviderApp;
     }
 }

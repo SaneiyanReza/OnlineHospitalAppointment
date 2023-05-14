@@ -17,31 +17,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void BtnSignUp_Click(object sender, EventArgs e)
         {
-            int usernameLength = TxtUserName.Text.Length;
-
-            if (usernameLength < 4 || usernameLength > 50)
-            {
-                MessageBox.Show("username must between 4 to 50 char");
-                TxtUserName.Clear();
-                return;
-            }
-
-            int passwordLength = TxtPassword.Text.Length;
-
-            if (passwordLength < 8)
-            {
-                MessageBox.Show("passwod must bigger than 8 char");
-                TxtPassword.Clear();
-                return;
-            }
-
-            if (!Regex.IsMatch(TxtUserName.Text, "^[a-zA-Z0-9_]+$"))
-            {
-                MessageBox.Show("username must contain a-z , A-Z , 0-9 , _");
-                TxtUserName.Clear();
-                return;
-            }
-
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
                 LoginLogsDto loginLogsDto = GetLoginLogByUserName();
@@ -60,7 +35,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
             else
             {
-                MessageBox.Show("Please Enter currect value");
+                MessageBox.Show("Please Fill Text Boxes");
             }
         }
 
@@ -86,6 +61,43 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     userName = TxtUserName.Text.ToLower();
                     frmManageAccount.ShowDialog();
                 }
+            }
+        }
+
+        private void TxtUserName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int usernameLength = TxtUserName.Text.Length;
+
+            if (usernameLength < 4 || usernameLength > 50)
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtUserName, "username must between 4 to 50 char");
+            }
+            else if (!Regex.IsMatch(TxtUserName.Text, "^[a-zA-Z0-9_]+$"))
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtUserName, "username must contain a-z , A-Z , 0-9 , _");
+            }
+            else
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtUserName, string.Empty);
+            }
+        }
+
+        private void TxtPassword_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int passwordLength = TxtPassword.Text.Length;
+
+            if (passwordLength < 8)
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtUserName, "passwod must bigger than 8 char");
+            }
+            else
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtUserName, string.Empty);
             }
         }
 
