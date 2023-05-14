@@ -88,7 +88,7 @@
     <value>63, 19</value>
   </data>
   <data name="RbIsFemale.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>6</value>
   </data>
   <data name="RbIsFemale.Text" xml:space="preserve">
     <value>Female</value>
@@ -115,7 +115,7 @@
     <value>92, 40</value>
   </data>
   <data name="BtnEditProfile.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>7</value>
   </data>
   <data name="BtnEditProfile.Text" xml:space="preserve">
     <value>Edit Profile</value>
@@ -139,7 +139,7 @@
     <value>92, 40</value>
   </data>
   <data name="BtnAppointmentReservation.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>8</value>
   </data>
   <data name="BtnAppointmentReservation.Text" xml:space="preserve">
     <value>Appointment Reservation</value>
@@ -169,7 +169,7 @@
     <value>45, 15</value>
   </data>
   <data name="LblGender.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="LblGender.Text" xml:space="preserve">
     <value>Gender</value>
@@ -199,7 +199,7 @@
     <value>85, 15</value>
   </data>
   <data name="LblPhoneNumber.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="LblPhoneNumber.Text" xml:space="preserve">
     <value>PhoneNumber</value>
@@ -229,7 +229,7 @@
     <value>52, 15</value>
   </data>
   <data name="LblBirthDay.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="LblBirthDay.Text" xml:space="preserve">
     <value>BirthDay</value>
@@ -259,7 +259,7 @@
     <value>60, 15</value>
   </data>
   <data name="LblLastName.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="LblLastName.Text" xml:space="preserve">
     <value>LastName</value>
@@ -289,7 +289,7 @@
     <value>39, 15</value>
   </data>
   <data name="LblName.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="LblName.Text" xml:space="preserve">
     <value>Name</value>
@@ -316,7 +316,7 @@
     <value>80, 15</value>
   </data>
   <data name="LblNationalCode.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="LblNationalCode.Text" xml:space="preserve">
     <value>NationalCode</value>
@@ -340,7 +340,7 @@
     <value>212, 23</value>
   </data>
   <data name="TxtLastName.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;TxtLastName.Name" xml:space="preserve">
     <value>TxtLastName</value>
@@ -361,7 +361,7 @@
     <value>212, 23</value>
   </data>
   <data name="DateOfBirthTimePicker.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;DateOfBirthTimePicker.Name" xml:space="preserve">
     <value>DateOfBirthTimePicker</value>
@@ -385,7 +385,7 @@
     <value>51, 19</value>
   </data>
   <data name="RbIsMale.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="RbIsMale.Text" xml:space="preserve">
     <value>Male</value>
@@ -409,7 +409,7 @@
     <value>212, 23</value>
   </data>
   <data name="TxtPhoneNumber.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;TxtPhoneNumber.Name" xml:space="preserve">
     <value>TxtPhoneNumber</value>

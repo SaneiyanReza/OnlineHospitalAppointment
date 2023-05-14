@@ -2,12 +2,14 @@
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account.Helper;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account.Models;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel;
 using System.ComponentModel;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account
 {
     public partial class FrmManageAccount : Form
     {
+        public static string fullName;
         private string userName;
 
         public FrmManageAccount()
@@ -96,6 +98,13 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
             }
+        }
+
+        private void BtnAppointmentReservation_Click(object sender, EventArgs e)
+        {
+            FrmReservationDashboard frmReservationDashboard = new();
+            fullName = $"{TxtName.Text} {TxtLastName.Text}";
+            frmReservationDashboard.ShowDialog();
         }
     }
 }

@@ -101,7 +101,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             {
                 userName,
                 Password = hashPassword,
-                CreateDateTime = DateTimeExtension.ToUnixTime(DateTime.UtcNow)
+                CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.UtcNow)
             });
 
             DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
@@ -113,7 +113,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 IsMale = RbIsMale.Checked ? 1 : 0,
                 PhoneNumber = TxtPhoneNumber.Text,
                 BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
-                CreateDateTime = DateTimeExtension.ToUnixTime(DateTime.UtcNow)
+                CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.UtcNow)
             });
         }
     }

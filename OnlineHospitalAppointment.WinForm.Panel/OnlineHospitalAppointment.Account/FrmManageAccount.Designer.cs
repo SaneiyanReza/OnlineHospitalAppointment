@@ -124,6 +124,7 @@
             resources.ApplyResources(this.BtnAppointmentReservation, "BtnAppointmentReservation");
             this.BtnAppointmentReservation.Name = "BtnAppointmentReservation";
             this.BtnAppointmentReservation.UseVisualStyleBackColor = false;
+            this.BtnAppointmentReservation.Click += new System.EventHandler(this.BtnAppointmentReservation_Click);
             // 
             // BtnEditProfile
             // 
@@ -159,6 +160,7 @@
             this.Controls.Add(this.TxtName);
             this.Controls.Add(this.TxtNationalCode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FrmManageAccount";
             this.Load += new System.EventHandler(this.FrmManageAccount_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).EndInit();
