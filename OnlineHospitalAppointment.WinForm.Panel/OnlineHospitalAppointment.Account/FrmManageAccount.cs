@@ -37,7 +37,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             if ((TxtName.Text.Length < 3 || TxtName.Text.Length > 50) ||
                 (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
             {
-                MessageBox.Show("Please Enter currect value");
+                MessageBox.Show("Please Enter currect value", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -63,12 +64,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 });
 
                 BackColor = Color.Green;
-                MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Your Account is created . Please login now.",
+                    "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 BackColor = Color.Empty;
             }
             else
             {
-                MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Phone Number or National Code Already exist please try another ",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

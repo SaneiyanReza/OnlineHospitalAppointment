@@ -5,7 +5,7 @@ namespace OnlineHospitalAppointment.Dll.Tools
 {
     public static class PasswordHelper
     {
-        private const string hash = "123321";
+        private const string hash = "asdfghjkl123";
 
         public static string HashPassword(string password)
         {

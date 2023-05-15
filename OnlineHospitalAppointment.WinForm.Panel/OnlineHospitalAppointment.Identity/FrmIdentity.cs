@@ -23,7 +23,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
                 if (loginLogsDto is not null)
                 {
-                    MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Username Already exist please try another ",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

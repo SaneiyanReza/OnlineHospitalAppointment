@@ -22,7 +22,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
             if (result is not null)
             {
-                MessageBox.Show("Phone Number or National Code Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Phone Number or National Code Already exist please try another ",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -34,7 +35,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 }
 
                 BackColor = Color.Green;
-                MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Your Account is created . Please login now.",
+                    "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 BackColor = Color.Empty;
             }
         }

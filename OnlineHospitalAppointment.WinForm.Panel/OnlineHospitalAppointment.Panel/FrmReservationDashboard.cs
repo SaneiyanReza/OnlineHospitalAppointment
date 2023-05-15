@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineHospitalAppointment.Dll.Tools;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Dtos;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Views;
 using System.Data;
@@ -11,6 +12,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
     {
         private static ExpertView[] view = default;
         private readonly BindingSource bindingSource = new();
+        private readonly string userName = FrmIdentity.userName;
 
         public FrmReservationDashboard()
         {
@@ -19,6 +21,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private void FrmReservationDashboard_Load(object sender, EventArgs e)
         {
+            LblShowUserName.Text = userName;
             LblShowFullName.Text = FrmManageAccount.fullName;
             CmbField.SelectedIndex = 0;
             BindGridViewSource(bindingSource);
@@ -41,8 +44,58 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                     _ => GetExperts(),
                 };
 
-                BindGridViewSource(bindingSource , true);
+                BindGridViewSource(bindingSource, true);
             }
+        }
+
+        private void BtnReserve_Click(object sender, EventArgs e)
+        {
+            ReservationLogDto reservationLog = new();
+            string trackingCode = string.Empty;
+            int expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+
+            DapperHelper.QueryMultiple(PanelScripts.GetReservationData, gride =>
+            {
+                reservationLog.UserId = gride.ReadFirst<int>();
+                reservationLog.TrackingCodes = gride.Read<string>().ToArray() ?? Array.Empty<string>();
+            }, new
+            {
+                userName
+            });
+
+            do
+            {
+                trackingCode = RandomGenerator.GetUniqueCode();
+            } while (reservationLog.TrackingCodes.Contains(trackingCode));
+
+            DapperHelper.ExecuteNonQuery(PanelScripts.SetReservation, new
+            {
+                reservationLog.UserId,
+                expertId,
+                ReservedAt = DateTimeHelper.ToUnixTime(DateTime.UtcNow),
+                trackingCode
+            });
+
+            BackColor = Color.Green;
+            GvReceiveExpertsPanel.BackgroundColor = Color.ForestGreen;
+
+            MessageBox.Show($"The appointment was successfully received.\n Tracking Code : {trackingCode}",
+                "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            BackColor = Color.Empty;
+            GvReceiveExpertsPanel.BackgroundColor = Color.Silver;
+
+            BindGridViewSource(bindingSource);
+        }
+
+        private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)
+        {
+            if (!isFiltered)
+            {
+                bindingSource.DataSource = GetExperts();
+            }
+
+            GvReceiveExpertsPanel.DataSource = bindingSource;
         }
 
         private static ExpertView[] GetExperts()
@@ -57,16 +110,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             view = mapper.Map<ExpertView[]>(experts);
 
             return view;
-        }
-
-        private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)
-        {
-            if (!isFiltered)
-            {
-                bindingSource.DataSource = GetExperts();
-            }
-
-            GvReceiveExpertsPanel.DataSource = bindingSource;
         }
     }
 }
