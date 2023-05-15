@@ -72,16 +72,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
             for (int i = 0; i < reservationLog.ExpertTimeReserved.Length; i++)
             {
-                DateTime ExpertFreeDateTime = DateTimeHelper
-                    .UnixTimeToDateTime(reservationLog.ExpertFreeTime).AddMinutes(30);
+                int ExpertFreeTimeThirtyMinutesLater = DateTimeHelper
+                    .UnixTimeToDateTime(reservationLog.ExpertFreeTime).AddMinutes(30).ToUnixTime();
 
-                DateTime ExpertReservedDateTime = DateTimeHelper
-                    .UnixTimeToDateTime(reservationLog.ExpertTimeReserved[i]);
-
-                if (ExpertFreeDateTime.CompareTo(ExpertReservedDateTime) <= 0)
+                if (reservationLog.ExpertTimeReserved[i] >= reservationLog.ExpertFreeTime &&
+                    reservationLog.ExpertTimeReserved[i] <= ExpertFreeTimeThirtyMinutesLater)
                 {
                     canReserve = false;
-                    return;
+                    break;
                 }
             }
 
@@ -90,30 +88,32 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                 MessageBox.Show("You cannot make a reservation because there is a time conflict!", "Warning",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            do
+            else
             {
-                trackingCode = RandomGenerator.GetUniqueCode();
-            } while (reservationLog.TrackingCodes.Contains(trackingCode));
+                do
+                {
+                    trackingCode = RandomGenerator.GetUniqueCode();
+                } while (reservationLog.TrackingCodes.Contains(trackingCode));
 
-            DapperHelper.ExecuteNonQuery(PanelScripts.SetReservation, new
-            {
-                userId,
-                expertId,
-                ReservedAt = DateTimeHelper.ToUnixTime(DateTime.UtcNow),
-                trackingCode
-            });
+                DapperHelper.ExecuteNonQuery(PanelScripts.SetReservation, new
+                {
+                    userId,
+                    expertId,
+                    ReservedAt = DateTimeHelper.ToUnixTime(DateTime.UtcNow),
+                    trackingCode
+                });
 
-            BackColor = Color.Green;
-            GvReceiveExpertsPanel.BackgroundColor = Color.ForestGreen;
+                BackColor = Color.Green;
+                GvReceiveExpertsPanel.BackgroundColor = Color.ForestGreen;
 
-            MessageBox.Show($"The appointment was successfully received.\n Tracking Code : {trackingCode}",
-                "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"The appointment was successfully received.\n Tracking Code : {trackingCode}",
+                    "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            BackColor = Color.Empty;
-            GvReceiveExpertsPanel.BackgroundColor = Color.Silver;
+                BackColor = Color.Empty;
+                GvReceiveExpertsPanel.BackgroundColor = Color.Silver;
 
-            BindGridViewSource(bindingSource);
+                BindGridViewSource(bindingSource);
+            }
         }
 
         private void BtnReport_Click(object sender, EventArgs e)

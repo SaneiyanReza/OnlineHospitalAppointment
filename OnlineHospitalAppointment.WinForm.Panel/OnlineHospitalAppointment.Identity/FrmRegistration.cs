@@ -80,7 +80,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             if (!TxtName.Text.All(char.IsLetter) || (TxtName.Text.Length < 3 || TxtName.Text.Length > 50))
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect Name! Name between 3 to 50 digit");
+                ErrorProviderApp.SetError(TxtName, "Enter Currect Name! Name between 3 to 50 digit");
             }
             else
             {
@@ -94,7 +94,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             if (!TxtLastName.Text.All(char.IsLetter) || (TxtLastName.Text.Length < 4 || TxtLastName.Text.Length > 50))
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect LastName! LastName between 3 to 50 digit");
+                ErrorProviderApp.SetError(TxtLastName, "Enter Currect LastName! LastName between 3 to 50 digit");
             }
             else
             {

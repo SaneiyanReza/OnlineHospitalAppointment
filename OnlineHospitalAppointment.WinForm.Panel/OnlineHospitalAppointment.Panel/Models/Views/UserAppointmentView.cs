@@ -2,7 +2,7 @@
 {
     public class UserAppointmentView
     {
-        public int ReservationId { get; init; }
+        public int Id { get; init; }
         public string FullName { get; init; }
         public string Specialist { get; init; }
         public string Address { get; init; }

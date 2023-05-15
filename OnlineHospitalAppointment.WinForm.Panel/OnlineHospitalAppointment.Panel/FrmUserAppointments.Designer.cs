@@ -132,6 +132,7 @@
             this.GvReceiveAppointmentReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GvReceiveAppointmentReport.Size = new System.Drawing.Size(690, 288);
             this.GvReceiveAppointmentReport.TabIndex = 10;
+            this.GvReceiveAppointmentReport.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GvReceiveAppointmentReport_MouseClick);
             // 
             // BtnCancelReserve
             // 
@@ -163,6 +164,7 @@
             this.Name = "FrmUserAppointments";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmUserAppointments";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmUserAppointments_FormClosing);
             this.Load += new System.EventHandler(this.FrmUserAppointments_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveAppointmentReport)).EndInit();
             this.ResumeLayout(false);

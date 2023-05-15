@@ -20,7 +20,7 @@
             @"SELECT e.FreeDateTime FROM dbo.Users u
                 JOIN dbo.ReservationLogs rl ON rl.UserId = u.Id
                 JOIN dbo.Experts e ON e.Id = rl.ExpertId
-                WHERE rl.UserId = @UserId
+                WHERE rl.UserId = @UserId AND rl.IsCanceled = 0
 
             SELECT FreeDateTime FROM dbo.Experts
                 WHERE Id = @ExpertId

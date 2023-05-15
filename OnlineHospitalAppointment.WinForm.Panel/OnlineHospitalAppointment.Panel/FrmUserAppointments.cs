@@ -19,6 +19,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private void FrmUserAppointments_Load(object sender, EventArgs e)
         {
+            BtnCancelReserve.Enabled = false;
             LblShowUserName.Text = FrmIdentity.userName;
             LblShowFullName.Text = FrmManageAccount.fullName;
             CmbField.SelectedIndex = 0;
@@ -46,6 +47,42 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             }
         }
 
+        private void BtnCancelReserve_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to cancel appointment to expert", "Warning"
+                , MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.OK)
+            {
+                int reservationLogId = (int)GvReceiveAppointmentReport.CurrentRow.Cells[0].Value;
+
+                DapperHelper.ExecuteNonQuery(PanelScripts.SetCancelAppointment, new
+                {
+                    reservationLogId
+                });
+
+                BindGridViewSource(bindingSource);
+            }
+        }
+
+        private void GvReceiveAppointmentReport_MouseClick(object sender, MouseEventArgs e)
+        {
+            if ((bool)GvReceiveAppointmentReport.CurrentRow.Cells[GvReceiveAppointmentReport.Columns.Count - 1].Value)
+            {
+                BtnCancelReserve.Enabled = false;
+            }
+            else
+            {
+                BtnCancelReserve.Enabled = true;
+            }
+        }
+
+        private void FrmUserAppointments_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FrmReservationDashboard frmReservationDashboard = new();
+            frmReservationDashboard.ShowDialog();
+        }
+
         private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)
         {
             if (!isFiltered)
@@ -69,13 +106,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             view = mapper.Map<UserAppointmentView[]>(userAppointments);
 
             return view;
-        }
-
-        private void BtnCancelReserve_Click(object sender, EventArgs e)
-        {
-            int reservationLogId = (int)GvReceiveAppointmentReport.CurrentRow.Cells[0].Value;
-
-
         }
     }
 }

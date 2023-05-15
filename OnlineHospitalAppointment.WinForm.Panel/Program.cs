@@ -10,8 +10,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel
         [STAThread]
         private static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            // Online Hospital Appointment application
+            // see https://github.com/SaneiyanReza
             ApplicationConfiguration.Initialize();
             Application.Run(new FrmIdentity());
         }
