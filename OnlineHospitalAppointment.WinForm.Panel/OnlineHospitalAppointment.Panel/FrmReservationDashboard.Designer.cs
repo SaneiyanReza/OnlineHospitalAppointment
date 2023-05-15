@@ -132,8 +132,9 @@
             this.BtnReport.Name = "BtnReport";
             this.BtnReport.Size = new System.Drawing.Size(75, 38);
             this.BtnReport.TabIndex = 11;
-            this.BtnReport.Text = "Report";
+            this.BtnReport.Text = "Reports";
             this.BtnReport.UseVisualStyleBackColor = true;
+            this.BtnReport.Click += new System.EventHandler(this.BtnReport_Click);
             // 
             // LblUserName
             // 

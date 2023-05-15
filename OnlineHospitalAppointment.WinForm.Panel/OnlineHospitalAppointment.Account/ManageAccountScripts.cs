@@ -6,10 +6,10 @@
             @"UPDATE dbo.Users
                 SET NationalCode = @NationalCode ,Name = @Name ,LastName = @LastName ,
                 BirthDay = @BirthDay ,IsMale = @IsMale ,PhoneNumber = @PhoneNumber
-                WHERE UserName = @UserName";
+                WHERE Id = @UserId";
 
-        public static string GetUserByUserName =
+        public static string GetUserByUserId =
             @"SELECT NationalCode ,Name ,LastName ,IsMale ,PhoneNumber ,BirthDay
-                FROM dbo.Users WHERE UserName = @UserName";
+                FROM dbo.Users WHERE Id = @UserId";
     }
 }

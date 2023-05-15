@@ -5,11 +5,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 {
     public static class ManageAccountHelper
     {
-        public static ManageAccountDto GetAccountData(string userName)
+        public static ManageAccountDto GetAccountData(int userId)
         {
-            return DapperHelper.QueryFirstOrDefault<ManageAccountDto>(ManageAccountScripts.GetUserByUserName, new
+            return DapperHelper.QueryFirstOrDefault<ManageAccountDto>(ManageAccountScripts.GetUserByUserId, new
             {
-                userName
+                userId
             });
         }
     }

@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 311);
+            this.ClientSize = new System.Drawing.Size(358, 311);
             this.Controls.Add(this.RbIsFemale);
             this.Controls.Add(this.DateOfBirthTimePicker);
             this.Controls.Add(this.RbIsMale);
@@ -197,6 +197,7 @@
             this.Controls.Add(this.LblName);
             this.Controls.Add(this.LblNationalCode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FrmRegistration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmRegistration";

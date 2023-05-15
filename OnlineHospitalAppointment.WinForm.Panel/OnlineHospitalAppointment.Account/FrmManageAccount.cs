@@ -10,7 +10,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
     public partial class FrmManageAccount : Form
     {
         public static string fullName;
-        private string userName;
+        private static int userId;
 
         public FrmManageAccount()
         {
@@ -19,9 +19,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 
         private void FrmManageAccount_Load(object sender, EventArgs e)
         {
-            userName = FrmIdentity.userName;
+            userId = FrmIdentity.userId;
 
-            ManageAccountDto manageAccountDto = ManageAccountHelper.GetAccountData(userName);
+            ManageAccountDto manageAccountDto = ManageAccountHelper.GetAccountData(userId);
 
             TxtNationalCode.Text = manageAccountDto.NationalCode;
             TxtName.Text = manageAccountDto.Name;
@@ -47,7 +47,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 {
                     NationalCode = TxtNationalCode.Text,
                     PhoneNumber = TxtPhoneNumber.Text,
-                    userName
+                    userId
                 });
 
             if (result is null)
@@ -60,7 +60,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                     BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
                     IsMale = RbIsMale.Checked ? 1 : 0,
                     PhoneNumber = TxtPhoneNumber.Text,
-                    userName
+                    userId
                 });
 
                 BackColor = Color.Green;
@@ -73,6 +73,13 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 MessageBox.Show("Phone Number or National Code Already exist please try another ",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnAppointmentReservation_Click(object sender, EventArgs e)
+        {
+            FrmReservationDashboard frmReservationDashboard = new();
+            fullName = $"{TxtName.Text} {TxtLastName.Text}";
+            frmReservationDashboard.ShowDialog();
         }
 
         private void TxtNationalCode_Validating(object sender, CancelEventArgs e)
@@ -101,13 +108,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
             }
-        }
-
-        private void BtnAppointmentReservation_Click(object sender, EventArgs e)
-        {
-            FrmReservationDashboard frmReservationDashboard = new();
-            fullName = $"{TxtName.Text} {TxtLastName.Text}";
-            frmReservationDashboard.ShowDialog();
         }
     }
 }

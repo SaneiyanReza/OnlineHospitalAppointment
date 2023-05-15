@@ -2,7 +2,8 @@
 {
     public record ReservationLogDto
     {
-        public int UserId { get; set; }
+        public int[] ExpertTimeReserved { get; set; }
+        public int ExpertFreeTime { get; set; }
         public string[] TrackingCodes { get; set; }
     }
 }

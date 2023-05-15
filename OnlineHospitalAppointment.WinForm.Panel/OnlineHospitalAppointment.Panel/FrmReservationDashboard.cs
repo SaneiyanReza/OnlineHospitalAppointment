@@ -13,6 +13,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         private static ExpertView[] view = default;
         private readonly BindingSource bindingSource = new();
         private readonly string userName = FrmIdentity.userName;
+        private readonly int userId = FrmIdentity.userId;
 
         public FrmReservationDashboard()
         {
@@ -53,15 +54,42 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             ReservationLogDto reservationLog = new();
             string trackingCode = string.Empty;
             int expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+            bool canReserve = true;
 
-            DapperHelper.QueryMultiple(PanelScripts.GetReservationData, gride =>
+            DapperHelper.QueryMultiple(PanelScripts.GetReservationLogData, gride =>
             {
-                reservationLog.UserId = gride.ReadFirst<int>();
+                reservationLog.ExpertTimeReserved = gride.Read<int>().ToArray() ??
+                    Array.Empty<int>();
+
+                reservationLog.ExpertFreeTime = gride.ReadFirst<int>();
+
                 reservationLog.TrackingCodes = gride.Read<string>().ToArray() ?? Array.Empty<string>();
             }, new
             {
-                userName
+                userId,
+                expertId
             });
+
+            for (int i = 0; i < reservationLog.ExpertTimeReserved.Length; i++)
+            {
+                DateTime ExpertFreeDateTime = DateTimeHelper
+                    .UnixTimeToDateTime(reservationLog.ExpertFreeTime).AddMinutes(30);
+
+                DateTime ExpertReservedDateTime = DateTimeHelper
+                    .UnixTimeToDateTime(reservationLog.ExpertTimeReserved[i]);
+
+                if (ExpertFreeDateTime.CompareTo(ExpertReservedDateTime) <= 0)
+                {
+                    canReserve = false;
+                    return;
+                }
+            }
+
+            if (!canReserve)
+            {
+                MessageBox.Show("You cannot make a reservation because there is a time conflict!", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             do
             {
@@ -70,7 +98,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
             DapperHelper.ExecuteNonQuery(PanelScripts.SetReservation, new
             {
-                reservationLog.UserId,
+                userId,
                 expertId,
                 ReservedAt = DateTimeHelper.ToUnixTime(DateTime.UtcNow),
                 trackingCode
@@ -86,6 +114,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             GvReceiveExpertsPanel.BackgroundColor = Color.Silver;
 
             BindGridViewSource(bindingSource);
+        }
+
+        private void BtnReport_Click(object sender, EventArgs e)
+        {
+            FrmUserAppointments frmUserAppointments = new();
+            frmUserAppointments.ShowDialog();
         }
 
         private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)

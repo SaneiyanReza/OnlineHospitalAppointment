@@ -1,5 +1,6 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
 using System.Text.RegularExpressions;
 
@@ -9,6 +10,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
     {
         public static string userName;
         public static string password;
+        public static int userId;
 
         public FrmIdentity()
         {
@@ -19,7 +21,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
         {
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                LoginLogsDto loginLogsDto = GetLoginLogByUserName();
+                LoginLogsDto loginLogsDto = IdentityHelper.GetLoginLogByUserName(TxtUserName.Text.ToLower());
 
                 if (loginLogsDto is not null)
                 {
@@ -42,7 +44,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            LoginLogsDto loginLogsDto = GetLoginLogByUserName();
+            LoginLogsDto loginLogsDto = IdentityHelper.GetLoginLogByUserName(TxtUserName.Text.ToLower());
 
             if (loginLogsDto is null)
             {
@@ -50,7 +52,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
             else
             {
-                bool equalPassword = PasswordHelper.HashPassword(TxtPassword.Text).Equals(loginLogsDto.Password);
+                bool equalPassword = PasswordHelper.HashPassword(TxtPassword.Text)
+                    .Equals(loginLogsDto.Password);
 
                 if (!equalPassword)
                 {
@@ -58,6 +61,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 }
                 else
                 {
+                    userId = DapperHelper.QueryFirstOrDefault<int>(IdentityScripts.GetUserId, new
+                    {
+                        loginLogsDto.UserName
+                    });
+
                     FrmManageAccount frmManageAccount = new();
                     userName = TxtUserName.Text.ToLower();
                     frmManageAccount.ShowDialog();
@@ -100,15 +108,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtUserName, string.Empty);
             }
-        }
-
-        private LoginLogsDto GetLoginLogByUserName()
-        {
-            return DapperHelper
-                .QueryFirstOrDefault<LoginLogsDto>(IdentityScripts.GetLoginLogsByUserName, new
-                {
-                    UserName = TxtUserName.Text.ToLower()
-                });
         }
     }
 }

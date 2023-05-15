@@ -1,4 +1,5 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
@@ -14,11 +15,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             string userName = FrmIdentity.userName;
             string hashPassword = PasswordHelper.HashPassword(FrmIdentity.password);
 
-            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript, new
-            {
-                NationalCode = TxtNationalCode.Text,
-                PhoneNumber = TxtPhoneNumber.Text
-            });
+            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript,
+                new
+                {
+                    NationalCode = TxtNationalCode.Text,
+                    PhoneNumber = TxtPhoneNumber.Text
+                });
 
             if (result is not null)
             {
@@ -27,7 +29,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
             else
             {
-                CreateUser(userName, hashPassword);
+                byte isMale = (byte)(RbIsMale.Checked ? 1 : 0);
+                string birthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd");
+
+                IdentityHelper.CreateUser(userName, hashPassword, TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
+                    isMale, TxtPhoneNumber.Text, birthDay);
 
                 foreach (Control control in Controls)
                 {
@@ -95,28 +101,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtLastName, string.Empty);
             }
-        }
-
-        private void CreateUser(string userName, string hashPassword)
-        {
-            DapperHelper.ExecuteNonQuery(IdentityScripts.CreatLoginLogScript, new
-            {
-                userName,
-                Password = hashPassword,
-                CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.UtcNow)
-            });
-
-            DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
-            {
-                userName,
-                NationalCode = TxtNationalCode.Text,
-                Name = TxtName.Text,
-                LastName = TxtLastName.Text,
-                IsMale = RbIsMale.Checked ? 1 : 0,
-                PhoneNumber = TxtPhoneNumber.Text,
-                BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
-                CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.UtcNow)
-            });
         }
     }
 }
