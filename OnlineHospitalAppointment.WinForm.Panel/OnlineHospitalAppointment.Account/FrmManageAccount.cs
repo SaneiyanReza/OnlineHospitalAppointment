@@ -64,7 +64,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                 });
 
                 BackColor = Color.Green;
-                MessageBox.Show("Your Account is created . Please login now.",
+                MessageBox.Show("Your account has been updated.",
                     "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 BackColor = Color.Empty;
             }
@@ -77,10 +77,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 
         private void BtnAppointmentReservation_Click(object sender, EventArgs e)
         {
-            this.Close();
-
             FrmReservationDashboard frmReservationDashboard = new();
             fullName = $"{TxtName.Text} {TxtLastName.Text}";
+            this.Close();
             frmReservationDashboard.ShowDialog();
         }
 

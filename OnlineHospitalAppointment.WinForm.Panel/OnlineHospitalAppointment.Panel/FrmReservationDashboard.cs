@@ -118,9 +118,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private void BtnReport_Click(object sender, EventArgs e)
         {
-            this.Close();
-
             FrmUserAppointments frmUserAppointments = new();
+            this.Close();
             frmUserAppointments.ShowDialog();
         }
 
