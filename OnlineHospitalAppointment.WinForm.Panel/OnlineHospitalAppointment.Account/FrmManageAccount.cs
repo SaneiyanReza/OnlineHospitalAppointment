@@ -77,6 +77,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 
         private void BtnAppointmentReservation_Click(object sender, EventArgs e)
         {
+            this.Close();
+
             FrmReservationDashboard frmReservationDashboard = new();
             fullName = $"{TxtName.Text} {TxtLastName.Text}";
             frmReservationDashboard.ShowDialog();

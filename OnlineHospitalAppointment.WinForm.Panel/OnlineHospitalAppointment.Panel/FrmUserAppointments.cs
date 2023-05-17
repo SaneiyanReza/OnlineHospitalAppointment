@@ -62,6 +62,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                 });
 
                 BindGridViewSource(bindingSource);
+
+                BtnCancelReserve.Enabled = false;
             }
         }
 
@@ -80,6 +82,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         private void FrmUserAppointments_FormClosing(object sender, FormClosingEventArgs e)
         {
             FrmReservationDashboard frmReservationDashboard = new();
+            this.Hide();
             frmReservationDashboard.ShowDialog();
         }
 

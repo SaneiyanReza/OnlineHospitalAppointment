@@ -66,8 +66,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                         loginLogsDto.UserName
                     });
 
+
                     FrmManageAccount frmManageAccount = new();
                     userName = TxtUserName.Text.ToLower();
+                    this.Hide();
                     frmManageAccount.ShowDialog();
                 }
             }
