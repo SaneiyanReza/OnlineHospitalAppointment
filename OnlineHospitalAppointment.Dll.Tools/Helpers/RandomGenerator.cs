@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace OnlineHospitalAppointment.Dll.Tools
+namespace OnlineHospitalAppointment.Dll.Tools.Helpers
 {
     public static class RandomGenerator
     {
@@ -19,7 +19,7 @@ namespace OnlineHospitalAppointment.Dll.Tools
             StringBuilder result = new(size);
             foreach (byte b in data)
             {
-                result.Append(chars[b % (chars.Length)]);
+                result.Append(chars[b % chars.Length]);
             }
             return result.ToString();
         }

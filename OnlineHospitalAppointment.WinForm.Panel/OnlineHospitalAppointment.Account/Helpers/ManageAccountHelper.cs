@@ -1,4 +1,4 @@
-﻿using OnlineHospitalAppointment.Dll.Tools;
+﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account.Models;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account.Helper

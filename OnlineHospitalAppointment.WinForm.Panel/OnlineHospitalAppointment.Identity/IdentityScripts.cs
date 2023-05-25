@@ -8,12 +8,6 @@
         public static string IsUniqueNationalCodeOrPhoneNumberScript =>
             @"SELECT * FROM dbo.Users WHERE NationalCode = @NationalCode OR PhoneNumber = @PhoneNumber";
 
-        //public static string CreatLoginLogScript =>
-        //    @"INSERT INTO dbo.LoginLogs
-        //        (UserName,Password,CreateDateTime)
-        //       VALUES
-        //        (@UserName,@Password,@CreateDateTime)";
-
         public static string CreateUserScript =>
             @"INSERT INTO dbo.LoginLogs
                 (UserName,Password,CreateDateTime)
@@ -21,10 +15,10 @@
                 (@UserName,@Password,@CreateDateTime)
 
              INSERT INTO dbo.Users
-                (UserName,NationalCode,Name,LastName
+                (UserName,NationalCode,InsuranceNumber,Name,LastName
                 ,IsMale,PhoneNumber,BirthDay,CreateDateTime)
                VALUES
-                (@UserName,@NationalCode,@Name,@LastName
+                (@UserName,@NationalCode,@InsuranceNumber,@Name,@LastName
                 ,@IsMale,@PhoneNumber,@BirthDay,@CreateDateTime)";
 
         public static string IsUniqueUser =>

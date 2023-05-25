@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OnlineHospitalAppointment.Dll.Tools;
+using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Dtos;

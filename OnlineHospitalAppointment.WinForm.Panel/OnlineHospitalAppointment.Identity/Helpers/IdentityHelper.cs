@@ -1,4 +1,4 @@
-﻿using OnlineHospitalAppointment.Dll.Tools;
+﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers
@@ -14,21 +14,15 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 });
         }
 
-        public static void CreateUser(string userName, string hashPassword, string nationalCode, string name,
-            string lastName, byte isMale, string phoneNumber, string birthDay)
+        public static void CreateUser(string userName, string hashPassword, string insuranceNumber, string nationalCode,
+            string name, string lastName, byte isMale, string phoneNumber, string birthDay)
         {
-            //DapperHelper.ExecuteNonQuery(IdentityScripts.CreatLoginLogScript, new
-            //{
-            //    userName,
-            //    Password = hashPassword,
-            //    CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.UtcNow)
-            //});
-
             DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
             {
                 userName,
                 Password = hashPassword,
                 NationalCode = nationalCode,
+                InsuranceNumber = insuranceNumber,
                 Name = name,
                 LastName = lastName,
                 IsMale = isMale,

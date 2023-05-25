@@ -8,5 +8,6 @@
         public bool IsMale { get; init; }
         public string PhoneNumber { get; init; }
         public string BirthDay { get; init; }
+        public string InsuranceNumber { get; init; }
     }
 }

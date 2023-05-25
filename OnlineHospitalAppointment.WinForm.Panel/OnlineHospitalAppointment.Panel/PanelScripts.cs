@@ -11,10 +11,10 @@
                 e.FreeDateTime,
                 e.IsReserved
 	            FROM dbo.Experts e
-            JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
-            JOIN dbo.Cities c ON c.Id = e.CityId
-            LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-            WHERE e.IsReserved = 0 AND  e.FreeDateTime > @UtcNow";
+             JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
+             JOIN dbo.Cities c ON c.Id = e.CityId
+             LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
+             WHERE e.IsReserved = 0 AND  e.FreeDateTime > @UtcNow";
 
         public static string GetReservationLogData =>
             @"SELECT e.FreeDateTime FROM dbo.Users u
@@ -22,11 +22,11 @@
                 JOIN dbo.Experts e ON e.Id = rl.ExpertId
                 WHERE rl.UserId = @UserId AND rl.IsCanceled = 0
 
-            SELECT FreeDateTime FROM dbo.Experts
-                WHERE Id = @ExpertId
+             SELECT FreeDateTime FROM dbo.Experts
+                 WHERE Id = @ExpertId
 
-            SELECT TrackingCode FROM dbo.ReservationLogs
-                WHERE IsCanceled = 0";
+             SELECT TrackingCode FROM dbo.ReservationLogs
+                 WHERE IsCanceled = 0";
 
         public static string SetReservation =>
             @"INSERT dbo.ReservationLogs
@@ -46,11 +46,12 @@
                 rl.ReservedAt,
                 rl.IsCanceled
 	            FROM dbo.ReservationLogs rl
-            JOIN dbo.Experts e ON e.Id = rl.ExpertId
-            JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
-            JOIN dbo.Cities c ON c.Id = e.CityId
-            LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-            WHERE rl.UserId = @UserId";
+             JOIN dbo.Experts e ON e.Id = rl.ExpertId
+             JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
+             JOIN dbo.Cities c ON c.Id = e.CityId
+             LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
+             WHERE rl.UserId = @UserId
+             ORDER BY rl.IsCanceled";
 
         public static string SetCancelAppointment =>
             @"BEGIN TRANSACTION;

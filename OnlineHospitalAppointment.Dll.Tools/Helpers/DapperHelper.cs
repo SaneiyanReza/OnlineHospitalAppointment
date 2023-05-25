@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using System.Data.SqlClient;
 
-namespace OnlineHospitalAppointment.Dll.Tools
+namespace OnlineHospitalAppointment.Dll.Tools.Helpers
 {
     public static class DapperHelper
     {

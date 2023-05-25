@@ -1,4 +1,4 @@
-﻿namespace OnlineHospitalAppointment.Dll.Tools
+﻿namespace OnlineHospitalAppointment.Dll.Tools.Helpers
 {
     public static class DateTimeHelper
     {

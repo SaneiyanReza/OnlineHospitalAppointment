@@ -1,4 +1,4 @@
-﻿using OnlineHospitalAppointment.Dll.Tools;
+﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account.Helper;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account.Models;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
@@ -30,6 +30,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             RbIsFemale.Checked = !manageAccountDto.IsMale;
             TxtPhoneNumber.Text = manageAccountDto.PhoneNumber;
             DateOfBirthTimePicker.Text = manageAccountDto.BirthDay;
+            TxtInsuranceNumber.Text = manageAccountDto.InsuranceNumber;
         }
 
         private void BtnEditProfile_Click(object sender, EventArgs e)
@@ -60,6 +61,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                     BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
                     IsMale = RbIsMale.Checked ? 1 : 0,
                     PhoneNumber = TxtPhoneNumber.Text,
+                    InsuranceNumber = TxtInsuranceNumber.Text,
                     userId
                 });
 
@@ -85,29 +87,43 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 
         private void TxtNationalCode_Validating(object sender, CancelEventArgs e)
         {
-            if (!TxtNationalCode.Text.All(char.IsDigit) || TxtNationalCode.Text.Length != 10)
-            {
-                e.Cancel = true;
-                ErrorProviderApp.SetError(TxtNationalCode, "Enter Currect National Code!");
-            }
-            else
+            if (UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text))
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtNationalCode, "Enter Currect National Code!");
             }
         }
 
         private void TxtPhoneNumber_Validating(object sender, CancelEventArgs e)
         {
-            if (!TxtPhoneNumber.Text.All(char.IsDigit) || TxtPhoneNumber.Text.Length != 11)
+            if (UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text))
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
+            }
+            else
             {
                 e.Cancel = true;
                 ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect Mobile Phone Number!");
             }
-            else
+        }
+
+        private void TxtInsuranceNumber_Validating_1(object sender, CancelEventArgs e)
+        {
+            if (UserInfoValidationHelper.InsuranceNumberValidation(TxtInsuranceNumber.Text))
             {
                 e.Cancel = false;
-                ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
+                ErrorProviderApp.SetError(TxtInsuranceNumber, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtInsuranceNumber, "Enter Currect Insurance Number!");
             }
         }
     }

@@ -72,9 +72,60 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>349, 355</value>
+    <value>346, 410</value>
+  </data>
+  <data name="TxtInsuranceNumber.Location" type="System.Drawing.Point, System.Drawing">
+    <value>120, 291</value>
+  </data>
+  <data name="TxtInsuranceNumber.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TxtInsuranceNumber.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;TxtInsuranceNumber.Name" xml:space="preserve">
+    <value>TxtInsuranceNumber</value>
+  </data>
+  <data name="&gt;&gt;TxtInsuranceNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtInsuranceNumber.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtInsuranceNumber.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LblInsuranceNumber.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LblInsuranceNumber.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LblInsuranceNumber.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 294</value>
+  </data>
+  <data name="LblInsuranceNumber.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 15</value>
+  </data>
+  <data name="LblInsuranceNumber.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="LblInsuranceNumber.Text" xml:space="preserve">
+    <value>InsuranceNumber</value>
+  </data>
+  <data name="&gt;&gt;LblInsuranceNumber.Name" xml:space="preserve">
+    <value>LblInsuranceNumber</value>
+  </data>
+  <data name="&gt;&gt;LblInsuranceNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LblInsuranceNumber.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;LblInsuranceNumber.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="RbIsFemale.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -82,7 +133,7 @@
     <value>NoControl</value>
   </data>
   <data name="RbIsFemale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>231, 252</value>
+    <value>240, 252</value>
   </data>
   <data name="RbIsFemale.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 19</value>
@@ -103,19 +154,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RbIsFemale.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="BtnEditProfile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="BtnEditProfile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>231, 296</value>
+    <value>231, 339</value>
   </data>
   <data name="BtnEditProfile.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 40</value>
   </data>
   <data name="BtnEditProfile.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="BtnEditProfile.Text" xml:space="preserve">
     <value>Edit Profile</value>
@@ -130,16 +181,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BtnEditProfile.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="BtnAppointmentReservation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 296</value>
+    <value>111, 339</value>
   </data>
   <data name="BtnAppointmentReservation.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 40</value>
   </data>
   <data name="BtnAppointmentReservation.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="BtnAppointmentReservation.Text" xml:space="preserve">
     <value>Appointment Reservation</value>
@@ -154,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BtnAppointmentReservation.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="LblGender.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -184,7 +235,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LblGender.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="LblPhoneNumber.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -214,7 +265,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LblPhoneNumber.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="LblBirthDay.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -244,7 +295,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LblBirthDay.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="LblLastName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -274,7 +325,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LblLastName.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="LblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -304,7 +355,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LblName.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="LblNationalCode.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -331,10 +382,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LblNationalCode.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="TxtLastName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 122</value>
+    <value>120, 122</value>
   </data>
   <data name="TxtLastName.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -352,10 +403,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TxtLastName.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="DateOfBirthTimePicker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 166</value>
+    <value>120, 166</value>
   </data>
   <data name="DateOfBirthTimePicker.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -373,13 +424,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DateOfBirthTimePicker.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="RbIsMale.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="RbIsMale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 252</value>
+    <value>120, 252</value>
   </data>
   <data name="RbIsMale.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 19</value>
@@ -400,10 +451,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RbIsMale.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="TxtPhoneNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 211</value>
+    <value>120, 211</value>
   </data>
   <data name="TxtPhoneNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -421,10 +472,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TxtPhoneNumber.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="TxtName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 77</value>
+    <value>120, 77</value>
   </data>
   <data name="TxtName.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -442,10 +493,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TxtName.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="TxtNationalCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 36</value>
+    <value>120, 36</value>
   </data>
   <data name="TxtNationalCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 23</value>
@@ -463,7 +514,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TxtNationalCode.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

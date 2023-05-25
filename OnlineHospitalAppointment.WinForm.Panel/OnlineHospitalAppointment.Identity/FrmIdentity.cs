@@ -1,4 +1,4 @@
-﻿using OnlineHospitalAppointment.Dll.Tools;
+﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
@@ -66,7 +66,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                         loginLogsDto.UserName
                     });
 
-
                     FrmManageAccount frmManageAccount = new();
                     userName = TxtUserName.Text.ToLower();
                     this.Hide();
@@ -103,12 +102,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             if (passwordLength < 8)
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtUserName, "passwod must bigger than 8 char");
+                ErrorProviderApp.SetError(TxtPassword, "passwod must bigger than 8 char");
             }
             else
             {
                 e.Cancel = false;
-                ErrorProviderApp.SetError(TxtUserName, string.Empty);
+                ErrorProviderApp.SetError(TxtPassword, string.Empty);
             }
         }
     }

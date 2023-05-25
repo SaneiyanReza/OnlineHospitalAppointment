@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OnlineHospitalAppointment.Dll.Tools;
+using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Dtos;
@@ -121,6 +121,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             FrmUserAppointments frmUserAppointments = new();
             this.Close();
             frmUserAppointments.ShowDialog();
+        }
+
+        private void FrmReservationDashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+
+            FrmIdentity frmIdentity = new();
+            frmIdentity.ShowDialog();
         }
 
         private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)

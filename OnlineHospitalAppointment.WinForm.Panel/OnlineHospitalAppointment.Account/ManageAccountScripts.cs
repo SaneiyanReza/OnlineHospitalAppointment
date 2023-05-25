@@ -5,11 +5,11 @@
         public static string UpdateUserAccountScript =
             @"UPDATE dbo.Users
                 SET NationalCode = @NationalCode ,Name = @Name ,LastName = @LastName ,
-                BirthDay = @BirthDay ,IsMale = @IsMale ,PhoneNumber = @PhoneNumber
+                BirthDay = @BirthDay ,IsMale = @IsMale ,PhoneNumber = @PhoneNumber ,InsuranceNumber = @InsuranceNumber
                 WHERE Id = @UserId";
 
         public static string GetUserByUserId =
-            @"SELECT NationalCode ,Name ,LastName ,IsMale ,PhoneNumber ,BirthDay
+            @"SELECT NationalCode ,InsuranceNumber ,Name ,LastName ,IsMale ,PhoneNumber ,BirthDay
                 FROM dbo.Users WHERE Id = @UserId";
     }
 }
