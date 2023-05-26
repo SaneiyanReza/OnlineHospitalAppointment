@@ -69,6 +69,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private void GvReceiveAppointmentReport_MouseClick(object sender, MouseEventArgs e)
         {
+            if (GvReceiveAppointmentReport.CurrentRow is null)
+            {
+                return;
+            }
+
             if ((bool)GvReceiveAppointmentReport.CurrentRow.Cells[GvReceiveAppointmentReport.Columns.Count - 1].Value)
             {
                 BtnCancelReserve.Enabled = false;

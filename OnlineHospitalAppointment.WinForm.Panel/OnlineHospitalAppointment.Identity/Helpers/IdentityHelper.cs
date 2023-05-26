@@ -22,7 +22,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 userName,
                 Password = hashPassword,
                 NationalCode = nationalCode,
-                InsuranceNumber = insuranceNumber,
+                InsuranceNumber = string.IsNullOrEmpty(insuranceNumber) ? null : insuranceNumber,
                 Name = name,
                 LastName = lastName,
                 IsMale = isMale,

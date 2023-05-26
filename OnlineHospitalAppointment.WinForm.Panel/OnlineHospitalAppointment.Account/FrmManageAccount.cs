@@ -61,7 +61,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                     BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
                     IsMale = RbIsMale.Checked ? 1 : 0,
                     PhoneNumber = TxtPhoneNumber.Text,
-                    InsuranceNumber = TxtInsuranceNumber.Text,
+                    InsuranceNumber = string.IsNullOrEmpty(TxtInsuranceNumber.Text) ? null : TxtInsuranceNumber.Text,
                     userId
                 });
 

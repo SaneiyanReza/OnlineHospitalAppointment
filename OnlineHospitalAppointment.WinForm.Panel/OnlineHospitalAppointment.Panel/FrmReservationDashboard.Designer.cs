@@ -176,7 +176,6 @@
             this.Name = "FrmReservationDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmReservationDashboard";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmReservationDashboard_FormClosing);
             this.Load += new System.EventHandler(this.FrmReservationDashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveExpertsPanel)).EndInit();
             this.ResumeLayout(false);

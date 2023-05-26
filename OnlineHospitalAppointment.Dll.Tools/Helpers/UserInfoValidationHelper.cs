@@ -31,7 +31,8 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         /// <returns></returns>
         public static bool InsuranceNumberValidation(string insurance)
         {
-            return insurance.All(char.IsNumber) && (insurance.Length == 8 || insurance.Length == 10);
+            return insurance.All(char.IsNumber) && (insurance.Length == 8 || insurance.Length == 10) ||
+                insurance == string.Empty;
         }
 
         /// <summary>
