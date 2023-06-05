@@ -6,7 +6,5 @@
         public string FullName { get; init; }
         public string Specialist { get; init; }
         public string Address { get; init; }
-        public string FreeDateTime { get; init; }
-        public bool IsReserved { get; init; }
     }
 }

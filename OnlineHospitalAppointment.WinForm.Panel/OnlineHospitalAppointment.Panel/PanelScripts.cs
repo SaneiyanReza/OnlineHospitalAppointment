@@ -7,15 +7,14 @@
                 e.FullName,
                 st.Specialist,
                 p.Name AS ProvienceName,
-	            c.Name AS CityName,
-                e.FreeDateTime,
-                e.IsReserved
+	            c.Name AS CityName
 	            FROM dbo.Experts e
              JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
              JOIN dbo.Cities c ON c.Id = e.CityId
              LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-             WHERE e.IsReserved = 0 AND  e.FreeDateTime > @UtcNow";
+             WHERE e.IsSuspended = 0 AND e.IsDeleted = 0";
 
+        //TODO: update user panel use appointment chart tbl
         public static string GetReservationLogData =>
             @"SELECT e.FreeDateTime FROM dbo.Users u
                 JOIN dbo.ReservationLogs rl ON rl.UserId = u.Id
@@ -28,6 +27,7 @@
              SELECT TrackingCode FROM dbo.ReservationLogs
                  WHERE IsCanceled = 0";
 
+        //TODO: update user panel use appointment chart tbl
         public static string SetReservation =>
             @"INSERT dbo.ReservationLogs
                 (UserId, ExpertId, ReservedAt, TrackingCode, IsCanceled)

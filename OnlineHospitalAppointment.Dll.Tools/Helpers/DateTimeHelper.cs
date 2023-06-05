@@ -11,5 +11,11 @@
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTime);
         }
+
+        public static DateTime UnixTimeToDate(int unixTime)
+        {
+            DateTime dt = UnixTimeToDateTime(unixTime);
+            return new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0);
+        }
     }
 }

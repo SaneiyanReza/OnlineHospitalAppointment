@@ -3,7 +3,12 @@
     public static class IdentityScripts
     {
         public static string GetLoginLogsByUserName =>
-            @"SELECT Top 1 * FROM dbo.LoginLogs WHERE UserName = @UserName";
+            @"SELECT Top 1 ll.UserName,
+               ll.Password,
+               u.RoleId
+        	 FROM dbo.LoginLogs ll
+              JOIN dbo.Users u ON u.UserName = ll.UserName
+             WHERE ll.UserName = @UserName";
 
         public static string IsUniqueNationalCodeOrPhoneNumberScript =>
             @"SELECT * FROM dbo.Users WHERE NationalCode = @NationalCode OR PhoneNumber = @PhoneNumber";
@@ -15,10 +20,10 @@
                 (@UserName,@Password,@CreateDateTime)
 
              INSERT INTO dbo.Users
-                (UserName,NationalCode,InsuranceNumber,Name,LastName
+                (UserName,NationalCode,Name,LastName
                 ,IsMale,PhoneNumber,BirthDay,CreateDateTime)
                VALUES
-                (@UserName,@NationalCode,@InsuranceNumber,@Name,@LastName
+                (@UserName,@NationalCode,@Name,@LastName
                 ,@IsMale,@PhoneNumber,@BirthDay,@CreateDateTime)";
 
         public static string IsUniqueUser =>

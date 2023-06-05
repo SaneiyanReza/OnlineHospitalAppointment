@@ -46,8 +46,6 @@
             this.BtnAppointmentReservation = new System.Windows.Forms.Button();
             this.BtnEditProfile = new System.Windows.Forms.Button();
             this.RbIsFemale = new System.Windows.Forms.RadioButton();
-            this.LblInsuranceNumber = new System.Windows.Forms.Label();
-            this.TxtInsuranceNumber = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,23 +140,10 @@
             this.RbIsFemale.Name = "RbIsFemale";
             this.RbIsFemale.UseVisualStyleBackColor = true;
             // 
-            // LblInsuranceNumber
-            // 
-            resources.ApplyResources(this.LblInsuranceNumber, "LblInsuranceNumber");
-            this.LblInsuranceNumber.Name = "LblInsuranceNumber";
-            // 
-            // TxtInsuranceNumber
-            // 
-            resources.ApplyResources(this.TxtInsuranceNumber, "TxtInsuranceNumber");
-            this.TxtInsuranceNumber.Name = "TxtInsuranceNumber";
-            this.TxtInsuranceNumber.Validating += new System.ComponentModel.CancelEventHandler(this.TxtInsuranceNumber_Validating_1);
-            // 
             // FrmManageAccount
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.TxtInsuranceNumber);
-            this.Controls.Add(this.LblInsuranceNumber);
             this.Controls.Add(this.RbIsFemale);
             this.Controls.Add(this.BtnEditProfile);
             this.Controls.Add(this.BtnAppointmentReservation);
@@ -202,7 +187,5 @@
         private Button BtnEditProfile;
         private Button BtnAppointmentReservation;
         private RadioButton RbIsFemale;
-        private Label LblInsuranceNumber;
-        private TextBox TxtInsuranceNumber;
     }
 }

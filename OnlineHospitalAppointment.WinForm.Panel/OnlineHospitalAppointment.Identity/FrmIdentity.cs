@@ -1,5 +1,7 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
 using System.Text.RegularExpressions;
@@ -12,8 +14,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
         public static string password;
         public static int userId;
 
-        public FrmIdentity()
+        private readonly OnlineHospitalAppointmentDbContext _dbContext;
+
+        public FrmIdentity(OnlineHospitalAppointmentDbContext dbContext)
         {
+            _dbContext = dbContext;
             InitializeComponent();
         }
 
@@ -66,10 +71,29 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                         loginLogsDto.UserName
                     });
 
-                    FrmManageAccount frmManageAccount = new();
-                    userName = TxtUserName.Text.ToLower();
-                    this.Hide();
-                    frmManageAccount.ShowDialog();
+                    switch (loginLogsDto.RoleId)
+                    {
+                        case (int)ClientRoleCode.GodAdmin:
+                            FrmAdminDashboard frmAdminDashboard = new();
+                            userName = TxtUserName.Text.ToLower();
+                            frmAdminDashboard.ShowDialog();
+                            break;
+
+                        case (int)ClientRoleCode.Expert:
+                            FrmExpertDashboard frmExpertDashboard = new();
+                            userName = TxtUserName.Text.ToLower();
+                            frmExpertDashboard.ShowDialog();
+                            break;
+
+                        case (int)ClientRoleCode.User:
+                            FrmManageAccount frmManageAccount = new();
+                            userName = TxtUserName.Text.ToLower();
+                            frmManageAccount.ShowDialog();
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
             }
         }

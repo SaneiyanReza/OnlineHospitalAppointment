@@ -30,7 +30,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             RbIsFemale.Checked = !manageAccountDto.IsMale;
             TxtPhoneNumber.Text = manageAccountDto.PhoneNumber;
             DateOfBirthTimePicker.Text = manageAccountDto.BirthDay;
-            TxtInsuranceNumber.Text = manageAccountDto.InsuranceNumber;
         }
 
         private void BtnEditProfile_Click(object sender, EventArgs e)
@@ -61,7 +60,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
                     BirthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd"),
                     IsMale = RbIsMale.Checked ? 1 : 0,
                     PhoneNumber = TxtPhoneNumber.Text,
-                    InsuranceNumber = string.IsNullOrEmpty(TxtInsuranceNumber.Text) ? null : TxtInsuranceNumber.Text,
                     userId
                 });
 
@@ -110,20 +108,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             {
                 e.Cancel = true;
                 ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect Mobile Phone Number!");
-            }
-        }
-
-        private void TxtInsuranceNumber_Validating_1(object sender, CancelEventArgs e)
-        {
-            if (UserInfoValidationHelper.InsuranceNumberValidation(TxtInsuranceNumber.Text))
-            {
-                e.Cancel = false;
-                ErrorProviderApp.SetError(TxtInsuranceNumber, string.Empty);
-            }
-            else
-            {
-                e.Cancel = true;
-                ErrorProviderApp.SetError(TxtInsuranceNumber, "Enter Currect Insurance Number!");
             }
         }
     }

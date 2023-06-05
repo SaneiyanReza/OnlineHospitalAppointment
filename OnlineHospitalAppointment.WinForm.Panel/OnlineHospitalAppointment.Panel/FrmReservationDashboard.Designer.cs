@@ -83,8 +83,7 @@
             this.CmbField.Items.AddRange(new object[] {
             "FullName",
             "Specialist",
-            "Address",
-            "FreeDateTime"});
+            "Address"});
             this.CmbField.Location = new System.Drawing.Point(479, 26);
             this.CmbField.Name = "CmbField";
             this.CmbField.Size = new System.Drawing.Size(223, 23);

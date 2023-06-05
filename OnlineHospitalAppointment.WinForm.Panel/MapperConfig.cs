@@ -14,13 +14,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel
             {
                 //Configuring ExpertDto and ExpertView
                 cfg.CreateMap<ExpertDto, ExpertView>()
-                .ForMember(view => view.Address, src => src.MapFrom(x => string.Concat(x.ProvienceName, " ", x.CityName)))
-                .ForMember(view => view.FreeDateTime, src => src.MapFrom(x => DateTimeHelper.UnixTimeToDateTime(x.FreeDateTime)));
+                .ForMember(view => view.Address, src => src.MapFrom(x => string.Concat(x.ProvienceName, " ", x.CityName)));
 
                 //Configuring UserAppointmentDto and UserAppointmentView
                 cfg.CreateMap<UserAppointmentDto, UserAppointmentView>()
                 .ForMember(view => view.ReservedDateTime, src => src.MapFrom(x => DateTimeHelper
-                .UnixTimeToDateTime(x.ReservedAt)));
+                .UnixTimeToDate(x.ReservedAt)));
             });
 
             //Create an Instance of Mapper and return that Instance

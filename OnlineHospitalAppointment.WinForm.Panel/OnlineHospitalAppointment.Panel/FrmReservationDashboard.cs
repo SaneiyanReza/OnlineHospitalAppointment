@@ -41,7 +41,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                     0 => view.Where(x => x.FullName.Contains(TxtSearchFor.Text)),
                     1 => view.Where(x => x.Specialist.Contains(TxtSearchFor.Text)),
                     2 => view.Where(x => x.Address.Contains(TxtSearchFor.Text)),
-                    3 => view.Where(x => x.FreeDateTime.Contains(TxtSearchFor.Text)),
                     _ => GetExperts(),
                 };
 
@@ -73,7 +72,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             for (int i = 0; i < reservationLog.ExpertTimeReserved.Length; i++)
             {
                 int ExpertFreeTimeThirtyMinutesLater = DateTimeHelper
-                    .UnixTimeToDateTime(reservationLog.ExpertFreeTime).AddMinutes(30).ToUnixTime();
+                    .UnixTimeToDate(reservationLog.ExpertFreeTime).AddMinutes(30).ToUnixTime();
 
                 if (reservationLog.ExpertTimeReserved[i] >= reservationLog.ExpertFreeTime &&
                     reservationLog.ExpertTimeReserved[i] <= ExpertFreeTimeThirtyMinutesLater)

@@ -14,7 +14,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 });
         }
 
-        public static void CreateUser(string userName, string hashPassword, string insuranceNumber, string nationalCode,
+        public static void CreateUser(string userName, string hashPassword, string nationalCode,
             string name, string lastName, byte isMale, string phoneNumber, string birthDay)
         {
             DapperHelper.ExecuteNonQuery(IdentityScripts.CreateUserScript, new
@@ -22,7 +22,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 userName,
                 Password = hashPassword,
                 NationalCode = nationalCode,
-                InsuranceNumber = string.IsNullOrEmpty(insuranceNumber) ? null : insuranceNumber,
                 Name = name,
                 LastName = lastName,
                 IsMale = isMale,

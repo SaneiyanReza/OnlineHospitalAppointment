@@ -7,7 +7,5 @@
         public string Specialist { get; init; }
         public string ProvienceName { get; init; }
         public string CityName { get; init; }
-        public int FreeDateTime { get; init; }
-        public bool IsReserved { get; init; }
     }
 }

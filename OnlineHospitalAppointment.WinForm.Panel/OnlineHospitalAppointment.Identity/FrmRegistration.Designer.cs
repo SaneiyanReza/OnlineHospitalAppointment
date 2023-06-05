@@ -44,8 +44,6 @@
             this.DateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
             this.ErrorProviderApp = new System.Windows.Forms.ErrorProvider(this.components);
             this.RbIsFemale = new System.Windows.Forms.RadioButton();
-            this.ChkInsuranceNumber = new System.Windows.Forms.CheckBox();
-            this.TxtInsuranceNumber = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,7 +135,7 @@
             // 
             // BtnSubmit
             // 
-            this.BtnSubmit.Location = new System.Drawing.Point(207, 342);
+            this.BtnSubmit.Location = new System.Drawing.Point(207, 266);
             this.BtnSubmit.Name = "BtnSubmit";
             this.BtnSubmit.Size = new System.Drawing.Size(113, 39);
             this.BtnSubmit.TabIndex = 15;
@@ -172,41 +170,18 @@
             // RbIsFemale
             // 
             this.RbIsFemale.AutoSize = true;
-            this.RbIsFemale.Location = new System.Drawing.Point(193, 228);
+            this.RbIsFemale.Location = new System.Drawing.Point(207, 228);
             this.RbIsFemale.Name = "RbIsFemale";
             this.RbIsFemale.Size = new System.Drawing.Size(63, 19);
             this.RbIsFemale.TabIndex = 12;
             this.RbIsFemale.Text = "Female";
             this.RbIsFemale.UseVisualStyleBackColor = true;
             // 
-            // ChkInsuranceNumber
-            // 
-            this.ChkInsuranceNumber.AutoSize = true;
-            this.ChkInsuranceNumber.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ChkInsuranceNumber.Location = new System.Drawing.Point(13, 275);
-            this.ChkInsuranceNumber.Name = "ChkInsuranceNumber";
-            this.ChkInsuranceNumber.Size = new System.Drawing.Size(207, 19);
-            this.ChkInsuranceNumber.TabIndex = 13;
-            this.ChkInsuranceNumber.Text = "Do you have an insurance number";
-            this.ChkInsuranceNumber.UseVisualStyleBackColor = true;
-            this.ChkInsuranceNumber.CheckStateChanged += new System.EventHandler(this.ChkInsuranceNumber_CheckStateChanged);
-            // 
-            // TxtInsuranceNumber
-            // 
-            this.TxtInsuranceNumber.Enabled = false;
-            this.TxtInsuranceNumber.Location = new System.Drawing.Point(13, 300);
-            this.TxtInsuranceNumber.Name = "TxtInsuranceNumber";
-            this.TxtInsuranceNumber.Size = new System.Drawing.Size(307, 23);
-            this.TxtInsuranceNumber.TabIndex = 14;
-            this.TxtInsuranceNumber.Validating += new System.ComponentModel.CancelEventHandler(this.TxtInsuranceNumber_Validating);
-            // 
             // FrmRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 393);
-            this.Controls.Add(this.ChkInsuranceNumber);
-            this.Controls.Add(this.TxtInsuranceNumber);
+            this.ClientSize = new System.Drawing.Size(347, 323);
             this.Controls.Add(this.RbIsFemale);
             this.Controls.Add(this.DateOfBirthTimePicker);
             this.Controls.Add(this.RbIsMale);
@@ -249,7 +224,5 @@
         private DateTimePicker DateOfBirthTimePicker;
         private ErrorProvider ErrorProviderApp;
         private RadioButton RbIsFemale;
-        private CheckBox ChkInsuranceNumber;
-        private TextBox TxtInsuranceNumber;
     }
 }
