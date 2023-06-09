@@ -85,7 +85,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 
         private void TxtNationalCode_Validating(object sender, CancelEventArgs e)
         {
-            if (UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text))
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text);
+            if (isValid)
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
@@ -93,13 +94,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             else
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtNationalCode, "Enter Currect National Code!");
+                ErrorProviderApp.SetError(TxtNationalCode, errorMessage);
             }
         }
 
         private void TxtPhoneNumber_Validating(object sender, CancelEventArgs e)
         {
-            if (UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text))
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text);
+            if (isValid)
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
@@ -107,7 +109,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
             else
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect Mobile Phone Number!");
+                ErrorProviderApp.SetError(TxtPhoneNumber, errorMessage);
             }
         }
     }

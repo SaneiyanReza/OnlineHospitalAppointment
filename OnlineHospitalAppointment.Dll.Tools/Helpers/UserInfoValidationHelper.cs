@@ -9,9 +9,12 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         /// </summary>
         /// <param name="name">نام کاربر</param>
         /// <returns></returns>
-        public static bool NameValidation(string name)
+        public static (bool isValid, string errorMessage) NameValidation(string name)
         {
-            return name.All(char.IsLetter) && (name.Length >= 3 && name.Length < 50);
+            bool isValid = name.All(char.IsLetter) && (name.Length >= 3 && name.Length < 50);
+            string errorMessage = "Enter Currect Name! Name between 3 to 50 digit";
+
+            return (isValid, errorMessage);
         }
 
         /// <summary>
@@ -19,9 +22,12 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         /// </summary>
         /// <param name="lastName">مم خانوادگی</param>
         /// <returns></returns>
-        public static bool LastNameValidation(string lastName)
+        public static (bool isValid, string errorMessage) LastNameValidation(string lastName)
         {
-            return lastName.All(char.IsLetter) && (lastName.Length >= 4 && lastName.Length < 50);
+            bool isValid = lastName.All(char.IsLetter) && (lastName.Length >= 4 && lastName.Length < 50);
+            string errorMessage = "Enter Currect LastName! LastName between 3 to 50 digit";
+
+            return (isValid, errorMessage);
         }
 
         /// <summary>
@@ -40,16 +46,18 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         /// </summary>
         /// <param name="nationalCode">کد ملی</param>
         /// <returns></returns>
-        public static bool NationalCodeValidation(string nationalCode)
+        public static (bool isValid, string errorMessage) NationalCodeValidation(string nationalCode)
         {
+            string errorMessage = "Enter Currect National Code!";
+
             if (nationalCode.Length != 10)
-                return false;
+                return (false, errorMessage);
 
             string[] allDigitEqual = new[] { "0000000000", "1111111111", "2222222222",
                     "3333333333", "4444444444", "5555555555", "6666666666", "7777777777", "8888888888", "9999999999" };
 
             if (allDigitEqual.Contains(nationalCode))
-                return false;
+                return (false, errorMessage);
 
             char[] charArray = nationalCode.ToCharArray();
             int num0 = Convert.ToInt32(charArray[0].ToString()) * 10;
@@ -66,7 +74,9 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
             int numbericValue = num0 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9;
             int mode = numbericValue % 11;
 
-            return mode < 2 && num10 == mode || mode >= 2 && 11 - mode == num10;
+            bool isValid = mode < 2 && num10 == mode || mode >= 2 && 11 - mode == num10;
+
+            return (isValid, errorMessage);
         }
 
         /// <summary>
@@ -74,14 +84,18 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         /// </summary>
         /// <param name="phoneNumber">شماره تلفن</param>
         /// <returns></returns>
-        public static bool PhoneNumberValidation(string phoneNumber)
+        public static (bool isValid, string errorMessage) PhoneNumberValidation(string phoneNumber)
         {
-            if (!TryGetMobilePrefix(phoneNumber, out short prefix))
-                return false;
+            string errorMessage = "Enter Currect Mobile Phone Number!";
 
-            return OperatorsAndPreixes.Values
+            if (!TryGetMobilePrefix(phoneNumber, out short prefix))
+                return (false, errorMessage);
+
+            bool isValid = OperatorsAndPreixes.Values
                 .SelectMany(x => x)
                 .Any(x => x == prefix);
+
+            return (isValid, errorMessage);
         }
 
         private static bool TryGetMobilePrefix(string phoneNumber, out short prefix)

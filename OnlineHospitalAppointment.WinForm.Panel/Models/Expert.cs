@@ -1,7 +1,18 @@
-﻿namespace OnlineHospitalAppointment.WinForm.Panel.Models;
+﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
+
+namespace OnlineHospitalAppointment.WinForm.Panel.Models;
 
 public partial class Expert
 {
+    public Expert(string fullName, int specialistTypeId, int cityId, int userId)
+    {
+        FullName = fullName;
+        SpecialistTypeId = specialistTypeId;
+        CityId = cityId;
+        CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.Now);
+        UserId = userId;
+    }
+
     public int Id { get; set; }
 
     public string FullName { get; set; }

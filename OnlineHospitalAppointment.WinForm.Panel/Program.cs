@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 
 namespace OnlineHospitalAppointment.WinForm.Panel
@@ -30,7 +31,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel
                 // Online Hospital Appointment application
                 // see https://github.com/SaneiyanReza
                 ApplicationConfiguration.Initialize();
-                Application.Run(new FrmIdentity(onlineHospitalAppointmentContext));
+                Application.Run(new FrmAddExpertByAdmin(onlineHospitalAppointmentContext));
             }
         }
     }

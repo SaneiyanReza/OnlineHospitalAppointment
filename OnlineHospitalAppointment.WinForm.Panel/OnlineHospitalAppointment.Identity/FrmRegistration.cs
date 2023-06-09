@@ -49,7 +49,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void TxtNationalCode_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text))
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text);
+
+            if (isValid)
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
@@ -57,13 +59,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             else
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtNationalCode, "Enter Currect National Code!");
+                ErrorProviderApp.SetError(TxtNationalCode, errorMessage);
             }
         }
 
         private void TxtPhoneNumber_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text))
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text);
+            if (isValid)
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
@@ -71,13 +74,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             else
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtPhoneNumber, "Enter Currect Mobile Phone Number!");
+                ErrorProviderApp.SetError(TxtPhoneNumber, errorMessage);
             }
         }
 
         private void TxtName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (UserInfoValidationHelper.NameValidation(TxtName.Text))
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.NameValidation(TxtName.Text);
+            if (isValid)
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtName, string.Empty);
@@ -85,13 +89,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             else
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtName, "Enter Currect Name! Name between 3 to 50 digit");
+                ErrorProviderApp.SetError(TxtName, errorMessage);
             }
         }
 
         private void TxtLastName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (UserInfoValidationHelper.LastNameValidation(TxtLastName.Text))
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.LastNameValidation(TxtLastName.Text);
+            if (isValid)
             {
                 e.Cancel = false;
                 ErrorProviderApp.SetError(TxtLastName, string.Empty);
@@ -99,7 +104,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             else
             {
                 e.Cancel = true;
-                ErrorProviderApp.SetError(TxtLastName, "Enter Currect LastName! LastName between 3 to 50 digit");
+                ErrorProviderApp.SetError(TxtLastName, errorMessage);
             }
         }
     }

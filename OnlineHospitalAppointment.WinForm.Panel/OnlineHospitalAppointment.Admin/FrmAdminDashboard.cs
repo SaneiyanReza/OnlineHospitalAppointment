@@ -35,7 +35,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 bindingSource.DataSource = GetExperts();
             }
 
-            GvReceiveExperts.DataSource = bindingSource;
+            GvReceiveExpertsPanel.DataSource = bindingSource;
         }
 
         private static ExpertView[] GetExperts()
