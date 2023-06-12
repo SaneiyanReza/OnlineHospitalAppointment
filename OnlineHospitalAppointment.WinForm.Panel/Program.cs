@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 
 namespace OnlineHospitalAppointment.WinForm.Panel
@@ -14,6 +13,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel
         [STAThread]
         private static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+
             var builder = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -31,8 +32,15 @@ namespace OnlineHospitalAppointment.WinForm.Panel
                 // Online Hospital Appointment application
                 // see https://github.com/SaneiyanReza
                 ApplicationConfiguration.Initialize();
-                Application.Run(new FrmAddExpertByAdmin(onlineHospitalAppointmentContext));
+                Application.Run(new FrmIdentity(onlineHospitalAppointmentContext));
             }
+        }
+
+        private static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.ExceptionObject;
+            MessageBox.Show("Exception thrown : " + e.Message, "Exception",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

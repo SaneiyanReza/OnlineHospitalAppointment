@@ -23,9 +23,31 @@ public partial class Expert
 
     public int CreateDateTime { get; set; }
 
+    public bool IsDeleted { get; set; }
+
+    public bool IsSuspended { get; set; }
+
     public int UserId { get; set; }
 
-    public virtual ICollection<ReservationLog> ReservationLogs { get; } = new List<ReservationLog>();
+    public ICollection<ReservationLog> ReservationLogs { get; } = new List<ReservationLog>();
 
-    public virtual User User { get; set; }
+    public User User { get; set; }
+
+    public void ModifyExpertByAdmin(string fullName, int specialistTypeId, int cityId)
+    {
+        FullName = fullName;
+        SpecialistTypeId = specialistTypeId;
+        CityId = cityId;
+    }
+
+    public void Delete()
+    {
+        IsDeleted = true;
+    }
+
+    public void Suspend()
+    {
+        IsSuspended = true;
+    }
+
 }

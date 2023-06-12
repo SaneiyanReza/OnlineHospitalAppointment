@@ -11,8 +11,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         public FrmAddExpertByAdmin(OnlineHospitalAppointmentDbContext context)
         {
-            _dbContext = context;
             InitializeComponent();
+            _dbContext = context;
         }
 
         private void FrmAddExpertByAdmin_Load(object sender, EventArgs e)
@@ -22,7 +22,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 .ToArray();
 
             ComboCity.DataSource = _dbContext.Cities
-                .Select(x => x.Id)
+                .Select(x => x.Name)
                 .ToArray();
         }
 
@@ -32,9 +32,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             try
             {
                 bool isMale = RbIsMale.Checked;
+                string birthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd");
 
                 User user = new(TxtUserName.Text, TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
-                    isMale, TxtPhoneNumber.Text, TxtBirthDay.Text, (int)ClientRoleCode.Expert);
+                    isMale, TxtPhoneNumber.Text, birthDay, (int)ClientRoleCode.Expert);
 
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
@@ -55,7 +56,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
                 _dbContext.Experts.Add(expert);
 
-                string description = "add new expert";
+                string description = $"add new expert id: {expert.Id}";
 
                 AdminActivityLog adminActivityLog = new(user.Id, description);
 
@@ -102,6 +103,80 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             {
                 e.Cancel = true;
                 ErrorProviderApp.SetError(TxtName, errorMessage);
+            }
+        }
+
+        private void TxtLastName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.LastNameValidation(TxtLastName.Text);
+            if (isValid)
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtLastName, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtLastName, errorMessage);
+            }
+        }
+
+        private void TxtNationalCode_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text);
+
+            if (isValid)
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtNationalCode, errorMessage);
+            }
+        }
+
+        private void TxtPhoneNumber_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text);
+            if (isValid)
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(TxtPhoneNumber, errorMessage);
+            }
+        }
+
+        private void ComboSpecialistType_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ComboSpecialistType.GetItemText == null)
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(ComboSpecialistType, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(ComboSpecialistType, "select type!");
+            }
+        }
+
+        private void ComboCity_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ComboCity.GetItemText == null)
+            {
+                e.Cancel = false;
+                ErrorProviderApp.SetError(ComboCity, string.Empty);
+            }
+            else
+            {
+                e.Cancel = true;
+                ErrorProviderApp.SetError(ComboCity, "select city!");
             }
         }
     }

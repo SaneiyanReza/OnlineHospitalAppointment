@@ -74,7 +74,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                     switch (loginLogsDto.RoleId)
                     {
                         case (int)ClientRoleCode.GodAdmin:
-                            FrmAdminDashboard frmAdminDashboard = new();
+                            FrmAdminDashboard frmAdminDashboard = new(_dbContext);
                             userName = TxtUserName.Text.ToLower();
                             frmAdminDashboard.ShowDialog();
                             break;

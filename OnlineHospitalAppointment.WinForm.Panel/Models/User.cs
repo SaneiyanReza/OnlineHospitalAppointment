@@ -40,13 +40,34 @@ public partial class User
 
     public int RoleId { get; set; }
 
-    public byte? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
-    public byte? IsSuspended { get; set; }
+    public bool IsSuspended { get; set; }
 
     public virtual ICollection<AdminActivityLog> AdminActivityLogs { get; } = new List<AdminActivityLog>();
 
     public virtual ICollection<Expert> Experts { get; } = new List<Expert>();
 
     public virtual Role Role { get; set; }
+
+    public void ModifyUserByAdmin(string nationalCode, string name, string lastName,
+        bool isMale, string phoneNumber, string birthDay)
+    {
+        NationalCode = nationalCode;
+        Name = name;
+        LastName = lastName;
+        IsMale = isMale;
+        PhoneNumber = phoneNumber;
+        BirthDay = birthDay;
+    }
+
+    public void Delete()
+    {
+        IsDeleted = true;
+    }
+
+    public void Suspend()
+    {
+        IsSuspended = true;
+    }
 }

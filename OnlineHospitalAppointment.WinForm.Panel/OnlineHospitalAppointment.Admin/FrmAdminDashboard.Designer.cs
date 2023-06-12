@@ -44,6 +44,7 @@
             this.LblSearchBy = new System.Windows.Forms.Label();
             this.CmbField = new System.Windows.Forms.ComboBox();
             this.GvReceiveExpertsPanel = new System.Windows.Forms.DataGridView();
+            this.BtnAddSpecialistType = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveExpertsPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,30 +114,33 @@
             // 
             // BtnDeleteExpert
             // 
-            this.BtnDeleteExpert.Location = new System.Drawing.Point(267, 463);
+            this.BtnDeleteExpert.Location = new System.Drawing.Point(228, 463);
             this.BtnDeleteExpert.Name = "BtnDeleteExpert";
             this.BtnDeleteExpert.Size = new System.Drawing.Size(90, 36);
             this.BtnDeleteExpert.TabIndex = 12;
             this.BtnDeleteExpert.Text = "Delete Expert";
             this.BtnDeleteExpert.UseVisualStyleBackColor = true;
+            this.BtnDeleteExpert.Click += new System.EventHandler(this.BtnDeleteExpert_Click);
             // 
             // BtnModifyExpert
             // 
-            this.BtnModifyExpert.Location = new System.Drawing.Point(137, 463);
+            this.BtnModifyExpert.Location = new System.Drawing.Point(122, 463);
             this.BtnModifyExpert.Name = "BtnModifyExpert";
             this.BtnModifyExpert.Size = new System.Drawing.Size(90, 36);
             this.BtnModifyExpert.TabIndex = 13;
             this.BtnModifyExpert.Text = "Modify Expert";
             this.BtnModifyExpert.UseVisualStyleBackColor = true;
+            this.BtnModifyExpert.Click += new System.EventHandler(this.BtnModifyExpert_Click);
             // 
             // BtnSuspend
             // 
-            this.BtnSuspend.Location = new System.Drawing.Point(405, 463);
+            this.BtnSuspend.Location = new System.Drawing.Point(336, 463);
             this.BtnSuspend.Name = "BtnSuspend";
             this.BtnSuspend.Size = new System.Drawing.Size(91, 36);
             this.BtnSuspend.TabIndex = 14;
             this.BtnSuspend.Text = "Suspend!";
             this.BtnSuspend.UseVisualStyleBackColor = true;
+            this.BtnSuspend.Click += new System.EventHandler(this.BtnSuspend_Click);
             // 
             // BtnShowUser
             // 
@@ -153,6 +157,7 @@
             this.TxtSearchFor.Name = "TxtSearchFor";
             this.TxtSearchFor.Size = new System.Drawing.Size(287, 23);
             this.TxtSearchFor.TabIndex = 19;
+            this.TxtSearchFor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSearchFor_KeyDown);
             // 
             // LblSearchFor
             // 
@@ -201,11 +206,21 @@
             this.GvReceiveExpertsPanel.Size = new System.Drawing.Size(763, 337);
             this.GvReceiveExpertsPanel.TabIndex = 20;
             // 
+            // BtnAddSpecialistType
+            // 
+            this.BtnAddSpecialistType.Location = new System.Drawing.Point(446, 463);
+            this.BtnAddSpecialistType.Name = "BtnAddSpecialistType";
+            this.BtnAddSpecialistType.Size = new System.Drawing.Size(122, 36);
+            this.BtnAddSpecialistType.TabIndex = 21;
+            this.BtnAddSpecialistType.Text = "Add Specialist Type";
+            this.BtnAddSpecialistType.UseVisualStyleBackColor = true;
+            // 
             // FrmAdminDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(793, 509);
+            this.Controls.Add(this.BtnAddSpecialistType);
             this.Controls.Add(this.GvReceiveExpertsPanel);
             this.Controls.Add(this.TxtSearchFor);
             this.Controls.Add(this.LblSearchFor);
@@ -249,5 +264,6 @@
         private Label LblSearchBy;
         private ComboBox CmbField;
         private DataGridView GvReceiveExpertsPanel;
+        private Button BtnAddSpecialistType;
     }
 }
