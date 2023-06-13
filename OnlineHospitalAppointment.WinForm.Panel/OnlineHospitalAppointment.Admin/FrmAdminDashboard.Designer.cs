@@ -150,6 +150,7 @@
             this.BtnShowUser.TabIndex = 15;
             this.BtnShowUser.Text = "Show User";
             this.BtnShowUser.UseVisualStyleBackColor = true;
+            this.BtnShowUser.Click += new System.EventHandler(this.BtnShowUser_Click);
             // 
             // TxtSearchFor
             // 

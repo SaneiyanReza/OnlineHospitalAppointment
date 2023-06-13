@@ -15,5 +15,9 @@
               FROM dbo.ReservationLogs rl
               JOIN dbo.Experts e ON e.Id = rl.ExpertId
               WHERE rl.IsCanceled = 0 AND e.IsDeleted = 0 AND e.IsSuspended = 0";
+
+        public static string GetUsers =>
+            @"SELECT * FROM dbo.Users
+                WHERE RoleId = 3";
     }
 }

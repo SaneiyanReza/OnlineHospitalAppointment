@@ -47,44 +47,64 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         private void BtnDeleteExpert_Click(object sender, EventArgs e)
         {
-            expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+            DialogResult result = MessageBox.Show("Are you sure to delete expert?", "Delete",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            Expert expert = _dbContext.Experts
-                .Include(x => x.User)
-                .FirstOrDefault(x => x.Id == expertId);
+            if (result == DialogResult.Yes)
+            {
+                expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
 
-            if (expert is null)
-                MessageBox.Show("user not found");
+                Expert expert = _dbContext.Experts
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.Id == expertId);
 
-            expert.Delete();
-            expert.User.Delete();
+                if (expert is null)
+                    MessageBox.Show("user not found");
 
-            _dbContext.SaveChanges();
+                expert.Delete();
+                expert.User.Delete();
 
-            BackColor = Color.Green;
-            BindGridViewSource(bindingSource);
-            BackColor = Color.Empty;
+                string description = $"delete expert by admin expertId: {expertId} , userId: {expert.UserId}";
+
+                AdminActivityLog adminActivityLog = new(expertId, description);
+
+                _dbContext.SaveChanges();
+
+                BackColor = Color.Green;
+                BindGridViewSource(bindingSource);
+                BackColor = Color.Empty;
+            }
         }
 
         private void BtnSuspend_Click(object sender, EventArgs e)
         {
-            expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+            DialogResult result = MessageBox.Show("Are you sure to suspend expert?", "Suspend",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            Expert expert = _dbContext.Experts
-                .Include(x => x.User)
-                .FirstOrDefault(x => x.Id == expertId);
+            if (result == DialogResult.Yes)
+            {
+                expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
 
-            if (expert is null)
-                MessageBox.Show("user not found");
+                Expert expert = _dbContext.Experts
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.Id == expertId);
 
-            expert.Suspend();
-            expert.User.Suspend();
+                if (expert is null)
+                    MessageBox.Show("user not found");
 
-            _dbContext.SaveChanges();
+                expert.Suspend();
+                expert.User.Suspend();
 
-            BackColor = Color.Green;
-            BindGridViewSource(bindingSource);
-            BackColor = Color.Empty;
+                string description = $"suspend expert by admin expertId: {expertId} , userId: {expert.UserId}";
+
+                AdminActivityLog adminActivityLog = new(expertId, description);
+
+                _dbContext.SaveChanges();
+
+                BackColor = Color.Green;
+                BindGridViewSource(bindingSource);
+                BackColor = Color.Empty;
+            }
         }
 
         private void TxtSearchFor_KeyDown(object sender, KeyEventArgs e)
@@ -129,6 +149,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             view = mapper.Map<ExpertView[]>(experts);
 
             return view;
+        }
+
+        private void BtnShowUser_Click(object sender, EventArgs e)
+        {
+            FrmShowUserByAdmin frmShowUserByAdmin = new(_dbContext);
+            frmShowUserByAdmin.ShowDialog();
         }
     }
 }

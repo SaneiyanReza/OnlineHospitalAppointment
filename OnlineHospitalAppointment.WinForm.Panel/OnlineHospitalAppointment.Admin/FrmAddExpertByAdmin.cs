@@ -35,7 +35,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 string birthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd");
 
                 User user = new(TxtUserName.Text, TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
-                    isMale, TxtPhoneNumber.Text, birthDay, (int)ClientRoleCode.Expert);
+                    isMale, TxtPhoneNumber.Text, birthDay, (int)RoleId.Expert);
 
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();

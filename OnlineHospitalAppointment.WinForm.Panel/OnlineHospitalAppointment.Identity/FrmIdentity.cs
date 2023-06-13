@@ -73,19 +73,19 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
                     switch (loginLogsDto.RoleId)
                     {
-                        case (int)ClientRoleCode.GodAdmin:
+                        case (int)RoleId.GodAdmin:
                             FrmAdminDashboard frmAdminDashboard = new(_dbContext);
                             userName = TxtUserName.Text.ToLower();
                             frmAdminDashboard.ShowDialog();
                             break;
 
-                        case (int)ClientRoleCode.Expert:
+                        case (int)RoleId.Expert:
                             FrmExpertDashboard frmExpertDashboard = new();
                             userName = TxtUserName.Text.ToLower();
                             frmExpertDashboard.ShowDialog();
                             break;
 
-                        case (int)ClientRoleCode.User:
+                        case (int)RoleId.User:
                             FrmManageAccount frmManageAccount = new();
                             userName = TxtUserName.Text.ToLower();
                             frmManageAccount.ShowDialog();
