@@ -1,6 +1,6 @@
 ﻿namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin.Models.Views
 {
-    public class UserView
+    public record UserView
     {
         public int Id { get; init; }
         public string UserName { get; init; }

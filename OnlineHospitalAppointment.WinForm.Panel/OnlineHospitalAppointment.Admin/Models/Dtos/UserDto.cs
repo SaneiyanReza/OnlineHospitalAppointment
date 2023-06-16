@@ -1,6 +1,6 @@
 ﻿namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin.Models.Dtos
 {
-    public class UserDto
+    public record UserDto
     {
         public int Id { get; init; }
         public string UserName { get; init; }

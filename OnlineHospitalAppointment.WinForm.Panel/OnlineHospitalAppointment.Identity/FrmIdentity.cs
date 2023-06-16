@@ -18,8 +18,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         public FrmIdentity(OnlineHospitalAppointmentDbContext dbContext)
         {
-            _dbContext = dbContext;
             InitializeComponent();
+            _dbContext = dbContext;
         }
 
         private void BtnSignUp_Click(object sender, EventArgs e)

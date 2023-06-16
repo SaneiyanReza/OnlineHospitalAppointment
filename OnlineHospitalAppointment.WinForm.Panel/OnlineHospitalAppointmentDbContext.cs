@@ -32,6 +32,8 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<AppointmentChart> AppointmentCharts { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=.;Database=OnlineHospitalAppointmentDB;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True;");
 
@@ -148,6 +150,23 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Users_Roles");
+        });
+
+        modelBuilder.Entity<AppointmentChart>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_AppointmentChart");
+
+            entity.Property(e => e.UserId)
+            .IsRequired(false);
+
+            entity.Property(e => e.ExpertId)
+            .IsRequired();
+
+            entity.Property(e => e.AppointmentDate)
+            .IsRequired();
+
+            entity.Property(e => e.IsReserved)
+            .IsRequired();
         });
     }
 }
