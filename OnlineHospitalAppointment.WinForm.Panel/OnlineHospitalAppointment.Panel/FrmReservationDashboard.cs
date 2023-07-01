@@ -10,10 +10,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 {
     public partial class FrmReservationDashboard : Form
     {
-        private static ExpertView[] view = default;
+        private static ExpertView[] expertViews = default;
+        private static UserAppointmentChartView[] appointmentChartViews = default;
         private readonly BindingSource bindingSource = new();
         private readonly string userName = FrmIdentity.userName;
         private readonly int userId = FrmIdentity.userId;
+        private bool isEntry = default;
 
         public FrmReservationDashboard()
         {
@@ -25,26 +27,42 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             LblShowUserName.Text = userName;
             LblShowFullName.Text = FrmManageAccount.fullName;
             CmbField.SelectedIndex = 0;
-            BindGridViewSource(bindingSource);
+            BindExpertGridViewSource(bindingSource);
         }
 
         private void TxtSearchFor_KeyDown(object sender, KeyEventArgs e)
         {
             if (string.IsNullOrEmpty(TxtSearchFor.Text))
             {
-                BindGridViewSource(bindingSource);
+                if (isEntry)
+                    BindAppointmentChartGridViewSource(bindingSource);
+                else
+                    BindExpertGridViewSource(bindingSource);
             }
             else
             {
-                bindingSource.DataSource = CmbField.SelectedIndex switch
+                if (isEntry)
                 {
-                    0 => view.Where(x => x.FullName.Contains(TxtSearchFor.Text)),
-                    1 => view.Where(x => x.Specialist.Contains(TxtSearchFor.Text)),
-                    2 => view.Where(x => x.Address.Contains(TxtSearchFor.Text)),
-                    _ => GetExperts(),
-                };
+                    bindingSource.DataSource = CmbField.SelectedIndex switch
+                    {
+                        0 => appointmentChartViews.Where(x => x.AppointmentDate.Contains(TxtSearchFor.Text)),
+                        _ => GetAppointmentChart(),
+                    };
 
-                BindGridViewSource(bindingSource, true);
+                    BindAppointmentChartGridViewSource(bindingSource, true);
+                }
+                else
+                {
+                    bindingSource.DataSource = CmbField.SelectedIndex switch
+                    {
+                        0 => expertViews.Where(x => x.FullName.Contains(TxtSearchFor.Text)),
+                        1 => expertViews.Where(x => x.Specialist.Contains(TxtSearchFor.Text)),
+                        2 => expertViews.Where(x => x.Address.Contains(TxtSearchFor.Text)),
+                        _ => GetExperts(),
+                    };
+
+                    BindExpertGridViewSource(bindingSource, true);
+                }
             }
         }
 
@@ -52,30 +70,29 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         {
             ReservationLogDto reservationLog = new();
             string trackingCode = string.Empty;
-            int expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+            int appointmentChartId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
             bool canReserve = true;
 
             DapperHelper.QueryMultiple(PanelScripts.GetReservationLogData, gride =>
             {
-                reservationLog.ExpertTimeReserved = gride.Read<int>().ToArray() ??
-                    Array.Empty<int>();
+                reservationLog.SelectAppointmentDate = gride.ReadFirst<int>();
 
-                reservationLog.ExpertFreeTime = gride.ReadFirst<int>();
+                reservationLog.UserAppointmentDates = gride.Read<int>().ToArray() ?? Array.Empty<int>();
 
                 reservationLog.TrackingCodes = gride.Read<string>().ToArray() ?? Array.Empty<string>();
             }, new
             {
                 userId,
-                expertId
+                appointmentChartId
             });
 
-            for (int i = 0; i < reservationLog.ExpertTimeReserved.Length; i++)
+            for (int i = 0; i < reservationLog.UserAppointmentDates.Length; i++)
             {
-                int ExpertFreeTimeThirtyMinutesLater = DateTimeHelper
-                    .UnixTimeToDate(reservationLog.ExpertFreeTime).AddMinutes(30).ToUnixTime();
+                int userAppointmentFifteenMinutesLater = DateTimeHelper
+                    .UnixTimeToDate(reservationLog.UserAppointmentDates[i]).AddMinutes(15).ToUnixTime();
 
-                if (reservationLog.ExpertTimeReserved[i] >= reservationLog.ExpertFreeTime &&
-                    reservationLog.ExpertTimeReserved[i] <= ExpertFreeTimeThirtyMinutesLater)
+                if (userAppointmentFifteenMinutesLater >= reservationLog.SelectAppointmentDate &&
+                    reservationLog.UserAppointmentDates[i] <= reservationLog.SelectAppointmentDate)
                 {
                     canReserve = false;
                     break;
@@ -97,7 +114,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                 DapperHelper.ExecuteNonQuery(PanelScripts.SetReservation, new
                 {
                     userId,
-                    expertId,
+                    appointmentChartId,
                     ReservedAt = DateTimeHelper.ToUnixTime(DateTime.UtcNow),
                     trackingCode
                 });
@@ -111,7 +128,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                 BackColor = Color.Empty;
                 GvReceiveExpertsPanel.BackgroundColor = Color.Silver;
 
-                BindGridViewSource(bindingSource);
+                BindAppointmentChartGridViewSource(bindingSource);
             }
         }
 
@@ -122,7 +139,44 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             frmUserAppointments.ShowDialog();
         }
 
-        private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)
+        private void BtnEditProfile_Click(object sender, EventArgs e)
+        {
+            FrmManageAccount frmManageAccount = new();
+            this.Close();
+            frmManageAccount.ShowDialog();
+        }
+
+        private void BtnEntry_Click(object sender, EventArgs e)
+        {
+            isEntry = true;
+
+            BindAppointmentChartGridViewSource(bindingSource);
+
+            BtnReserve.Enabled = true;
+            BtnBack.Enabled = true;
+            BtnEntry.Enabled = false;
+
+            CmbField.Items.Clear();
+            CmbField.Items.Add("Appointment Date");
+        }
+
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            isEntry = false;
+
+            BindExpertGridViewSource(bindingSource);
+
+            BtnReserve.Enabled = false;
+            BtnBack.Enabled = false;
+            BtnEntry.Enabled = true;
+
+            CmbField.Items.Clear();
+            CmbField.Items.Add("FullName");
+            CmbField.Items.Add("Specialist");
+            CmbField.Items.Add("Address");
+        }
+
+        private void BindExpertGridViewSource(BindingSource bindingSource, bool isFiltered = default)
         {
             if (!isFiltered)
             {
@@ -136,14 +190,38 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         {
             Mapper mapper = MapperConfig.InitializeAutomapper();
 
-            ExpertDto[] experts = DapperHelper.Query<ExpertDto>(PanelScripts.GetExperts, new
+            ExpertDto[] experts = DapperHelper.Query<ExpertDto>(PanelScripts.GetExperts);
+
+            expertViews = mapper.Map<ExpertView[]>(experts);
+
+            return expertViews;
+        }
+
+        private void BindAppointmentChartGridViewSource(BindingSource bindingSource, bool isFiltered = default)
+        {
+            if (!isFiltered)
             {
-                UtcNow = DateTime.UtcNow.ToUnixTime()
-            });
+                bindingSource.DataSource = GetAppointmentChart();
+            }
 
-            view = mapper.Map<ExpertView[]>(experts);
+            GvReceiveExpertsPanel.DataSource = bindingSource;
+        }
 
-            return view;
+        private UserAppointmentChartView[] GetAppointmentChart()
+        {
+            int expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+            Mapper mapper = MapperConfig.InitializeAutomapper();
+
+            UserAppointmentChartDto[] appointmentCharts = DapperHelper.Query<UserAppointmentChartDto>(PanelScripts.GetAppointmentChart,
+                new
+                {
+                    ExpertId = expertId,
+                    AppointmentDate = DateTime.UtcNow.AddMinutes(15).ToUnixTime()
+                });
+
+            appointmentChartViews = mapper.Map<UserAppointmentChartView[]>(appointmentCharts);
+
+            return appointmentChartViews;
         }
     }
 }

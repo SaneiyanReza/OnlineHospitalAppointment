@@ -1,9 +1,49 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools.Enums;
+using System.Text.RegularExpressions;
 
 namespace OnlineHospitalAppointment.Dll.Tools.Helpers
 {
     public static class UserInfoValidationHelper
     {
+        /// <summary>
+        /// بررسی صحت نام کاربری کاربر
+        /// </summary>
+        /// <param name="userName">نام کاربری</param>
+        /// <returns></returns>
+        public static (bool isValid, string errorMessage) UserNameValidation(string userName)
+        {
+            bool isValid = true;
+            string errorMessage = string.Empty;
+            int usernameLength = userName.Length;
+
+            if (usernameLength < 4 || usernameLength > 50)
+            {
+                isValid = false;
+                errorMessage = "username must between 4 to 50 char";
+            }
+
+            if (!Regex.IsMatch(userName, "^[a-zA-Z0-9_]+$"))
+            {
+                isValid = false;
+                errorMessage = "username must contain a-z , A-Z , 0-9 , _";
+            }
+
+            return (isValid, errorMessage);
+        }
+
+        /// <summary>
+        /// بررسی صحت رمز عبور کاربر
+        /// </summary>
+        /// <param name="password">رمز عبور</param>
+        /// <returns></returns>
+        public static (bool isValid, string errorMessage) PasswordValidation(string password)
+        {
+            bool isValid = password.Length > 8;
+            string errorMessage = isValid ? string.Empty : "passwod must bigger than 8 char";
+
+            return (isValid, errorMessage);
+        }
+
         /// <summary>
         /// بررسی صحت نام کاربر
         /// </summary>

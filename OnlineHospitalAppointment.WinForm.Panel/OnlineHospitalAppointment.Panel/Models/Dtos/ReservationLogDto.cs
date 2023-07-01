@@ -2,8 +2,8 @@
 {
     public record ReservationLogDto
     {
-        public int[] ExpertTimeReserved { get; set; }
-        public int ExpertFreeTime { get; set; }
+        public int[] UserAppointmentDates { get; set; }
+        public int SelectAppointmentDate { get; set; }
         public string[] TrackingCodes { get; set; }
     }
 }

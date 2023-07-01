@@ -1,6 +1,6 @@
 ﻿namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin.Models.Views
 {
-    public record AppointmentChartDto
+    public record AdminAppointmentChartDto
     {
         public int Id { get; init; }
         public int UserId { get; init; }

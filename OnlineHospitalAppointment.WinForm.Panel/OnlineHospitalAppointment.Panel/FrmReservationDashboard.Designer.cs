@@ -39,6 +39,9 @@
             this.BtnReport = new System.Windows.Forms.Button();
             this.LblUserName = new System.Windows.Forms.Label();
             this.LblShowUserName = new System.Windows.Forms.Label();
+            this.BtnEditProfile = new System.Windows.Forms.Button();
+            this.BtnBack = new System.Windows.Forms.Button();
+            this.BtnEntry = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveExpertsPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,9 +120,10 @@
             // 
             // BtnReserve
             // 
-            this.BtnReserve.Location = new System.Drawing.Point(627, 400);
+            this.BtnReserve.Enabled = false;
+            this.BtnReserve.Location = new System.Drawing.Point(318, 428);
             this.BtnReserve.Name = "BtnReserve";
-            this.BtnReserve.Size = new System.Drawing.Size(75, 38);
+            this.BtnReserve.Size = new System.Drawing.Size(78, 23);
             this.BtnReserve.TabIndex = 10;
             this.BtnReserve.Text = "Reserve";
             this.BtnReserve.UseVisualStyleBackColor = true;
@@ -127,9 +131,9 @@
             // 
             // BtnReport
             // 
-            this.BtnReport.Location = new System.Drawing.Point(12, 400);
+            this.BtnReport.Location = new System.Drawing.Point(627, 405);
             this.BtnReport.Name = "BtnReport";
-            this.BtnReport.Size = new System.Drawing.Size(75, 38);
+            this.BtnReport.Size = new System.Drawing.Size(75, 41);
             this.BtnReport.TabIndex = 11;
             this.BtnReport.Text = "Reports";
             this.BtnReport.UseVisualStyleBackColor = true;
@@ -153,12 +157,48 @@
             this.LblShowUserName.TabIndex = 13;
             this.LblShowUserName.Text = "ShowUserName";
             // 
+            // BtnEditProfile
+            // 
+            this.BtnEditProfile.Location = new System.Drawing.Point(12, 405);
+            this.BtnEditProfile.Name = "BtnEditProfile";
+            this.BtnEditProfile.Size = new System.Drawing.Size(75, 41);
+            this.BtnEditProfile.TabIndex = 14;
+            this.BtnEditProfile.Text = "EditProfile";
+            this.BtnEditProfile.UseVisualStyleBackColor = true;
+            this.BtnEditProfile.Click += new System.EventHandler(this.BtnEditProfile_Click);
+            // 
+            // BtnBack
+            // 
+            this.BtnBack.Enabled = false;
+            this.BtnBack.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.BtnBack.Location = new System.Drawing.Point(318, 396);
+            this.BtnBack.Name = "BtnBack";
+            this.BtnBack.Size = new System.Drawing.Size(36, 26);
+            this.BtnBack.TabIndex = 15;
+            this.BtnBack.Text = "<--";
+            this.BtnBack.UseVisualStyleBackColor = true;
+            this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);
+            // 
+            // BtnEntry
+            // 
+            this.BtnEntry.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.BtnEntry.Location = new System.Drawing.Point(360, 396);
+            this.BtnEntry.Name = "BtnEntry";
+            this.BtnEntry.Size = new System.Drawing.Size(36, 26);
+            this.BtnEntry.TabIndex = 16;
+            this.BtnEntry.Text = "-->";
+            this.BtnEntry.UseVisualStyleBackColor = true;
+            this.BtnEntry.Click += new System.EventHandler(this.BtnEntry_Click);
+            // 
             // FrmReservationDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(716, 450);
+            this.ClientSize = new System.Drawing.Size(716, 458);
+            this.Controls.Add(this.BtnEntry);
+            this.Controls.Add(this.BtnBack);
+            this.Controls.Add(this.BtnEditProfile);
             this.Controls.Add(this.LblShowUserName);
             this.Controls.Add(this.LblUserName);
             this.Controls.Add(this.BtnReport);
@@ -195,5 +235,8 @@
         private Button BtnReport;
         private Label LblUserName;
         private Label LblShowUserName;
+        private Button BtnEditProfile;
+        private Button BtnBack;
+        private Button BtnEntry;
     }
 }

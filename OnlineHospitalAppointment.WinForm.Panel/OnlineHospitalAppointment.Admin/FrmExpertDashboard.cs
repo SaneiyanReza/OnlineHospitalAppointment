@@ -2,15 +2,18 @@
 using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin.Models.Views;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin
 {
     public partial class FrmExpertDashboard : Form
     {
         private readonly OnlineHospitalAppointmentDbContext _dbContext;
-        private static AppointmentChartView[] view = default;
+        private static AdminAppointmentChartView[] view = default;
         private readonly BindingSource bindingSource = new();
-        private static int userId = FrmIdentity.userId;
+        private static readonly int userId = FrmIdentity.userId;
+        public static RoleId? roleId = default;
 
         public FrmExpertDashboard(OnlineHospitalAppointmentDbContext dbContext)
         {
@@ -34,22 +37,22 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
         {
             if (!isFiltered)
             {
-                bindingSource.DataSource = GetExperts();
+                bindingSource.DataSource = GetAppointmentChart();
             }
 
             GvAppointmentCharts.DataSource = bindingSource;
         }
 
-        private static AppointmentChartView[] GetExperts()
+        private static AdminAppointmentChartView[] GetAppointmentChart()
         {
             Mapper mapper = MapperConfig.InitializeAutomapper();
 
-            AppointmentChartDto[] experts = DapperHelper.Query<AppointmentChartDto>(AdminScripts.GetAppointmentChart, new
+            AdminAppointmentChartDto[] experts = DapperHelper.Query<AdminAppointmentChartDto>(AdminScripts.GetAppointmentChart, new
             {
                 ExpertID = userId
             });
 
-            view = mapper.Map<AppointmentChartView[]>(experts);
+            view = mapper.Map<AdminAppointmentChartView[]>(experts);
 
             return view;
         }
@@ -67,7 +70,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     0 => view.Where(x => x.FullName.Contains(TxtSearchFor.Text)),
                     1 => view.Where(x => x.UserName.Contains(TxtSearchFor.Text)),
                     2 => view.Where(x => x.AppointmentDate.Contains(TxtSearchFor.Text)),
-                    _ => GetExperts(),
+                    _ => GetAppointmentChart(),
                 };
 
                 BindGridViewSource(bindingSource, true);
@@ -76,6 +79,36 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         private void BtnAddAppointment_Click(object sender, EventArgs e)
         {
+            FrmAddAppointmentByExpert frmAddAppointment = new(_dbContext);
+            frmAddAppointment.ShowDialog();
+        }
+
+        private void BtnCancelAppointment_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to cancel appointment?", "Warning"
+               , MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.OK)
+            {
+                int appointmentChartId = (int)GvAppointmentCharts.CurrentRow.Cells[0].Value; ;
+                string description = "وقت ملاقات توسط متخصص لغو شد";
+
+                DapperHelper.ExecuteNonQuery(PanelScripts.SetCancelAppointment, new
+                {
+                    appointmentChartId,
+                    description,
+                    typeCanceled = 2
+                });
+
+                BindGridViewSource(bindingSource);
+            }
+        }
+
+        private void BtnModifyProfile_Click(object sender, EventArgs e)
+        {
+            FrmModifyExpert frmModifyExpert = new(_dbContext);
+            roleId = RoleId.Expert;
+            frmModifyExpert.ShowDialog();
         }
     }
 }

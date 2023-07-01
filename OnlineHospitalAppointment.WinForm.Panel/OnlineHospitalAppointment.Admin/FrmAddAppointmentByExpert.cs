@@ -8,7 +8,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
     {
         private readonly OnlineHospitalAppointmentDbContext _dbContext;
         private readonly BindingSource bindingSource = new();
-        private static int userId = FrmIdentity.userId;
+        private static readonly int userId = FrmIdentity.userId;
 
         public FrmAddAppointmentByExpert(OnlineHospitalAppointmentDbContext dbContext)
         {

@@ -14,59 +14,69 @@
              LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
              WHERE e.IsSuspended = 0 AND e.IsDeleted = 0";
 
-        //TODO: update user panel use appointment chart tbl
         public static string GetReservationLogData =>
-            @"SELECT e.FreeDateTime FROM dbo.Users u
-                JOIN dbo.ReservationLogs rl ON rl.UserId = u.Id
-                JOIN dbo.Experts e ON e.Id = rl.ExpertId
-                WHERE rl.UserId = @UserId AND rl.IsCanceled = 0
+            @"SELECT ac.AppointmentDate FROM dbo.AppointmentCharts ac
+                WHERE ac.Id = @AppointmentChartId AND ac.IsReserved = 0
 
-             SELECT FreeDateTime FROM dbo.Experts
-                 WHERE Id = @ExpertId
+             SELECT ac.AppointmentDate FROM dbo.AppointmentCharts ac
+                WHERE ac.UserId = @UserID AND ac.IsReserved = 1
 
              SELECT TrackingCode FROM dbo.ReservationLogs
                  WHERE IsCanceled = 0";
 
-        //TODO: update user panel use appointment chart tbl
         public static string SetReservation =>
-            @"INSERT dbo.ReservationLogs
-                (UserId, ExpertId, ReservedAt, TrackingCode, IsCanceled)
-              VALUES
-                (@UserId, @ExpertId, @ReservedAt, @TrackingCode, 0)
+            @"DECLARE @ExpertId INT = (SELECT TOP 1 ExpertId FROM dbo.AppointmentCharts WHERE Id = @AppointmentChartId)
 
-             UPDATE dbo.Experts SET IsReserved = 1
-                WHERE Id = @ExpertId";
+             INSERT INTO dbo.ReservationLogs
+                (
+                    UserId, ExpertId, AppointmentChartId, ReservedAt, TrackingCode, IsCanceled, TypeCanceled, Description
+                )
+                VALUES
+                (
+                	@UserId, @ExpertId, @AppointmentChartId, @ReservedAt, @TrackingCode, 0, NULL, NULL
+                )
+
+             UPDATE dbo.AppointmentCharts SET IsReserved = 1
+                WHERE Id = @AppointmentChartId";
 
         public static string GetUserAppointment =>
-            @"SELECT rl.Id,
+            @"SELECT ac.Id,
                 e.FullName,
                 st.Specialist,
 	            CONCAT(p.Name ,' ' ,c.Name) AS Address,
                 rl.TrackingCode,
+				ac.AppointmentDate,
                 rl.ReservedAt,
-                rl.IsCanceled
-	            FROM dbo.ReservationLogs rl
-             JOIN dbo.Experts e ON e.Id = rl.ExpertId
-             JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
-             JOIN dbo.Cities c ON c.Id = e.CityId
-             LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-             WHERE rl.UserId = @UserId
-             ORDER BY rl.IsCanceled";
+                rl.IsCanceled FROM dbo.AppointmentCharts ac
+              JOIN dbo.ReservationLogs rl ON rl.AppointmentChartId = ac.Id
+              JOIN dbo.Experts e ON e.Id = ac.ExpertId
+              JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
+              JOIN dbo.Cities c ON c.Id = e.CityId
+              LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
+                WHERE ac.UserId = @UserId
+                ORDER BY rl.IsCanceled";
 
         public static string SetCancelAppointment =>
             @"BEGIN TRANSACTION;
 
-             UPDATE rl
-                SET rl.IsCanceled = 1
-             FROM dbo.ReservationLogs rl
-                WHERE rl.Id = @ReservationLogId
+             UPDATE dbo.AppointmentCharts SET IsReserved = 0
+                WHERE Id = @AppointmentChartId
 
-             UPDATE e
-                SET e.IsReserved = 0
-             FROM dbo.Experts e
-                JOIN dbo.ReservationLogs rl ON rl.ExpertId = e.Id
-                WHERE rl.Id = @ReservationLogId
+             UPDATE dbo.ReservationLogs SET IsCanceled = 1 , Description = @Description , TypeCanceled = @TypeCanceled
+                WHERE AppointmentChartId = @AppointmentChartId
 
             COMMIT;";
+
+        public static string GetAppointmentChart =>
+            @"SELECT ac.Id,
+                ac.UserId,
+                ac.ExpertId,
+                ac.AppointmentDate,
+                ac.IsReserved,
+                e.FullName
+	            FROM dbo.AppointmentCharts ac
+             JOIN dbo.Experts e ON e.Id = ac.ExpertId
+                WHERE ac.ExpertId = @ExpertId AND ac.AppointmentDate > @AppointmentDate
+                AND ac.IsReserved = 0";
     }
 }

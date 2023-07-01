@@ -1,6 +1,6 @@
 ﻿namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin
 {
-    partial class FrmModifyExpertByAdmin
+    partial class FrmModifyExpert
     {
         /// <summary>
         /// Required designer variable.

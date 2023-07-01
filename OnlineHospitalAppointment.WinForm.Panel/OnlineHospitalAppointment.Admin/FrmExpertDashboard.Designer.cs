@@ -172,6 +172,7 @@
             this.BtnCancelAppointment.TabIndex = 27;
             this.BtnCancelAppointment.Text = "Cancel Appointment";
             this.BtnCancelAppointment.UseVisualStyleBackColor = true;
+            this.BtnCancelAppointment.Click += new System.EventHandler(this.BtnCancelAppointment_Click);
             // 
             // BtnModifyProfile
             // 
@@ -181,6 +182,7 @@
             this.BtnModifyProfile.TabIndex = 28;
             this.BtnModifyProfile.Text = "Modify Profile";
             this.BtnModifyProfile.UseVisualStyleBackColor = true;
+            this.BtnModifyProfile.Click += new System.EventHandler(this.BtnModifyProfile_Click);
             // 
             // FrmExpertDashboard
             // 

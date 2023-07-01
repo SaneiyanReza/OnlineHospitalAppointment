@@ -7,6 +7,7 @@
         public string Specialist { get; init; }
         public string Address { get; init; }
         public string TrackingCode { get; init; }
+        public int AppointmentDate { get; init; }
         public int ReservedAt { get; init; }
         public bool IsCanceled { get; init; }
     }

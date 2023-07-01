@@ -20,6 +20,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel
 
                 //Configuring UserAppointmentDto and UserAppointmentView
                 cfg.CreateMap<UserAppointmentDto, UserAppointmentView>()
+                .ForMember(view => view.AppointmentDateTime, src => src.MapFrom(x => DateTimeHelper
+                .UnixTimeToDate(x.AppointmentDate)))
                 .ForMember(view => view.ReservedDateTime, src => src.MapFrom(x => DateTimeHelper
                 .UnixTimeToDate(x.ReservedAt)));
 
@@ -28,9 +30,15 @@ namespace OnlineHospitalAppointment.WinForm.Panel
                 .ForMember(view => view.FullName, src => src.MapFrom(x => string.Concat(x.Name, " ", x.LastName)))
                 .ForMember(view => view.BirthDay, src => src.MapFrom(x => DateTimeHelper.UnixTimeToDate(x.BirthDay)));
 
-                //Configuring AppointmentChartDto and AppointmentChartView
-                cfg.CreateMap<AppointmentChartDto, AppointmentChartView>()
-                .ForMember(view => view.AppointmentDate, src => src.MapFrom(x => DateTimeHelper.UnixTimeToDate(x.AppointmentDate)));
+                //Configuring AdminAppointmentChartDto and AdminAppointmentChartView
+                cfg.CreateMap<AdminAppointmentChartDto, AdminAppointmentChartView>()
+                .ForMember(view => view.AppointmentDate, src => src.MapFrom(x => DateTimeHelper
+                .UnixTimeToDate(x.AppointmentDate)));
+
+                //Configuring UserAppointmentChartDto and UserAppointmentChartView
+                cfg.CreateMap<UserAppointmentChartDto, UserAppointmentChartView>()
+                .ForMember(view => view.AppointmentDate, src => src.MapFrom(x => DateTimeHelper
+                .UnixTimeToDate(x.AppointmentDate)));
             });
 
             //Create an Instance of Mapper and return that Instance

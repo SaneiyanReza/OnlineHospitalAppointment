@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.Models;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Dtos;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Views;
@@ -14,6 +15,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
         private static ExpertView[] view = default;
         private readonly BindingSource bindingSource = new();
         public static int expertId;
+        public static RoleId? roleId = default;
 
         public FrmAdminDashboard(OnlineHospitalAppointmentDbContext dbContext)
         {
@@ -41,7 +43,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         private void BtnModifyExpert_Click(object sender, EventArgs e)
         {
-            FrmModifyExpertByAdmin frmModifyExpertByAdmin = new(_dbContext);
+            FrmModifyExpert frmModifyExpertByAdmin = new(_dbContext);
+            roleId = RoleId.GodAdmin;
             frmModifyExpertByAdmin.ShowDialog();
         }
 
@@ -107,6 +110,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             }
         }
 
+        private void BtnShowUser_Click(object sender, EventArgs e)
+        {
+            FrmShowUserByAdmin frmShowUserByAdmin = new(_dbContext);
+            frmShowUserByAdmin.ShowDialog();
+        }
+
         private void TxtSearchFor_KeyDown(object sender, KeyEventArgs e)
         {
             if (string.IsNullOrEmpty(TxtSearchFor.Text))
@@ -149,12 +158,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             view = mapper.Map<ExpertView[]>(experts);
 
             return view;
-        }
-
-        private void BtnShowUser_Click(object sender, EventArgs e)
-        {
-            FrmShowUserByAdmin frmShowUserByAdmin = new(_dbContext);
-            frmShowUserByAdmin.ShowDialog();
         }
     }
 }

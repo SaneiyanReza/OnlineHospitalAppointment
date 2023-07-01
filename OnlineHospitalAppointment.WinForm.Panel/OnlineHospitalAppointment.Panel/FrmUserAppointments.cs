@@ -55,10 +55,13 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             if (dialogResult == DialogResult.OK)
             {
                 int reservationLogId = (int)GvReceiveAppointmentReport.CurrentRow.Cells[0].Value;
+                string description = "وقت ملاقات توسط کاربر لغو شد";
 
                 DapperHelper.ExecuteNonQuery(PanelScripts.SetCancelAppointment, new
                 {
-                    reservationLogId
+                    reservationLogId,
+                    description,
+                    TypeCanceled = 3
                 });
 
                 BindGridViewSource(bindingSource);

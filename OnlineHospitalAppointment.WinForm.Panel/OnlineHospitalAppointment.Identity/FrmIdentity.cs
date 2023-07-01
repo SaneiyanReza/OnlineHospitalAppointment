@@ -4,7 +4,6 @@ using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Models;
-using System.Text.RegularExpressions;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
@@ -80,7 +79,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                             break;
 
                         case (int)RoleId.Expert:
-                            FrmExpertDashboard frmExpertDashboard = new();
+                            FrmExpertDashboard frmExpertDashboard = new(_dbContext);
                             userName = TxtUserName.Text.ToLower();
                             frmExpertDashboard.ShowDialog();
                             break;
@@ -100,39 +99,19 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void TxtUserName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            int usernameLength = TxtUserName.Text.Length;
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.UserNameValidation(TxtUserName.Text);
 
-            if (usernameLength < 4 || usernameLength > 50)
-            {
-                e.Cancel = true;
-                ErrorProviderApp.SetError(TxtUserName, "username must between 4 to 50 char");
-            }
-            else if (!Regex.IsMatch(TxtUserName.Text, "^[a-zA-Z0-9_]+$"))
-            {
-                e.Cancel = true;
-                ErrorProviderApp.SetError(TxtUserName, "username must contain a-z , A-Z , 0-9 , _");
-            }
-            else
-            {
-                e.Cancel = false;
-                ErrorProviderApp.SetError(TxtUserName, string.Empty);
-            }
+            e.Cancel = !isValid;
+            ErrorProviderApp.SetError(TxtUserName, errorMessage);
         }
 
         private void TxtPassword_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            int passwordLength = TxtPassword.Text.Length;
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.PasswordValidation(TxtUserName.Text);
 
-            if (passwordLength < 8)
-            {
-                e.Cancel = true;
-                ErrorProviderApp.SetError(TxtPassword, "passwod must bigger than 8 char");
-            }
-            else
-            {
-                e.Cancel = false;
-                ErrorProviderApp.SetError(TxtPassword, string.Empty);
-            }
+            e.Cancel = !isValid;
+            ErrorProviderApp.SetError(TxtUserName, errorMessage);
         }
     }
+}
 }

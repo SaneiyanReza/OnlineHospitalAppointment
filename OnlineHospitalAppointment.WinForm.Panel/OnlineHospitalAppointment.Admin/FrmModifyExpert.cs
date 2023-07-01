@@ -1,14 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineHospitalAppointment.WinForm.Panel.Models;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin
 {
-    public partial class FrmModifyExpertByAdmin : Form
+    public partial class FrmModifyExpert : Form
     {
         private OnlineHospitalAppointmentDbContext _dbContext;
         private readonly int expertId = FrmAdminDashboard.expertId;
+        private static RoleId roleId = (RoleId)(FrmAdminDashboard.roleId ?? FrmExpertDashboard.roleId);
 
-        public FrmModifyExpertByAdmin(OnlineHospitalAppointmentDbContext dbContext)
+        public FrmModifyExpert(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
             _dbContext = dbContext;
@@ -84,6 +86,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             expert.User.ModifyUserByAdmin(TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
                 isMale, TxtPhoneNumber.Text, birthDay);
 
+            _dbContext.SaveChanges();
+
+            string description = roleId == RoleId.GodAdmin ? "تغییر پروفایل متخصص توسط ادمین"
+                : "تغییر پروفایل متخصص";
+
+            AdminActivityLog adminActivityLog = new(expertId, description);
+
+            _dbContext.AdminActivityLogs.Add(adminActivityLog);
             _dbContext.SaveChanges();
         }
     }
