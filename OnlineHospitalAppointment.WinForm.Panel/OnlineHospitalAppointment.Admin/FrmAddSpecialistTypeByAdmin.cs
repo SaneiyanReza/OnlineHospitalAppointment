@@ -2,11 +2,11 @@
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin
 {
-    public partial class AddSpecialistTypeByAdmin : Form
+    public partial class FrmAddSpecialistTypeByAdmin : Form
     {
         private readonly OnlineHospitalAppointmentDbContext _dbContext;
 
-        public AddSpecialistTypeByAdmin(OnlineHospitalAppointmentDbContext dbContext)
+        public FrmAddSpecialistTypeByAdmin(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
             _dbContext = dbContext;

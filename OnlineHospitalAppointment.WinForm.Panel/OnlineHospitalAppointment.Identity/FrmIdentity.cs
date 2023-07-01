@@ -110,8 +110,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             (bool isValid, string errorMessage) = UserInfoValidationHelper.PasswordValidation(TxtUserName.Text);
 
             e.Cancel = !isValid;
-            ErrorProviderApp.SetError(TxtUserName, errorMessage);
+            ErrorProviderApp.SetError(TxtPassword, errorMessage);
         }
     }
-}
 }

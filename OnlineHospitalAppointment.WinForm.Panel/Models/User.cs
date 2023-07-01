@@ -16,8 +16,8 @@ public partial class User
         BirthDay = birthDay;
         CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.Now);
         RoleId = roleId;
-        IsDeleted = 0;
-        IsSuspended = 0;
+        IsDeleted = false;
+        IsSuspended = false;
     }
 
     public int Id { get; set; }

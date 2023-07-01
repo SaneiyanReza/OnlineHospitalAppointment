@@ -14,9 +14,9 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         {
             bool isValid = true;
             string errorMessage = string.Empty;
-            int usernameLength = userName.Length;
+            int userNameLength = userName.Length;
 
-            if (usernameLength < 4 || usernameLength > 50)
+            if (userNameLength < 4 || userNameLength > 50)
             {
                 isValid = false;
                 errorMessage = "username must between 4 to 50 char";
@@ -38,7 +38,7 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
         /// <returns></returns>
         public static (bool isValid, string errorMessage) PasswordValidation(string password)
         {
-            bool isValid = password.Length > 8;
+            bool isValid = password.Length >= 8;
             string errorMessage = isValid ? string.Empty : "passwod must bigger than 8 char";
 
             return (isValid, errorMessage);

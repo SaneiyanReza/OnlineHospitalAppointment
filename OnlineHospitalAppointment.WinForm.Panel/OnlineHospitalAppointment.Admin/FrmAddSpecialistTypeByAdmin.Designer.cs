@@ -1,6 +1,6 @@
 ﻿namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin
 {
-    partial class AddSpecialistTypeByAdmin
+    partial class FrmAddSpecialistTypeByAdmin
     {
         /// <summary>
         /// Required designer variable.
@@ -43,7 +43,6 @@
             this.LblSpecialistType.Size = new System.Drawing.Size(53, 15);
             this.LblSpecialistType.TabIndex = 0;
             this.LblSpecialistType.Text = "متخصص";
-            this.LblSpecialistType.Click += new System.EventHandler(this.LblSpecialistType_Click);
             // 
             // TxtSpecialistType
             // 
@@ -51,7 +50,6 @@
             this.TxtSpecialistType.Name = "TxtSpecialistType";
             this.TxtSpecialistType.Size = new System.Drawing.Size(250, 23);
             this.TxtSpecialistType.TabIndex = 1;
-            this.TxtSpecialistType.TextChanged += new System.EventHandler(this.TxtSpecialistType_TextChanged);
             // 
             // ComboSpecialistType
             // 
@@ -80,7 +78,7 @@
             this.BtnSubmit.UseVisualStyleBackColor = true;
             this.BtnSubmit.Click += new System.EventHandler(this.BtnSubmit_Click);
             // 
-            // AddSpecialistTypeByAdmin
+            // FrmAddSpecialistTypeByAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -92,9 +90,9 @@
             this.Controls.Add(this.TxtSpecialistType);
             this.Controls.Add(this.LblSpecialistType);
             this.MaximizeBox = false;
-            this.Name = "AddSpecialistTypeByAdmin";
+            this.Name = "FrmAddSpecialistTypeByAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddSpecialistTypeByAdmin";
+            this.Text = "FrmAddSpecialistTypeByAdmin";
             this.Load += new System.EventHandler(this.AddSpecialistTypeByAdmin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

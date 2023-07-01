@@ -28,4 +28,6 @@
     <ProjectReference Include="..\OnlineHospitalAppointment.Dll.Tools\OnlineHospitalAppointment.Dll.Tools.csproj" />
   </ItemGroup>
 
+	<!--see https://github.com/SaneiyanReza-->
+
 </Project>

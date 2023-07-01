@@ -117,7 +117,7 @@
             this.BtnDeleteExpert.Location = new System.Drawing.Point(228, 463);
             this.BtnDeleteExpert.Name = "BtnDeleteExpert";
             this.BtnDeleteExpert.Size = new System.Drawing.Size(90, 36);
-            this.BtnDeleteExpert.TabIndex = 12;
+            this.BtnDeleteExpert.TabIndex = 4;
             this.BtnDeleteExpert.Text = "Delete Expert";
             this.BtnDeleteExpert.UseVisualStyleBackColor = true;
             this.BtnDeleteExpert.Click += new System.EventHandler(this.BtnDeleteExpert_Click);
@@ -127,7 +127,7 @@
             this.BtnModifyExpert.Location = new System.Drawing.Point(122, 463);
             this.BtnModifyExpert.Name = "BtnModifyExpert";
             this.BtnModifyExpert.Size = new System.Drawing.Size(90, 36);
-            this.BtnModifyExpert.TabIndex = 13;
+            this.BtnModifyExpert.TabIndex = 3;
             this.BtnModifyExpert.Text = "Modify Expert";
             this.BtnModifyExpert.UseVisualStyleBackColor = true;
             this.BtnModifyExpert.Click += new System.EventHandler(this.BtnModifyExpert_Click);
@@ -137,7 +137,7 @@
             this.BtnSuspend.Location = new System.Drawing.Point(336, 463);
             this.BtnSuspend.Name = "BtnSuspend";
             this.BtnSuspend.Size = new System.Drawing.Size(91, 36);
-            this.BtnSuspend.TabIndex = 14;
+            this.BtnSuspend.TabIndex = 5;
             this.BtnSuspend.Text = "Suspend!";
             this.BtnSuspend.UseVisualStyleBackColor = true;
             this.BtnSuspend.Click += new System.EventHandler(this.BtnSuspend_Click);
@@ -147,7 +147,7 @@
             this.BtnShowUser.Location = new System.Drawing.Point(680, 463);
             this.BtnShowUser.Name = "BtnShowUser";
             this.BtnShowUser.Size = new System.Drawing.Size(97, 36);
-            this.BtnShowUser.TabIndex = 15;
+            this.BtnShowUser.TabIndex = 7;
             this.BtnShowUser.Text = "Show User";
             this.BtnShowUser.UseVisualStyleBackColor = true;
             this.BtnShowUser.Click += new System.EventHandler(this.BtnShowUser_Click);
@@ -157,7 +157,7 @@
             this.TxtSearchFor.Location = new System.Drawing.Point(489, 67);
             this.TxtSearchFor.Name = "TxtSearchFor";
             this.TxtSearchFor.Size = new System.Drawing.Size(287, 23);
-            this.TxtSearchFor.TabIndex = 19;
+            this.TxtSearchFor.TabIndex = 9;
             this.TxtSearchFor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSearchFor_KeyDown);
             // 
             // LblSearchFor
@@ -189,7 +189,7 @@
             this.CmbField.Location = new System.Drawing.Point(489, 28);
             this.CmbField.Name = "CmbField";
             this.CmbField.Size = new System.Drawing.Size(287, 23);
-            this.CmbField.TabIndex = 16;
+            this.CmbField.TabIndex = 8;
             // 
             // GvReceiveExpertsPanel
             // 
@@ -212,9 +212,10 @@
             this.BtnAddSpecialistType.Location = new System.Drawing.Point(446, 463);
             this.BtnAddSpecialistType.Name = "BtnAddSpecialistType";
             this.BtnAddSpecialistType.Size = new System.Drawing.Size(122, 36);
-            this.BtnAddSpecialistType.TabIndex = 21;
+            this.BtnAddSpecialistType.TabIndex = 6;
             this.BtnAddSpecialistType.Text = "Add Specialist Type";
             this.BtnAddSpecialistType.UseVisualStyleBackColor = true;
+            this.BtnAddSpecialistType.Click += new System.EventHandler(this.BtnAddSpecialistType_Click);
             // 
             // FrmAdminDashboard
             // 
@@ -238,7 +239,9 @@
             this.Controls.Add(this.BtnAddExpert);
             this.Controls.Add(this.LblShowTotalExperts);
             this.Controls.Add(this.LblTotalExperts);
+            this.MaximizeBox = false;
             this.Name = "FrmAdminDashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmAdminDashboard";
             this.Load += new System.EventHandler(this.FrmAdminDashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveExpertsPanel)).EndInit();

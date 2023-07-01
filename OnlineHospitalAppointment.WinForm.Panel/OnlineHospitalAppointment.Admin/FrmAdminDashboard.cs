@@ -136,6 +136,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             }
         }
 
+        private void BtnAddSpecialistType_Click(object sender, EventArgs e)
+        {
+            FrmAddSpecialistTypeByAdmin frmAddSpecialistTypeByAdmin = new(_dbContext);
+            frmAddSpecialistTypeByAdmin.ShowDialog();
+        }
+
         private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)
         {
             if (!isFiltered)
