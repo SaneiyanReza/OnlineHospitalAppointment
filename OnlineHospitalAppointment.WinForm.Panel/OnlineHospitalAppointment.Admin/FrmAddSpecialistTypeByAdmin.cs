@@ -22,7 +22,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
         private void BtnSubmit_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TxtSpecialistType.Text))
+            {
                 MessageBox.Show("specialist type must have value");
+                return;
+            }
 
             SpecialistType specialistType = new(TxtSpecialistType.Text);
 
@@ -35,6 +38,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             ComboSpecialistType.DataSource = _dbContext.SpecialistTypes
                 .Select(x => x.Specialist)
                 .ToArray();
+
+            MessageBox.Show($"Successfully!", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             BackColor = Color.Empty;
         }

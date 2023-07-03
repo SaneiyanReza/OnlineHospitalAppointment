@@ -9,7 +9,7 @@ public partial class Expert
         FullName = fullName;
         SpecialistTypeId = specialistTypeId;
         CityId = cityId;
-        CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.Now);
+        CreateDateTime = DateTime.Now.ToUnixTime();
         UserId = userId;
     }
 
@@ -23,15 +23,17 @@ public partial class Expert
 
     public int CreateDateTime { get; set; }
 
+    public int UserId { get; set; }
+
     public bool IsDeleted { get; set; }
 
     public bool IsSuspended { get; set; }
 
-    public int UserId { get; set; }
+    public virtual ICollection<AppointmentChart> AppointmentCharts { get; } = new List<AppointmentChart>();
 
-    public ICollection<ReservationLog> ReservationLogs { get; } = new List<ReservationLog>();
+    public virtual ICollection<ReservationLog> ReservationLogs { get; } = new List<ReservationLog>();
 
-    public User User { get; set; }
+    public virtual User User { get; set; }
 
     public void ModifyExpertByAdmin(string fullName, int specialistTypeId, int cityId)
     {
@@ -49,5 +51,4 @@ public partial class Expert
     {
         IsSuspended = true;
     }
-
 }

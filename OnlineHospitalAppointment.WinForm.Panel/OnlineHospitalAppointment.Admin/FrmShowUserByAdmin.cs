@@ -77,7 +77,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     .FirstOrDefault(x => x.Id == userId);
 
                 if (user is null)
+                {
                     MessageBox.Show("user not found");
+                    return;
+                }
 
                 user.Delete();
 
@@ -106,7 +109,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     .FirstOrDefault(x => x.Id == userId);
 
                 if (user is null)
+                {
                     MessageBox.Show("user not found");
+                    return;
+                }
 
                 user.Suspend();
 

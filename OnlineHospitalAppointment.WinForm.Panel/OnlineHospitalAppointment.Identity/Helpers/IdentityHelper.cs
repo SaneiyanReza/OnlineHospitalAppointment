@@ -30,5 +30,16 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.UtcNow)
             });
         }
+
+        public static bool IsUniqueUserName(string userName)
+        {
+            bool isUnique = string.IsNullOrWhiteSpace(DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueUserName,
+            new
+            {
+                userName
+            }));
+
+            return isUnique;
+        }
     }
 }

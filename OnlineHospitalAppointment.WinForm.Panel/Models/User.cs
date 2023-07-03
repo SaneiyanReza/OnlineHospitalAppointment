@@ -14,7 +14,7 @@ public partial class User
         IsMale = isMale;
         PhoneNumber = phoneNumber;
         BirthDay = birthDay;
-        CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.Now);
+        CreateDateTime = DateTime.Now.ToUnixTime();
         RoleId = roleId;
         IsDeleted = false;
         IsSuspended = false;
@@ -46,12 +46,14 @@ public partial class User
 
     public virtual ICollection<AdminActivityLog> AdminActivityLogs { get; } = new List<AdminActivityLog>();
 
+    public virtual ICollection<AppointmentChart> AppointmentCharts { get; } = new List<AppointmentChart>();
+
     public virtual ICollection<Expert> Experts { get; } = new List<Expert>();
 
     public virtual Role Role { get; set; }
 
     public void ModifyUserByAdmin(string nationalCode, string name, string lastName,
-        bool isMale, string phoneNumber, string birthDay)
+       bool isMale, string phoneNumber, string birthDay)
     {
         NationalCode = nationalCode;
         Name = name;

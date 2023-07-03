@@ -25,9 +25,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
         {
             if (!string.IsNullOrEmpty(TxtPassword.Text) || !string.IsNullOrEmpty(TxtUserName.Text))
             {
-                LoginLogsDto loginLogsDto = IdentityHelper.GetLoginLogByUserName(TxtUserName.Text.ToLower());
+                bool isUniqueUserName = IdentityHelper.IsUniqueUserName(TxtUserName.Text.ToLower());
 
-                if (loginLogsDto is not null)
+                if (!isUniqueUserName)
                 {
                     MessageBox.Show("Username Already exist please try another ",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -107,7 +107,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
         private void TxtPassword_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            (bool isValid, string errorMessage) = UserInfoValidationHelper.PasswordValidation(TxtUserName.Text);
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.PasswordValidation(TxtPassword.Text);
 
             e.Cancel = !isValid;
             ErrorProviderApp.SetError(TxtPassword, errorMessage);

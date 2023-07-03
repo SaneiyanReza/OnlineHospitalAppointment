@@ -8,7 +8,7 @@ public partial class AdminActivityLog
     {
         UserId = userId;
         Description = description;
-        CreateDateTime = DateTimeHelper.ToUnixTime(DateTime.Now);
+        CreateDateTime = DateTime.Now.ToUnixTime();
     }
 
     public int Id { get; set; }

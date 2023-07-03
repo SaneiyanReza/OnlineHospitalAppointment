@@ -50,6 +50,8 @@
             this.BtnSubmit = new System.Windows.Forms.Button();
             this.ErrorProviderApp = new System.Windows.Forms.ErrorProvider(this.components);
             this.DateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.TxtPassword = new System.Windows.Forms.TextBox();
+            this.LblPassword = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +67,7 @@
             // LblName
             // 
             this.LblName.AutoSize = true;
-            this.LblName.Location = new System.Drawing.Point(12, 56);
+            this.LblName.Location = new System.Drawing.Point(12, 90);
             this.LblName.Name = "LblName";
             this.LblName.Size = new System.Drawing.Size(45, 15);
             this.LblName.TabIndex = 1;
@@ -74,7 +76,7 @@
             // LblLastName
             // 
             this.LblLastName.AutoSize = true;
-            this.LblLastName.Location = new System.Drawing.Point(12, 98);
+            this.LblLastName.Location = new System.Drawing.Point(12, 132);
             this.LblLastName.Name = "LblLastName";
             this.LblLastName.Size = new System.Drawing.Size(69, 15);
             this.LblLastName.TabIndex = 2;
@@ -83,7 +85,7 @@
             // LblGender
             // 
             this.LblGender.AutoSize = true;
-            this.LblGender.Location = new System.Drawing.Point(12, 263);
+            this.LblGender.Location = new System.Drawing.Point(12, 297);
             this.LblGender.Name = "LblGender";
             this.LblGender.Size = new System.Drawing.Size(51, 15);
             this.LblGender.TabIndex = 3;
@@ -92,7 +94,7 @@
             // LblPhoneNumber
             // 
             this.LblPhoneNumber.AutoSize = true;
-            this.LblPhoneNumber.Location = new System.Drawing.Point(12, 177);
+            this.LblPhoneNumber.Location = new System.Drawing.Point(12, 211);
             this.LblPhoneNumber.Name = "LblPhoneNumber";
             this.LblPhoneNumber.Size = new System.Drawing.Size(94, 15);
             this.LblPhoneNumber.TabIndex = 4;
@@ -101,7 +103,7 @@
             // LblBirthDay
             // 
             this.LblBirthDay.AutoSize = true;
-            this.LblBirthDay.Location = new System.Drawing.Point(12, 219);
+            this.LblBirthDay.Location = new System.Drawing.Point(12, 253);
             this.LblBirthDay.Name = "LblBirthDay";
             this.LblBirthDay.Size = new System.Drawing.Size(61, 15);
             this.LblBirthDay.TabIndex = 5;
@@ -110,7 +112,7 @@
             // LblNationalCode
             // 
             this.LblNationalCode.AutoSize = true;
-            this.LblNationalCode.Location = new System.Drawing.Point(12, 138);
+            this.LblNationalCode.Location = new System.Drawing.Point(12, 172);
             this.LblNationalCode.Name = "LblNationalCode";
             this.LblNationalCode.Size = new System.Drawing.Size(89, 15);
             this.LblNationalCode.TabIndex = 6;
@@ -119,7 +121,7 @@
             // LblSpecialistType
             // 
             this.LblSpecialistType.AutoSize = true;
-            this.LblSpecialistType.Location = new System.Drawing.Point(12, 337);
+            this.LblSpecialistType.Location = new System.Drawing.Point(12, 371);
             this.LblSpecialistType.Name = "LblSpecialistType";
             this.LblSpecialistType.Size = new System.Drawing.Size(89, 15);
             this.LblSpecialistType.TabIndex = 7;
@@ -128,7 +130,7 @@
             // LblCity
             // 
             this.LblCity.AutoSize = true;
-            this.LblCity.Location = new System.Drawing.Point(13, 384);
+            this.LblCity.Location = new System.Drawing.Point(13, 418);
             this.LblCity.Name = "LblCity";
             this.LblCity.Size = new System.Drawing.Size(34, 15);
             this.LblCity.TabIndex = 8;
@@ -144,43 +146,43 @@
             // 
             // TxtName
             // 
-            this.TxtName.Location = new System.Drawing.Point(112, 53);
+            this.TxtName.Location = new System.Drawing.Point(112, 87);
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(209, 23);
-            this.TxtName.TabIndex = 10;
+            this.TxtName.TabIndex = 11;
             this.TxtName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtName_Validating);
             // 
             // TxtLastName
             // 
-            this.TxtLastName.Location = new System.Drawing.Point(112, 92);
+            this.TxtLastName.Location = new System.Drawing.Point(112, 126);
             this.TxtLastName.Name = "TxtLastName";
             this.TxtLastName.Size = new System.Drawing.Size(209, 23);
-            this.TxtLastName.TabIndex = 11;
+            this.TxtLastName.TabIndex = 12;
             this.TxtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtLastName_Validating);
             // 
             // TxtNationalCode
             // 
-            this.TxtNationalCode.Location = new System.Drawing.Point(112, 132);
+            this.TxtNationalCode.Location = new System.Drawing.Point(112, 166);
             this.TxtNationalCode.Name = "TxtNationalCode";
             this.TxtNationalCode.Size = new System.Drawing.Size(209, 23);
-            this.TxtNationalCode.TabIndex = 12;
+            this.TxtNationalCode.TabIndex = 13;
             this.TxtNationalCode.Validating += new System.ComponentModel.CancelEventHandler(this.TxtNationalCode_Validating);
             // 
             // TxtPhoneNumber
             // 
-            this.TxtPhoneNumber.Location = new System.Drawing.Point(112, 174);
+            this.TxtPhoneNumber.Location = new System.Drawing.Point(112, 208);
             this.TxtPhoneNumber.Name = "TxtPhoneNumber";
             this.TxtPhoneNumber.Size = new System.Drawing.Size(209, 23);
-            this.TxtPhoneNumber.TabIndex = 13;
+            this.TxtPhoneNumber.TabIndex = 14;
             this.TxtPhoneNumber.Validating += new System.ComponentModel.CancelEventHandler(this.TxtPhoneNumber_Validating);
             // 
             // RbIsMale
             // 
             this.RbIsMale.AutoSize = true;
-            this.RbIsMale.Location = new System.Drawing.Point(112, 263);
+            this.RbIsMale.Location = new System.Drawing.Point(112, 297);
             this.RbIsMale.Name = "RbIsMale";
             this.RbIsMale.Size = new System.Drawing.Size(51, 19);
-            this.RbIsMale.TabIndex = 15;
+            this.RbIsMale.TabIndex = 16;
             this.RbIsMale.TabStop = true;
             this.RbIsMale.Text = "Male";
             this.RbIsMale.UseVisualStyleBackColor = true;
@@ -188,10 +190,10 @@
             // RbIsFemale
             // 
             this.RbIsFemale.AutoSize = true;
-            this.RbIsFemale.Location = new System.Drawing.Point(206, 263);
+            this.RbIsFemale.Location = new System.Drawing.Point(206, 297);
             this.RbIsFemale.Name = "RbIsFemale";
             this.RbIsFemale.Size = new System.Drawing.Size(63, 19);
-            this.RbIsFemale.TabIndex = 16;
+            this.RbIsFemale.TabIndex = 17;
             this.RbIsFemale.TabStop = true;
             this.RbIsFemale.Text = "Female";
             this.RbIsFemale.UseVisualStyleBackColor = true;
@@ -199,27 +201,27 @@
             // ComboSpecialistType
             // 
             this.ComboSpecialistType.FormattingEnabled = true;
-            this.ComboSpecialistType.Location = new System.Drawing.Point(117, 337);
+            this.ComboSpecialistType.Location = new System.Drawing.Point(117, 371);
             this.ComboSpecialistType.Name = "ComboSpecialistType";
             this.ComboSpecialistType.Size = new System.Drawing.Size(204, 23);
-            this.ComboSpecialistType.TabIndex = 17;
+            this.ComboSpecialistType.TabIndex = 18;
             this.ComboSpecialistType.Validating += new System.ComponentModel.CancelEventHandler(this.ComboSpecialistType_Validating);
             // 
             // ComboCity
             // 
             this.ComboCity.FormattingEnabled = true;
-            this.ComboCity.Location = new System.Drawing.Point(117, 384);
+            this.ComboCity.Location = new System.Drawing.Point(117, 418);
             this.ComboCity.Name = "ComboCity";
             this.ComboCity.Size = new System.Drawing.Size(204, 23);
-            this.ComboCity.TabIndex = 18;
+            this.ComboCity.TabIndex = 19;
             this.ComboCity.Validating += new System.ComponentModel.CancelEventHandler(this.ComboCity_Validating);
             // 
             // BtnSubmit
             // 
-            this.BtnSubmit.Location = new System.Drawing.Point(87, 428);
+            this.BtnSubmit.Location = new System.Drawing.Point(87, 462);
             this.BtnSubmit.Name = "BtnSubmit";
             this.BtnSubmit.Size = new System.Drawing.Size(169, 36);
-            this.BtnSubmit.TabIndex = 19;
+            this.BtnSubmit.TabIndex = 20;
             this.BtnSubmit.Text = "Submit";
             this.BtnSubmit.UseVisualStyleBackColor = true;
             this.BtnSubmit.Click += new System.EventHandler(this.BtnSubmit_Click);
@@ -230,18 +232,37 @@
             // 
             // DateOfBirthTimePicker
             // 
-            this.DateOfBirthTimePicker.Location = new System.Drawing.Point(112, 213);
+            this.DateOfBirthTimePicker.Location = new System.Drawing.Point(112, 247);
             this.DateOfBirthTimePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.DateOfBirthTimePicker.Name = "DateOfBirthTimePicker";
             this.DateOfBirthTimePicker.Size = new System.Drawing.Size(209, 23);
-            this.DateOfBirthTimePicker.TabIndex = 14;
+            this.DateOfBirthTimePicker.TabIndex = 15;
+            // 
+            // TxtPassword
+            // 
+            this.TxtPassword.Location = new System.Drawing.Point(112, 51);
+            this.TxtPassword.Name = "TxtPassword";
+            this.TxtPassword.Size = new System.Drawing.Size(209, 23);
+            this.TxtPassword.TabIndex = 10;
+            this.TxtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.TxtPassword_Validating);
+            // 
+            // LblPassword
+            // 
+            this.LblPassword.AutoSize = true;
+            this.LblPassword.Location = new System.Drawing.Point(10, 54);
+            this.LblPassword.Name = "LblPassword";
+            this.LblPassword.Size = new System.Drawing.Size(66, 15);
+            this.LblPassword.TabIndex = 20;
+            this.LblPassword.Text = "Password : ";
             // 
             // FrmAddExpertByAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(339, 476);
+            this.ClientSize = new System.Drawing.Size(339, 512);
+            this.Controls.Add(this.TxtPassword);
+            this.Controls.Add(this.LblPassword);
             this.Controls.Add(this.DateOfBirthTimePicker);
             this.Controls.Add(this.BtnSubmit);
             this.Controls.Add(this.ComboCity);
@@ -267,6 +288,7 @@
             this.Name = "FrmAddExpertByAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmAddExpertByAdmin";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAddExpertByAdmin_FormClosing);
             this.Load += new System.EventHandler(this.FrmAddExpertByAdmin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).EndInit();
             this.ResumeLayout(false);
@@ -297,5 +319,7 @@
         private Button BtnSubmit;
         private ErrorProvider ErrorProviderApp;
         private DateTimePicker DateOfBirthTimePicker;
+        private TextBox TxtPassword;
+        private Label LblPassword;
     }
 }

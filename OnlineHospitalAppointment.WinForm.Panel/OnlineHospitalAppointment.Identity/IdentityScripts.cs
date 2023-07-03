@@ -33,5 +33,10 @@
         public static string GetUserId =>
             @"SELECT Id FROM dbo.Users
                 WHERE UserName = @UserName";
+
+        public static string IsUniqueUserName =>
+            @"SELECT TOP 1 * FROM (
+                        SELECT u.UserName FROM dbo.Users u
+                        WHERE u.UserName LIKE @UserName) tbl";
     }
 }

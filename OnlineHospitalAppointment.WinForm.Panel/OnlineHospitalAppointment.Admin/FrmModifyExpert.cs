@@ -7,7 +7,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
     public partial class FrmModifyExpert : Form
     {
         private OnlineHospitalAppointmentDbContext _dbContext;
-        private readonly int expertId = FrmAdminDashboard.expertId;
+        private static int expertId = FrmAdminDashboard.expertId;
         private static RoleId roleId = (RoleId)(FrmAdminDashboard.roleId ?? FrmExpertDashboard.roleId);
 
         public FrmModifyExpert(OnlineHospitalAppointmentDbContext dbContext)
@@ -28,7 +28,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 .FirstOrDefault(x => x.Id == expertId);
 
             if (expert is null)
+            {
                 MessageBox.Show("user not found");
+                this.Close();
+                return;
+            }
 
             TxtUserName.Text = expert.User.UserName;
             TxtName.Text = expert.User.Name;
@@ -36,7 +40,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             TxtNationalCode.Text = expert.User.NationalCode;
             TxtPhoneNumber.Text = expert.User.PhoneNumber;
             DateOfBirthTimePicker.Text = expert.User.BirthDay;
-            RbIsFemale.Checked = !expert.User.IsMale;
+            RbIsMale.Checked = expert.User.IsMale;
+            RbIsFemale.Checked = !RbIsMale.Checked;
 
             ComboSpecialistType.DataSource = specialists
                 .Select(x => x.Specialist)
@@ -64,17 +69,20 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 .FirstOrDefault(x => x.Id == expertId);
 
             if (expert is null)
+            {
                 MessageBox.Show("user not found");
+                return;
+            }
 
             string fullName = $"{expert.User.Name} {expert.User.LastName}";
 
             int specialistTypeId = _dbContext.SpecialistTypes
-                   .Where(x => x.Specialist.Equals(ComboSpecialistType.SelectedText))
+                   .Where(x => x.Specialist.Equals(ComboSpecialistType.SelectedValue))
                    .Select(x => x.Id)
                    .FirstOrDefault();
 
             int cityId = _dbContext.Cities
-                .Where(x => x.Name.Equals(ComboCity.SelectedText))
+                .Where(x => x.Name.Equals(ComboCity.SelectedValue))
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
@@ -86,8 +94,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             expert.User.ModifyUserByAdmin(TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
                 isMale, TxtPhoneNumber.Text, birthDay);
 
-            _dbContext.SaveChanges();
-
             string description = roleId == RoleId.GodAdmin ? "تغییر پروفایل متخصص توسط ادمین"
                 : "تغییر پروفایل متخصص";
 
@@ -95,6 +101,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
             _dbContext.AdminActivityLogs.Add(adminActivityLog);
             _dbContext.SaveChanges();
+
+            BackColor = Color.Green;
+
+            MessageBox.Show($"Successfully!", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            BackColor = Color.Empty;
         }
     }
 }

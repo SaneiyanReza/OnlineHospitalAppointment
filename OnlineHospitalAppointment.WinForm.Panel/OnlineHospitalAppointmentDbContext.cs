@@ -16,6 +16,8 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
     public virtual DbSet<AdminActivityLog> AdminActivityLogs { get; set; }
 
+    public virtual DbSet<AppointmentChart> AppointmentCharts { get; set; }
+
     public virtual DbSet<City> Cities { get; set; }
 
     public virtual DbSet<Expert> Experts { get; set; }
@@ -32,8 +34,6 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<AppointmentChart> AppointmentCharts { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=.;Database=OnlineHospitalAppointmentDB;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True;");
 
@@ -41,44 +41,67 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
     {
         modelBuilder.Entity<AdminActivityLog>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Description).HasMaxLength(225);
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Description)
+            .HasMaxLength(225);
 
             entity.HasOne(d => d.User).WithMany(p => p.AdminActivityLogs)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdminActivityLogs_Users");
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        });
+
+        modelBuilder.Entity<AppointmentChart>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.Property(x => x.IsReserved)
+            .HasColumnType<bool>("tinyint");
+
+            entity.HasOne(d => d.Expert).WithMany(p => p.AppointmentCharts)
+                .HasForeignKey(d => d.ExpertId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.User).WithMany(p => p.AppointmentCharts)
+                .HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Cities__3214EC070E8C6E28");
+            entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
 
             entity.HasOne(d => d.Province).WithMany(p => p.Cities)
-                .HasForeignKey(d => d.ProvinceId)
-                .HasConstraintName("FK_Cities_Provinces");
+                .HasForeignKey(d => d.ProvinceId);
         });
 
         modelBuilder.Entity<Expert>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity.Property(e => e.FullName)
                 .IsRequired()
                 .HasMaxLength(150);
 
+            entity.Property(x => x.IsDeleted)
+            .HasColumnType<bool>("tinyint");
+
+            entity.Property(x => x.IsSuspended)
+            .HasColumnType<bool>("tinyint");
+
             entity.HasOne(d => d.User).WithMany(p => p.Experts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Experts_Provinces");
+                .HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<LoginLog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_Login");
+            entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Password).IsRequired();
+
             entity.Property(e => e.UserName)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -86,6 +109,8 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
         modelBuilder.Entity<Province>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -93,22 +118,33 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
         modelBuilder.Entity<ReservationLog>(entity =>
         {
-            entity.Property(e => e.Description).HasMaxLength(225);
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Description)
+            .HasMaxLength(225);
+
             entity.Property(e => e.TrackingCode)
                 .IsRequired()
                 .HasMaxLength(6)
                 .IsUnicode(false)
                 .IsFixedLength();
 
+            entity.Property(x => x.IsCanceled)
+            .HasColumnType<bool>("tinyint");
+
+            entity.HasOne(d => d.AppointmentChart).WithMany(p => p.ReservationLogs)
+                .HasForeignKey(d => d.AppointmentChartId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
             entity.HasOne(d => d.Expert).WithMany(p => p.ReservationLogs)
                 .HasForeignKey(d => d.ExpertId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ReservationLogs_Experts");
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasKey(e => e.Id);
+
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -117,6 +153,8 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
         modelBuilder.Entity<SpecialistType>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity.Property(e => e.Specialist)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -124,49 +162,47 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity.Property(e => e.BirthDay)
                 .IsRequired()
                 .HasMaxLength(10)
                 .IsFixedLength();
+
             entity.Property(e => e.LastName)
                 .IsRequired()
                 .HasMaxLength(50);
+
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
+
             entity.Property(e => e.NationalCode)
                 .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false);
+
             entity.Property(e => e.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(11)
                 .IsUnicode(false);
+
             entity.Property(e => e.UserName)
                 .IsRequired()
                 .HasMaxLength(50);
 
+            entity.Property(x => x.IsMale)
+            .HasColumnType<bool>("tinyint");
+
+            entity.Property(x => x.IsDeleted)
+            .HasColumnType<bool>("tinyint");
+
+            entity.Property(x => x.IsSuspended)
+            .HasColumnType<bool>("tinyint");
+
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Users_Roles");
-        });
-
-        modelBuilder.Entity<AppointmentChart>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_AppointmentChart");
-
-            entity.Property(e => e.UserId)
-            .IsRequired(false);
-
-            entity.Property(e => e.ExpertId)
-            .IsRequired();
-
-            entity.Property(e => e.AppointmentDate)
-            .IsRequired();
-
-            entity.Property(e => e.IsReserved)
-            .IsRequired();
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
     }
 }

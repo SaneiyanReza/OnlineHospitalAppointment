@@ -45,6 +45,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
         {
             FrmModifyExpert frmModifyExpertByAdmin = new(_dbContext);
             roleId = RoleId.GodAdmin;
+            expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
             frmModifyExpertByAdmin.ShowDialog();
         }
 
@@ -62,7 +63,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     .FirstOrDefault(x => x.Id == expertId);
 
                 if (expert is null)
+                {
                     MessageBox.Show("user not found");
+                    return;
+                }
 
                 expert.Delete();
                 expert.User.Delete();
@@ -93,7 +97,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     .FirstOrDefault(x => x.Id == expertId);
 
                 if (expert is null)
+                {
                     MessageBox.Show("user not found");
+                    return;
+                }
 
                 expert.Suspend();
                 expert.User.Suspend();
