@@ -35,6 +35,7 @@
             this.BtnDeleteUser = new System.Windows.Forms.Button();
             this.LblSearchFor = new System.Windows.Forms.Label();
             this.LblSearchBy = new System.Windows.Forms.Label();
+            this.BtnTurnOver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveUsersPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,12 +114,23 @@
             this.LblSearchBy.TabIndex = 26;
             this.LblSearchBy.Text = "Search By :";
             // 
+            // BtnTurnOver
+            // 
+            this.BtnTurnOver.Location = new System.Drawing.Point(697, 422);
+            this.BtnTurnOver.Name = "BtnTurnOver";
+            this.BtnTurnOver.Size = new System.Drawing.Size(91, 36);
+            this.BtnTurnOver.TabIndex = 28;
+            this.BtnTurnOver.Text = "Turn Over";
+            this.BtnTurnOver.UseVisualStyleBackColor = true;
+            this.BtnTurnOver.Click += new System.EventHandler(this.BtnTurnOver_Click);
+            // 
             // FrmShowUserByAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(800, 470);
+            this.Controls.Add(this.BtnTurnOver);
             this.Controls.Add(this.LblSearchFor);
             this.Controls.Add(this.LblSearchBy);
             this.Controls.Add(this.GvReceiveUsersPanel);
@@ -145,5 +157,6 @@
         private Button BtnDeleteUser;
         private Label LblSearchFor;
         private Label LblSearchBy;
+        private Button BtnTurnOver;
     }
 }

@@ -73,7 +73,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             {
                 int userId = (int)GvReceiveUsersPanel.CurrentRow.Cells[0].Value;
 
-                WinForm.Panel.Models.User user = _dbContext.Users
+                User user = _dbContext.Users
                     .FirstOrDefault(x => x.Id == userId);
 
                 if (user is null)
@@ -82,7 +82,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     return;
                 }
 
-                user.Delete();
+                user.IsDelete(true);
 
                 string description = $"delete user by admin userId: {userId}";
 
@@ -105,7 +105,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             {
                 int userId = (int)GvReceiveUsersPanel.CurrentRow.Cells[0].Value;
 
-                var user = _dbContext.Users
+                User user = _dbContext.Users
                     .FirstOrDefault(x => x.Id == userId);
 
                 if (user is null)
@@ -114,9 +114,42 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     return;
                 }
 
-                user.Suspend();
+                user.IsSuspend(true);
 
                 string description = $"suspend user by admin userId: {userId}";
+
+                AdminActivityLog adminActivityLog = new(userId, description);
+
+                _dbContext.SaveChanges();
+
+                BackColor = Color.Green;
+                BindGridViewSource(bindingSource);
+                BackColor = Color.Empty;
+            }
+        }
+
+        private void BtnTurnOver_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure to Turn Over User?", "Turn Over",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                int userId = (int)GvReceiveUsersPanel.CurrentRow.Cells[0].Value;
+
+                User user = _dbContext.Users
+                    .FirstOrDefault(x => x.Id == userId);
+
+                if (user is null)
+                {
+                    MessageBox.Show("user not found");
+                    return;
+                }
+
+                user.IsDelete(false);
+                user.IsSuspend(false);
+
+                string description = $"Turn Over user by admin ,userId: {userId}";
 
                 AdminActivityLog adminActivityLog = new(userId, description);
 

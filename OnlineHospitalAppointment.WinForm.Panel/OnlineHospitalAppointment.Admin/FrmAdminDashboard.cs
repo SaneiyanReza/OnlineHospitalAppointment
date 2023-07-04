@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.Models;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Panel.Models.Dtos;
@@ -68,8 +69,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     return;
                 }
 
-                expert.Delete();
-                expert.User.Delete();
+                expert.IsDelete(true);
+                expert.User.IsDelete(true);
 
                 string description = $"delete expert by admin expertId: {expertId} , userId: {expert.UserId}";
 
@@ -102,8 +103,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     return;
                 }
 
-                expert.Suspend();
-                expert.User.Suspend();
+                expert.IsSuspend(true);
+                expert.User.IsSuspend(true);
 
                 string description = $"suspend expert by admin expertId: {expertId} , userId: {expert.UserId}";
 
@@ -149,6 +150,42 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             frmAddSpecialistTypeByAdmin.ShowDialog();
         }
 
+        private void BtnTurnOver_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure to Turn Over expert?", "Turn Over",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+
+                Expert expert = _dbContext.Experts
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.Id == expertId);
+
+                if (expert is null)
+                {
+                    MessageBox.Show("user not found");
+                    return;
+                }
+
+                expert.IsDelete(false);
+                expert.IsSuspend(false);
+                expert.User.IsDelete(false);
+                expert.User.IsSuspend(false);
+
+                string description = $"Turn Over expert by admin expertId: {expertId} , userId: {expert.UserId}";
+
+                AdminActivityLog adminActivityLog = new(expertId, description);
+
+                _dbContext.SaveChanges();
+
+                BackColor = Color.Green;
+                BindGridViewSource(bindingSource);
+                BackColor = Color.Empty;
+            }
+        }
+
         private void BindGridViewSource(BindingSource bindingSource, bool isFiltered = default)
         {
             if (!isFiltered)
@@ -171,6 +208,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             view = mapper.Map<ExpertView[]>(experts);
 
             return view;
+        }
+
+        private void BtnEditIdentity_Click(object sender, EventArgs e)
+        {
+            FrmEditIdentity frmEditIdentity = new(_dbContext);
+            frmEditIdentity.ShowDialog();
         }
     }
 }

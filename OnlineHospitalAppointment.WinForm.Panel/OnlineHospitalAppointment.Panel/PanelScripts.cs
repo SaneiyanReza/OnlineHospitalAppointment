@@ -7,12 +7,14 @@
                 e.FullName,
                 st.Specialist,
                 p.Name AS ProvienceName,
-	            c.Name AS CityName
+	            c.Name AS CityName,
+                e.IsDeleted,
+                e.IsSuspended
 	            FROM dbo.Experts e
              JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
              JOIN dbo.Cities c ON c.Id = e.CityId
              LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-             WHERE e.IsSuspended = 0 AND e.IsDeleted = 0";
+                ORDER BY e.IsDeleted";
 
         public static string GetReservationLogData =>
             @"SELECT ac.AppointmentDate FROM dbo.AppointmentCharts ac

@@ -12,9 +12,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
         public static string fullName;
         private static int userId;
 
-        public FrmManageAccount()
+        private readonly OnlineHospitalAppointmentDbContext _dbContext;
+
+        public FrmManageAccount(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
+            _dbContext = dbContext;
         }
 
         private void FrmManageAccount_Load(object sender, EventArgs e)
@@ -77,7 +80,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Acco
 
         private void BtnAppointmentReservation_Click(object sender, EventArgs e)
         {
-            FrmReservationDashboard frmReservationDashboard = new();
+            FrmReservationDashboard frmReservationDashboard = new(_dbContext);
             fullName = $"{TxtName.Text} {TxtLastName.Text}";
             this.Close();
             frmReservationDashboard.ShowDialog();

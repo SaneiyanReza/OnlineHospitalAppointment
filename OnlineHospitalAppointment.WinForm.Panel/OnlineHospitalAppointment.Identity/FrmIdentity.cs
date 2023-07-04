@@ -85,7 +85,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                             break;
 
                         case (int)RoleId.User:
-                            FrmManageAccount frmManageAccount = new();
+                            FrmManageAccount frmManageAccount = new(_dbContext);
                             userName = TxtUserName.Text.ToLower();
                             frmManageAccount.ShowDialog();
                             break;

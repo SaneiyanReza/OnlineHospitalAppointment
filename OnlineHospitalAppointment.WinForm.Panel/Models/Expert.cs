@@ -42,13 +42,13 @@ public partial class Expert
         CityId = cityId;
     }
 
-    public void Delete()
+    public void IsDelete(bool isDelete)
     {
-        IsDeleted = true;
+        IsDeleted = isDelete;
     }
 
-    public void Suspend()
+    public void IsSuspend(bool isSuspend)
     {
-        IsSuspended = true;
+        IsSuspended = isSuspend;
     }
 }

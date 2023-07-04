@@ -110,5 +110,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             roleId = RoleId.Expert;
             frmModifyExpert.ShowDialog();
         }
+
+        private void BtnModifyIdentity_Click(object sender, EventArgs e)
+        {
+            FrmEditIdentity frmEditIdentity = new(_dbContext);
+            frmEditIdentity.ShowDialog();
+        }
     }
 }

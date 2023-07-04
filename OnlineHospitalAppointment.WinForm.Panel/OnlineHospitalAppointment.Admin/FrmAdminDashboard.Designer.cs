@@ -45,6 +45,8 @@
             this.CmbField = new System.Windows.Forms.ComboBox();
             this.GvReceiveExpertsPanel = new System.Windows.Forms.DataGridView();
             this.BtnAddSpecialistType = new System.Windows.Forms.Button();
+            this.BtnTurnOver = new System.Windows.Forms.Button();
+            this.BtnEditIdentity = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveExpertsPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,17 +146,17 @@
             // 
             // BtnShowUser
             // 
-            this.BtnShowUser.Location = new System.Drawing.Point(680, 463);
+            this.BtnShowUser.Location = new System.Drawing.Point(658, 463);
             this.BtnShowUser.Name = "BtnShowUser";
-            this.BtnShowUser.Size = new System.Drawing.Size(97, 36);
-            this.BtnShowUser.TabIndex = 7;
+            this.BtnShowUser.Size = new System.Drawing.Size(169, 36);
+            this.BtnShowUser.TabIndex = 8;
             this.BtnShowUser.Text = "Show User";
             this.BtnShowUser.UseVisualStyleBackColor = true;
             this.BtnShowUser.Click += new System.EventHandler(this.BtnShowUser_Click);
             // 
             // TxtSearchFor
             // 
-            this.TxtSearchFor.Location = new System.Drawing.Point(489, 67);
+            this.TxtSearchFor.Location = new System.Drawing.Point(540, 67);
             this.TxtSearchFor.Name = "TxtSearchFor";
             this.TxtSearchFor.Size = new System.Drawing.Size(287, 23);
             this.TxtSearchFor.TabIndex = 9;
@@ -163,7 +165,7 @@
             // LblSearchFor
             // 
             this.LblSearchFor.AutoSize = true;
-            this.LblSearchFor.Location = new System.Drawing.Point(405, 70);
+            this.LblSearchFor.Location = new System.Drawing.Point(456, 70);
             this.LblSearchFor.Name = "LblSearchFor";
             this.LblSearchFor.Size = new System.Drawing.Size(68, 15);
             this.LblSearchFor.TabIndex = 18;
@@ -172,7 +174,7 @@
             // LblSearchBy
             // 
             this.LblSearchBy.AutoSize = true;
-            this.LblSearchBy.Location = new System.Drawing.Point(405, 31);
+            this.LblSearchBy.Location = new System.Drawing.Point(456, 31);
             this.LblSearchBy.Name = "LblSearchBy";
             this.LblSearchBy.Size = new System.Drawing.Size(64, 15);
             this.LblSearchBy.TabIndex = 17;
@@ -186,7 +188,7 @@
             "FullName",
             "Specialist",
             "Address"});
-            this.CmbField.Location = new System.Drawing.Point(489, 28);
+            this.CmbField.Location = new System.Drawing.Point(540, 28);
             this.CmbField.Name = "CmbField";
             this.CmbField.Size = new System.Drawing.Size(287, 23);
             this.CmbField.TabIndex = 8;
@@ -204,12 +206,12 @@
             this.GvReceiveExpertsPanel.ReadOnly = true;
             this.GvReceiveExpertsPanel.RowTemplate.Height = 25;
             this.GvReceiveExpertsPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GvReceiveExpertsPanel.Size = new System.Drawing.Size(763, 337);
+            this.GvReceiveExpertsPanel.Size = new System.Drawing.Size(814, 337);
             this.GvReceiveExpertsPanel.TabIndex = 20;
             // 
             // BtnAddSpecialistType
             // 
-            this.BtnAddSpecialistType.Location = new System.Drawing.Point(446, 463);
+            this.BtnAddSpecialistType.Location = new System.Drawing.Point(13, 508);
             this.BtnAddSpecialistType.Name = "BtnAddSpecialistType";
             this.BtnAddSpecialistType.Size = new System.Drawing.Size(122, 36);
             this.BtnAddSpecialistType.TabIndex = 6;
@@ -217,11 +219,33 @@
             this.BtnAddSpecialistType.UseVisualStyleBackColor = true;
             this.BtnAddSpecialistType.Click += new System.EventHandler(this.BtnAddSpecialistType_Click);
             // 
+            // BtnTurnOver
+            // 
+            this.BtnTurnOver.Location = new System.Drawing.Point(443, 463);
+            this.BtnTurnOver.Name = "BtnTurnOver";
+            this.BtnTurnOver.Size = new System.Drawing.Size(91, 36);
+            this.BtnTurnOver.TabIndex = 7;
+            this.BtnTurnOver.Text = "Turn Over!";
+            this.BtnTurnOver.UseVisualStyleBackColor = true;
+            this.BtnTurnOver.Click += new System.EventHandler(this.BtnTurnOver_Click);
+            // 
+            // BtnEditIdentity
+            // 
+            this.BtnEditIdentity.Location = new System.Drawing.Point(658, 508);
+            this.BtnEditIdentity.Name = "BtnEditIdentity";
+            this.BtnEditIdentity.Size = new System.Drawing.Size(169, 36);
+            this.BtnEditIdentity.TabIndex = 21;
+            this.BtnEditIdentity.Text = "Edit Identity";
+            this.BtnEditIdentity.UseVisualStyleBackColor = true;
+            this.BtnEditIdentity.Click += new System.EventHandler(this.BtnEditIdentity_Click);
+            // 
             // FrmAdminDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 509);
+            this.ClientSize = new System.Drawing.Size(839, 556);
+            this.Controls.Add(this.BtnEditIdentity);
+            this.Controls.Add(this.BtnTurnOver);
             this.Controls.Add(this.BtnAddSpecialistType);
             this.Controls.Add(this.GvReceiveExpertsPanel);
             this.Controls.Add(this.TxtSearchFor);
@@ -269,5 +293,7 @@
         private ComboBox CmbField;
         private DataGridView GvReceiveExpertsPanel;
         private Button BtnAddSpecialistType;
+        private Button BtnTurnOver;
+        private Button BtnEditIdentity;
     }
 }

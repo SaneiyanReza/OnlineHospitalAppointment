@@ -12,9 +12,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         private static UserAppointmentView[] view = default;
         private readonly BindingSource bindingSource = new();
 
-        public FrmUserAppointments()
+        private readonly OnlineHospitalAppointmentDbContext _dbContext;
+
+        public FrmUserAppointments(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
+            _dbContext = dbContext;
         }
 
         private void FrmUserAppointments_Load(object sender, EventArgs e)
@@ -91,7 +94,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         {
             this.Hide();
 
-            FrmReservationDashboard frmReservationDashboard = new();
+            FrmReservationDashboard frmReservationDashboard = new(_dbContext);
             frmReservationDashboard.ShowDialog();
         }
 

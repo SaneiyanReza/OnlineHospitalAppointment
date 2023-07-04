@@ -37,6 +37,9 @@
         public static string IsUniqueUserName =>
             @"SELECT TOP 1 * FROM (
                         SELECT u.UserName FROM dbo.Users u
-                        WHERE u.UserName LIKE @UserName) tbl";
+                            WHERE u.UserName LIKE @UserName
+                        UNION
+                        SELECT * FROM dbo.LoginLogs ll
+						    WHERE ll.UserName LIKE @UserName) tbl";
     }
 }

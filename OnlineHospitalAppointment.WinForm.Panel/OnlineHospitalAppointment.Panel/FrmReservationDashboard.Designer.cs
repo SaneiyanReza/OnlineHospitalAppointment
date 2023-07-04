@@ -42,6 +42,7 @@
             this.BtnEditProfile = new System.Windows.Forms.Button();
             this.BtnBack = new System.Windows.Forms.Button();
             this.BtnEntry = new System.Windows.Forms.Button();
+            this.BtnEditIdentity = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GvReceiveExpertsPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,7 +125,7 @@
             this.BtnReserve.Location = new System.Drawing.Point(318, 428);
             this.BtnReserve.Name = "BtnReserve";
             this.BtnReserve.Size = new System.Drawing.Size(78, 23);
-            this.BtnReserve.TabIndex = 10;
+            this.BtnReserve.TabIndex = 18;
             this.BtnReserve.Text = "Reserve";
             this.BtnReserve.UseVisualStyleBackColor = true;
             this.BtnReserve.Click += new System.EventHandler(this.BtnReserve_Click);
@@ -134,7 +135,7 @@
             this.BtnReport.Location = new System.Drawing.Point(627, 405);
             this.BtnReport.Name = "BtnReport";
             this.BtnReport.Size = new System.Drawing.Size(75, 41);
-            this.BtnReport.TabIndex = 11;
+            this.BtnReport.TabIndex = 19;
             this.BtnReport.Text = "Reports";
             this.BtnReport.UseVisualStyleBackColor = true;
             this.BtnReport.Click += new System.EventHandler(this.BtnReport_Click);
@@ -163,7 +164,7 @@
             this.BtnEditProfile.Name = "BtnEditProfile";
             this.BtnEditProfile.Size = new System.Drawing.Size(75, 41);
             this.BtnEditProfile.TabIndex = 14;
-            this.BtnEditProfile.Text = "EditProfile";
+            this.BtnEditProfile.Text = "Edit Profile";
             this.BtnEditProfile.UseVisualStyleBackColor = true;
             this.BtnEditProfile.Click += new System.EventHandler(this.BtnEditProfile_Click);
             // 
@@ -174,7 +175,7 @@
             this.BtnBack.Location = new System.Drawing.Point(318, 396);
             this.BtnBack.Name = "BtnBack";
             this.BtnBack.Size = new System.Drawing.Size(36, 26);
-            this.BtnBack.TabIndex = 15;
+            this.BtnBack.TabIndex = 16;
             this.BtnBack.Text = "<--";
             this.BtnBack.UseVisualStyleBackColor = true;
             this.BtnBack.Click += new System.EventHandler(this.BtnBack_Click);
@@ -185,10 +186,20 @@
             this.BtnEntry.Location = new System.Drawing.Point(360, 396);
             this.BtnEntry.Name = "BtnEntry";
             this.BtnEntry.Size = new System.Drawing.Size(36, 26);
-            this.BtnEntry.TabIndex = 16;
+            this.BtnEntry.TabIndex = 17;
             this.BtnEntry.Text = "-->";
             this.BtnEntry.UseVisualStyleBackColor = true;
             this.BtnEntry.Click += new System.EventHandler(this.BtnEntry_Click);
+            // 
+            // BtnEditIdentity
+            // 
+            this.BtnEditIdentity.Location = new System.Drawing.Point(99, 405);
+            this.BtnEditIdentity.Name = "BtnEditIdentity";
+            this.BtnEditIdentity.Size = new System.Drawing.Size(75, 41);
+            this.BtnEditIdentity.TabIndex = 15;
+            this.BtnEditIdentity.Text = "Edit Identity";
+            this.BtnEditIdentity.UseVisualStyleBackColor = true;
+            this.BtnEditIdentity.Click += new System.EventHandler(this.BtnEditIdentity_Click);
             // 
             // FrmReservationDashboard
             // 
@@ -196,6 +207,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(716, 458);
+            this.Controls.Add(this.BtnEditIdentity);
             this.Controls.Add(this.BtnEntry);
             this.Controls.Add(this.BtnBack);
             this.Controls.Add(this.BtnEditProfile);
@@ -238,5 +250,6 @@
         private Button BtnEditProfile;
         private Button BtnBack;
         private Button BtnEntry;
+        private Button BtnEditIdentity;
     }
 }

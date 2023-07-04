@@ -18,4 +18,10 @@ public partial class LoginLog
     public string Password { get; set; }
 
     public int CreateDateTime { get; set; }
+
+    public void UpdateIdentity(string userName, string password)
+    {
+        UserName = userName;
+        Password = PasswordHelper.HashPassword(password);
+    }
 }

@@ -63,13 +63,18 @@ public partial class User
         BirthDay = birthDay;
     }
 
-    public void Delete()
+    public void IsDelete(bool isDelete)
     {
-        IsDeleted = true;
+        IsDeleted = isDelete;
     }
 
-    public void Suspend()
+    public void IsSuspend(bool isSuspend)
     {
-        IsSuspended = true;
+        IsSuspended = isSuspend;
+    }
+
+    public void UpdateUserName(string userName)
+    {
+        UserName = userName;
     }
 }

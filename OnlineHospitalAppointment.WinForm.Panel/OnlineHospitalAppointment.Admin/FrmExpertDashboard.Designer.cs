@@ -42,6 +42,7 @@
             this.BtnAddAppointment = new System.Windows.Forms.Button();
             this.BtnCancelAppointment = new System.Windows.Forms.Button();
             this.BtnModifyProfile = new System.Windows.Forms.Button();
+            this.BtnModifyIdentity = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GvAppointmentCharts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,10 +180,20 @@
             this.BtnModifyProfile.Location = new System.Drawing.Point(671, 322);
             this.BtnModifyProfile.Name = "BtnModifyProfile";
             this.BtnModifyProfile.Size = new System.Drawing.Size(104, 38);
-            this.BtnModifyProfile.TabIndex = 28;
+            this.BtnModifyProfile.TabIndex = 29;
             this.BtnModifyProfile.Text = "Modify Profile";
             this.BtnModifyProfile.UseVisualStyleBackColor = true;
             this.BtnModifyProfile.Click += new System.EventHandler(this.BtnModifyProfile_Click);
+            // 
+            // BtnModifyIdentity
+            // 
+            this.BtnModifyIdentity.Location = new System.Drawing.Point(551, 322);
+            this.BtnModifyIdentity.Name = "BtnModifyIdentity";
+            this.BtnModifyIdentity.Size = new System.Drawing.Size(104, 38);
+            this.BtnModifyIdentity.TabIndex = 28;
+            this.BtnModifyIdentity.Text = "Modify Identity";
+            this.BtnModifyIdentity.UseVisualStyleBackColor = true;
+            this.BtnModifyIdentity.Click += new System.EventHandler(this.BtnModifyIdentity_Click);
             // 
             // FrmExpertDashboard
             // 
@@ -190,6 +201,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(790, 377);
+            this.Controls.Add(this.BtnModifyIdentity);
             this.Controls.Add(this.BtnModifyProfile);
             this.Controls.Add(this.BtnCancelAppointment);
             this.Controls.Add(this.BtnAddAppointment);
@@ -231,5 +243,6 @@
         private Button BtnAddAppointment;
         private Button BtnCancelAppointment;
         private Button BtnModifyProfile;
+        private Button BtnModifyIdentity;
     }
 }

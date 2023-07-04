@@ -17,9 +17,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         private readonly int userId = FrmIdentity.userId;
         private bool isEntry = default;
 
-        public FrmReservationDashboard()
+        private readonly OnlineHospitalAppointmentDbContext _dbContext;
+
+        public FrmReservationDashboard(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
+            _dbContext = dbContext;
         }
 
         private void FrmReservationDashboard_Load(object sender, EventArgs e)
@@ -134,14 +137,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private void BtnReport_Click(object sender, EventArgs e)
         {
-            FrmUserAppointments frmUserAppointments = new();
+            FrmUserAppointments frmUserAppointments = new(_dbContext);
             this.Close();
             frmUserAppointments.ShowDialog();
         }
 
         private void BtnEditProfile_Click(object sender, EventArgs e)
         {
-            FrmManageAccount frmManageAccount = new();
+            FrmManageAccount frmManageAccount = new(_dbContext);
             this.Close();
             frmManageAccount.ShowDialog();
         }
@@ -222,6 +225,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             appointmentChartViews = mapper.Map<UserAppointmentChartView[]>(appointmentCharts);
 
             return appointmentChartViews;
+        }
+
+        private void BtnEditIdentity_Click(object sender, EventArgs e)
+        {
+            FrmEditIdentity frmEditIdentity = new(_dbContext);
+            frmEditIdentity.ShowDialog();
         }
     }
 }

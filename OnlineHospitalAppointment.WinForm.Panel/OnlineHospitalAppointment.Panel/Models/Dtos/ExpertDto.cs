@@ -7,5 +7,7 @@
         public string Specialist { get; init; }
         public string ProvienceName { get; init; }
         public string CityName { get; init; }
+        public bool IsDeleted { get; init; }
+        public bool IsSuspended { get; init; }
     }
 }
