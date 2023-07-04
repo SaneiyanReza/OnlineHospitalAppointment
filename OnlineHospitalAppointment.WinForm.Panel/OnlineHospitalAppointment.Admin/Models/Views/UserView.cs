@@ -9,6 +9,6 @@
         public string PhoneNumber { get; init; }
         public string BirthDay { get; init; }
         public bool IsDeleted { get; init; }
-        public bool IsSuspend { get; init; }
+        public bool IsSuspended { get; init; }
     }
 }

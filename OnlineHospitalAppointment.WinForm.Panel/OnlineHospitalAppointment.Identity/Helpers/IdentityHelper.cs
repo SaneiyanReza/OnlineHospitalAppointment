@@ -42,17 +42,6 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             return isUnique;
         }
 
-        //public static int CountSimilarUserName(string userName)
-        //{
-        //    int count = DapperHelper.QueryFirstOrDefault<int>(IdentityScripts.CountSimilarUserName,
-        //        new
-        //        {
-        //            userName
-        //        });
-
-        //    return count;
-        //}
-
         public static int CountSimilarUserName(int userId, string userName)
         {
             int count = DapperHelper.QueryFirstOrDefault<int>(IdentityScripts.CountSimilarUserName,

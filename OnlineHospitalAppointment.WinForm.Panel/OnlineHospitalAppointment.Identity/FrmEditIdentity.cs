@@ -40,7 +40,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             loginLog.UpdateIdentity(TxtUserName.Text, TxtNewPassword.Text);
 
             User user = await _dbContext.Users
-                .FirstOrDefaultAsync(x => x.UserName == userName);
+                .FirstOrDefaultAsync(x => x.UserName == userName 
+                    && x.IsDeleted == false && x.IsSuspended == false);
 
             if (loginLog is null)
                 throw new Exception("not found exeption");

@@ -1,4 +1,6 @@
-﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineHospitalAppointment.Dll.Tools.Helpers;
+using OnlineHospitalAppointment.WinForm.Panel.Models;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Account;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
@@ -34,7 +36,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 }
                 else
                 {
-                    FrmRegistration frmRegistration = new();
+                    FrmRegistration frmRegistration = new(_dbContext);
                     userName = TxtUserName.Text.ToLower();
                     password = TxtPassword.Text;
                     frmRegistration.ShowDialog();
@@ -46,7 +48,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
         }
 
-        private void BtnLogIn_Click(object sender, EventArgs e)
+        private async void BtnLogIn_Click(object sender, EventArgs e)
         {
             LoginLogsDto loginLogsDto = IdentityHelper.GetLoginLogByUserName(TxtUserName.Text.ToLower());
 
@@ -65,10 +67,18 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 }
                 else
                 {
-                    userId = DapperHelper.QueryFirstOrDefault<int>(IdentityScripts.GetUserId, new
+                    userId = loginLogsDto.UserId;
+
+                    User user = await _dbContext.Users
+                        .FirstOrDefaultAsync(x => x.Id == loginLogsDto.UserId &&
+                            x.IsDeleted == false && x.IsSuspended == false);
+
+                    if (user is null)
                     {
-                        loginLogsDto.UserName
-                    });
+                        MessageBox.Show("user not found!");
+
+                        return;
+                    }
 
                     switch (loginLogsDto.RoleId)
                     {

@@ -44,7 +44,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             return view;
         }
 
-        private void TxtSearchFor_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSearchFor_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TxtSearchFor.Text))
             {
@@ -87,6 +87,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 string description = $"delete user by admin userId: {userId}";
 
                 AdminActivityLog adminActivityLog = new(userId, description);
+                _dbContext.AdminActivityLogs.Add(adminActivityLog);
 
                 _dbContext.SaveChanges();
 
@@ -119,6 +120,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 string description = $"suspend user by admin userId: {userId}";
 
                 AdminActivityLog adminActivityLog = new(userId, description);
+                _dbContext.AdminActivityLogs.Add(adminActivityLog);
 
                 _dbContext.SaveChanges();
 

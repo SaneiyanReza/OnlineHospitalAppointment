@@ -27,8 +27,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel
 
                 //Configuring UserDto and UserView
                 cfg.CreateMap<UserDto, UserView>()
-                .ForMember(view => view.FullName, src => src.MapFrom(x => string.Concat(x.Name, " ", x.LastName)))
-                .ForMember(view => view.BirthDay, src => src.MapFrom(x => DateTimeHelper.UnixTimeToDate(x.BirthDay)));
+                .ForMember(view => view.FullName, src => src.MapFrom(x => string.Concat(x.Name, " ", x.LastName)));
 
                 //Configuring AdminAppointmentChartDto and AdminAppointmentChartView
                 cfg.CreateMap<AdminAppointmentChartDto, AdminAppointmentChartView>()

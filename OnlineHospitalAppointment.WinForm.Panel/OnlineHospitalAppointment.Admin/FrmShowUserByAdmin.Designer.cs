@@ -61,7 +61,7 @@
             this.TxtSearchFor.Name = "TxtSearchFor";
             this.TxtSearchFor.Size = new System.Drawing.Size(287, 23);
             this.TxtSearchFor.TabIndex = 24;
-            this.TxtSearchFor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSearchFor_KeyDown);
+            this.TxtSearchFor.TextChanged += new System.EventHandler(this.TxtSearchFor_TextChanged);
             // 
             // CmbField
             // 

@@ -126,7 +126,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             frmShowUserByAdmin.ShowDialog();
         }
 
-        private void TxtSearchFor_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSearchFor_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TxtSearchFor.Text))
             {

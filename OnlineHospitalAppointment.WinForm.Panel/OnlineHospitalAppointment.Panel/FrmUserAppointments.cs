@@ -29,7 +29,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             BindGridViewSource(bindingSource);
         }
 
-        private void TxtSearchFor_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSearchFor_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TxtSearchFor.Text))
             {

@@ -3,7 +3,8 @@
     public static class IdentityScripts
     {
         public static string GetLoginLogsByUserName =>
-            @"SELECT Top 1 ll.UserName,
+            @"SELECT Top 1 u.Id,
+               ll.UserName,
                ll.Password,
                u.RoleId
         	 FROM dbo.LoginLogs ll
@@ -20,7 +21,7 @@
             @"BEGIN TRANSACTION
 
               BEGIN TRY
-            
+
                  INSERT INTO dbo.LoginLogs
                     (UserName,Password,CreateDateTime)
                    VALUES

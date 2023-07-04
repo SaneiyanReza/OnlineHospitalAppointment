@@ -1,13 +1,17 @@
-﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity
 {
     public partial class FrmRegistration : Form
     {
-        public FrmRegistration()
+        private readonly OnlineHospitalAppointmentDbContext _dbcontext;
+
+        public FrmRegistration(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
+            _dbcontext = dbContext;
         }
 
         private void BtnSubmit_Click(object sender, EventArgs e)
@@ -47,14 +51,26 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
         }
 
-        private void TxtNationalCode_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void TxtNationalCode_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             (bool isValid, string errorMessage) = UserInfoValidationHelper.NationalCodeValidation(TxtNationalCode.Text);
 
             if (isValid)
             {
-                e.Cancel = false;
-                ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
+                bool isAccess = await _dbcontext.Users
+                    .AnyAsync(x => x.NationalCode == TxtNationalCode.Text
+                        && x.IsDeleted == true && x.IsSuspended == true);
+
+                if (isAccess)
+                {
+                    e.Cancel = true;
+                    ErrorProviderApp.SetError(TxtNationalCode, "دسترسی محدود!");
+                }
+                else
+                {
+                    e.Cancel = false;
+                    ErrorProviderApp.SetError(TxtNationalCode, string.Empty);
+                }
             }
             else
             {
@@ -63,13 +79,25 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             }
         }
 
-        private void TxtPhoneNumber_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void TxtPhoneNumber_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             (bool isValid, string errorMessage) = UserInfoValidationHelper.PhoneNumberValidation(TxtPhoneNumber.Text);
             if (isValid)
             {
-                e.Cancel = false;
-                ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
+                bool isAccess = await _dbcontext.Users
+                  .AnyAsync(x => x.PhoneNumber == TxtPhoneNumber.Text
+                      && x.IsDeleted == true && x.IsSuspended == true);
+
+                if (isAccess)
+                {
+                    e.Cancel = true;
+                    ErrorProviderApp.SetError(TxtPhoneNumber, "دسترسی محدود!");
+                }
+                else
+                {
+                    e.Cancel = false;
+                    ErrorProviderApp.SetError(TxtPhoneNumber, string.Empty);
+                }
             }
             else
             {
