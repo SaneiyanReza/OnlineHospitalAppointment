@@ -39,6 +39,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel
                 cfg.CreateMap<UserAppointmentChartDto, UserAppointmentChartView>()
                 .ForMember(view => view.AppointmentDate, src => src.MapFrom(x => DateTimeHelper
                 .UnixTimeToDate(x.AppointmentDate)));
+
+                //Configuring ExpertAddAppointmentChartDto and ExpertAddAppointmentChartView
+                cfg.CreateMap<ExpertAddAppointmentChartDto, ExpertAddAppointmentChartView>()
+                .ForMember(view => view.AppointmentDate, src => src.MapFrom(x => DateTimeHelper
+                .UnixTimeToDate(x.AppointmentDate)));
             });
 
             //Create an Instance of Mapper and return that Instance

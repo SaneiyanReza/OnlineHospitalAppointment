@@ -16,6 +16,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
         private readonly string userName = FrmIdentity.userName;
         private readonly int userId = FrmIdentity.userId;
         private bool isEntry = default;
+        private int currentExpertId = default;
 
         private readonly OnlineHospitalAppointmentDbContext _dbContext;
 
@@ -125,13 +126,18 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
                 BackColor = Color.Green;
                 GvReceiveExpertsPanel.BackgroundColor = Color.ForestGreen;
 
+                BindExpertGridViewSource(bindingSource);
+
                 MessageBox.Show($"The appointment was successfully received.\n Tracking Code : {trackingCode}",
                     "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 BackColor = Color.Empty;
                 GvReceiveExpertsPanel.BackgroundColor = Color.Silver;
 
-                BindAppointmentChartGridViewSource(bindingSource);
+                isEntry = false;
+                BtnReserve.Enabled = false;
+                BtnBack.Enabled = false;
+                BtnEntry.Enabled = true;
             }
         }
 
@@ -151,6 +157,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private void BtnEntry_Click(object sender, EventArgs e)
         {
+            currentExpertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
             isEntry = true;
 
             BindAppointmentChartGridViewSource(bindingSource);
@@ -159,6 +166,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             BtnBack.Enabled = true;
             BtnEntry.Enabled = false;
 
+            CmbField.Text = string.Empty;
             CmbField.Items.Clear();
             CmbField.Items.Add("Appointment Date");
         }
@@ -173,6 +181,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
             BtnBack.Enabled = false;
             BtnEntry.Enabled = true;
 
+            CmbField.Text = string.Empty;
             CmbField.Items.Clear();
             CmbField.Items.Add("FullName");
             CmbField.Items.Add("Specialist");
@@ -212,7 +221,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
         private UserAppointmentChartView[] GetAppointmentChart()
         {
-            int expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
+            int expertId = isEntry ? currentExpertId : (int)(GvReceiveExpertsPanel.CurrentRow?.Cells[0]?.Value ?? currentExpertId);
+            currentExpertId = expertId;
+
             Mapper mapper = MapperConfig.InitializeAutomapper();
 
             UserAppointmentChartDto[] appointmentCharts = DapperHelper.Query<UserAppointmentChartDto>(PanelScripts.GetAppointmentChart,

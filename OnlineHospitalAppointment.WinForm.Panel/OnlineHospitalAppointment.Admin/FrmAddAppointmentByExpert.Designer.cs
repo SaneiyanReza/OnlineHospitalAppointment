@@ -38,6 +38,8 @@
             // 
             // AppointmentDateTimePicker
             // 
+            this.AppointmentDateTimePicker.CustomFormat = "         yyyy,dd,yy    |    hh:mm";
+            this.AppointmentDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AppointmentDateTimePicker.Location = new System.Drawing.Point(12, 307);
             this.AppointmentDateTimePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.AppointmentDateTimePicker.Name = "AppointmentDateTimePicker";

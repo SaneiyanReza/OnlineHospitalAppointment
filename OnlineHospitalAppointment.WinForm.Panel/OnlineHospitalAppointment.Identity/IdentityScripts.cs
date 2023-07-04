@@ -13,18 +13,36 @@
         public static string IsUniqueNationalCodeOrPhoneNumberScript =>
             @"SELECT * FROM dbo.Users WHERE NationalCode = @NationalCode OR PhoneNumber = @PhoneNumber";
 
-        public static string CreateUserScript =>
-            @"INSERT INTO dbo.LoginLogs
-                (UserName,Password,CreateDateTime)
-               VALUES
-                (@UserName,@Password,@CreateDateTime)
+        public static string IsUniqueNationalCodeOrPhoneNumberExpertScript =>
+            @"SELECT * FROM dbo.Users WHERE Id <> @UserId AND (NationalCode = @NationalCode OR PhoneNumber = @PhoneNumber)";
 
-             INSERT INTO dbo.Users
-                (UserName,NationalCode,Name,LastName
-                ,IsMale,PhoneNumber,BirthDay,CreateDateTime)
-               VALUES
-                (@UserName,@NationalCode,@Name,@LastName
-                ,@IsMale,@PhoneNumber,@BirthDay,@CreateDateTime)";
+        public static string CreateUserScript =>
+            @"BEGIN TRANSACTION
+
+              BEGIN TRY
+            
+                 INSERT INTO dbo.LoginLogs
+                    (UserName,Password,CreateDateTime)
+                   VALUES
+                    (@UserName,@Password,@CreateDateTime)
+
+                 DECLARE @LoginLogId INT = (SELECT TOP 1 Id FROM dbo.LoginLogs WHERE UserName = @UserName)
+
+                 INSERT INTO dbo.Users
+                    (UserName,LoginLogId,NationalCode,Name,LastName
+                    ,IsMale,PhoneNumber,BirthDay,CreateDateTime,RoleId
+                     ,IsDeleted,IsSuspended)
+                   VALUES
+                    (@UserName,@LoginLogId,@NationalCode,@Name,@LastName
+                    ,@IsMale,@PhoneNumber,@BirthDay,@CreateDateTime,3
+                     ,0,0)
+
+                COMMIT TRANSACTION
+			  END TRY
+
+              BEGIN CATCH
+			    ROLLBACK TRANSACTION
+			  END CATCH";
 
         public static string IsUniqueUser =>
             @"SELECT * FROM dbo.Users WHERE (NationalCode = @NationalCode OR
@@ -39,7 +57,17 @@
                         SELECT u.UserName FROM dbo.Users u
                             WHERE u.UserName LIKE @UserName
                         UNION
-                        SELECT * FROM dbo.LoginLogs ll
+                        SELECT ll.UserName FROM dbo.LoginLogs ll
 						    WHERE ll.UserName LIKE @UserName) tbl";
+
+        public static string CountSimilarUserName =>
+            @"DECLARE @LoginLogId INT = (SELECT TOP 1 LoginLogId FROM dbo.Users WHERE Id = @UserId)
+
+            SELECT COUNT(tbl.UserName) FROM (
+                        SELECT u.UserName FROM dbo.Users u
+                            WHERE u.UserName LIKE @UserName AND u.Id <> @UserId
+                        UNION
+                        SELECT ll.UserName FROM dbo.LoginLogs ll
+						    WHERE ll.UserName LIKE @UserName AND ll.Id <> @LoginLogId) tbl";
     }
 }

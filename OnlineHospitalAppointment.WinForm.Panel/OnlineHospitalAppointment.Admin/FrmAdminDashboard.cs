@@ -48,6 +48,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             roleId = RoleId.GodAdmin;
             expertId = (int)GvReceiveExpertsPanel.CurrentRow.Cells[0].Value;
             frmModifyExpertByAdmin.ShowDialog();
+
+            BindGridViewSource(bindingSource);
         }
 
         private void BtnDeleteExpert_Click(object sender, EventArgs e)

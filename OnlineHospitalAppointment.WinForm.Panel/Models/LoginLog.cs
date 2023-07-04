@@ -19,6 +19,8 @@ public partial class LoginLog
 
     public int CreateDateTime { get; set; }
 
+    public virtual ICollection<User> Users { get; } = new List<User>();
+
     public void UpdateIdentity(string userName, string password)
     {
         UserName = userName;

@@ -27,47 +27,65 @@
                  WHERE IsCanceled = 0";
 
         public static string SetReservation =>
-            @"DECLARE @ExpertId INT = (SELECT TOP 1 ExpertId FROM dbo.AppointmentCharts WHERE Id = @AppointmentChartId)
+            @"BEGIN TRANSACTION;
 
-             INSERT INTO dbo.ReservationLogs
-                (
-                    UserId, ExpertId, AppointmentChartId, ReservedAt, TrackingCode, IsCanceled, TypeCanceled, Description
-                )
-                VALUES
-                (
-                	@UserId, @ExpertId, @AppointmentChartId, @ReservedAt, @TrackingCode, 0, NULL, NULL
-                )
+              BEGIN TRY
 
-             UPDATE dbo.AppointmentCharts SET IsReserved = 1
-                WHERE Id = @AppointmentChartId";
+                DECLARE @ExpertId INT = (SELECT TOP 1 ExpertId FROM dbo.AppointmentCharts WHERE Id = @AppointmentChartId)
+
+                INSERT INTO dbo.ReservationLogs
+                   (
+                       UserId, ExpertId, AppointmentChartId, ReservedAt, TrackingCode, IsCanceled, TypeCanceled, Description
+                   )
+                   VALUES
+                   (
+                   	@UserId, @ExpertId, @AppointmentChartId, @ReservedAt, @TrackingCode, 0, NULL, NULL
+                   )
+
+                UPDATE dbo.AppointmentCharts SET UserId = @UserId, IsReserved = 1
+                   WHERE Id = @AppointmentChartId
+
+               COMMIT TRANSACTION
+			  END TRY
+
+              BEGIN CATCH
+			    ROLLBACK TRANSACTION
+			  END CATCH";
 
         public static string GetUserAppointment =>
-            @"SELECT ac.Id,
+            @"SELECT rl.AppointmentChartId,
                 e.FullName,
                 st.Specialist,
 	            CONCAT(p.Name ,' ' ,c.Name) AS Address,
                 rl.TrackingCode,
 				ac.AppointmentDate,
                 rl.ReservedAt,
-                rl.IsCanceled FROM dbo.AppointmentCharts ac
-              JOIN dbo.ReservationLogs rl ON rl.AppointmentChartId = ac.Id
-              JOIN dbo.Experts e ON e.Id = ac.ExpertId
+                rl.IsCanceled FROM dbo.ReservationLogs rl
+			  LEFT JOIN dbo.AppointmentCharts ac ON ac.Id = rl.AppointmentChartId
+              JOIN dbo.Experts e ON e.Id = rl.ExpertId
               JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
               JOIN dbo.Cities c ON c.Id = e.CityId
               LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-                WHERE ac.UserId = @UserId
+                WHERE rl.UserId = 15
                 ORDER BY rl.IsCanceled";
 
         public static string SetCancelAppointment =>
             @"BEGIN TRANSACTION;
 
-             UPDATE dbo.AppointmentCharts SET IsReserved = 0
-                WHERE Id = @AppointmentChartId
+              BEGIN TRY
 
-             UPDATE dbo.ReservationLogs SET IsCanceled = 1 , Description = @Description , TypeCanceled = @TypeCanceled
-                WHERE AppointmentChartId = @AppointmentChartId
+                 UPDATE dbo.AppointmentCharts SET UserId = NULL, IsReserved = 0
+                    WHERE Id = @AppointmentChartId
 
-            COMMIT;";
+                 UPDATE dbo.ReservationLogs SET IsCanceled = 1 , Description = @Description , TypeCanceled = @TypeCanceled
+                    WHERE AppointmentChartId = @AppointmentChartId
+
+               COMMIT TRANSACTION
+			  END TRY
+
+              BEGIN CATCH
+			    ROLLBACK TRANSACTION
+			  END CATCH";
 
         public static string GetAppointmentChart =>
             @"SELECT ac.Id,

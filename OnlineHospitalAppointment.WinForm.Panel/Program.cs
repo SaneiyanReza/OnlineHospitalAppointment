@@ -41,6 +41,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel
             Exception e = (Exception)args.ExceptionObject;
             MessageBox.Show("Exception thrown : " + e.Message, "Exception",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Application.Restart();
         }
     }
 }

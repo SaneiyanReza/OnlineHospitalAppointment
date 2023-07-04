@@ -9,12 +9,24 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
     {
         private readonly OnlineHospitalAppointmentDbContext _dbContext;
 
-        public static string userName = FrmIdentity.userName;
+        private string userName;
+        private int userId;
 
         public FrmEditIdentity(OnlineHospitalAppointmentDbContext dbContext)
         {
             InitializeComponent();
             _dbContext = dbContext;
+        }
+
+        private async void FrmModifyIdentity_Load(object sender, EventArgs e)
+        {
+            userName = FrmIdentity.userName;
+            TxtUserName.Text = userName;
+
+            userId = await _dbContext.Users
+                .Where(x => x.UserName == userName)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
         }
 
         private async void BtnSubmit_Click(object sender, EventArgs e)
@@ -36,11 +48,12 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             user.UpdateUserName(TxtUserName.Text);
 
             await _dbContext.SaveChangesAsync();
-        }
 
-        private void FrmModifyIdentity_Load(object sender, EventArgs e)
-        {
-            TxtUserName.Text = userName;
+            BackColor = Color.Green;
+
+            MessageBox.Show($"Succsessfully!", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            BackColor = Color.Empty;
         }
 
         private void TxtUserName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -52,7 +65,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
 
             if (isValid)
             {
-                bool isUniqueUserName = IdentityHelper.IsUniqueUserName(TxtUserName.Text.ToLower());
+                bool isUniqueUserName = IdentityHelper.CountSimilarUserName(userId, TxtUserName.Text.ToLower()) == 0;
 
                 if (!isUniqueUserName)
                 {

@@ -203,6 +203,10 @@ public partial class OnlineHospitalAppointmentDbContext : DbContext
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.LoginLog).WithMany(p => p.Users)
+                .HasForeignKey(d => d.LoginLogId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
     }
 }

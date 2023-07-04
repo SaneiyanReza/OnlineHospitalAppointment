@@ -24,11 +24,11 @@
             @"SELECT FullName FROM dbo.Experts
              WHERE Id = @ExpertId And IsDeleted = 0 AND IsSuspended = 0
 
-             SELECT COUNT(u.Id)
+             SELECT COUNT(Id)
              FROM dbo.AppointmentCharts
              WHERE ExpertId = @ExpertId AND IsReserved = 1
 
-             SELECT COUNT(u.Id)
+             SELECT COUNT(Id)
              FROM dbo.ReservationLogs
              WHERE ExpertId = @ExpertId AND IsCanceled = 1";
 
@@ -43,5 +43,10 @@
               JOIN dbo.Experts e ON e.Id = ac.ExpertId
               JOIN dbo.Users u ON u.Id = ac.UserId
               WHERE ac.ExpertId = @ExpertId";
+
+        public static string GetExpertAppointmentChart =>
+            @"SELECT AppointmentDate,
+             IsReserved 
+	         FROM dbo.AppointmentCharts";
     }
 }

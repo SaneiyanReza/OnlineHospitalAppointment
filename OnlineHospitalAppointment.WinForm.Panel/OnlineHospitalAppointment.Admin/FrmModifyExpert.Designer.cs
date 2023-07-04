@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.DateOfBirthTimePicker = new System.Windows.Forms.DateTimePicker();
             this.BtnSave = new System.Windows.Forms.Button();
             this.ComboCity = new System.Windows.Forms.ComboBox();
@@ -48,6 +49,8 @@
             this.LblLastName = new System.Windows.Forms.Label();
             this.LblName = new System.Windows.Forms.Label();
             this.LblUserName = new System.Windows.Forms.Label();
+            this.ErrorProviderApp = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).BeginInit();
             this.SuspendLayout();
             // 
             // DateOfBirthTimePicker
@@ -140,6 +143,7 @@
             this.TxtUserName.Name = "TxtUserName";
             this.TxtUserName.Size = new System.Drawing.Size(209, 23);
             this.TxtUserName.TabIndex = 29;
+            this.TxtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtUserName_Validating);
             // 
             // LblCity
             // 
@@ -222,7 +226,11 @@
             this.LblUserName.TabIndex = 20;
             this.LblUserName.Text = "UserName : ";
             // 
-            // FrmModifyExpertByAdmin
+            // ErrorProviderApp
+            // 
+            this.ErrorProviderApp.ContainerControl = this;
+            // 
+            // FrmModifyExpert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -249,10 +257,11 @@
             this.Controls.Add(this.LblName);
             this.Controls.Add(this.LblUserName);
             this.MaximizeBox = false;
-            this.Name = "FrmModifyExpertByAdmin";
+            this.Name = "FrmModifyExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmModifyExpertByAdmin";
             this.Load += new System.EventHandler(this.FrmModifyExpertByAdmin_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderApp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,5 +289,6 @@
         private Label LblLastName;
         private Label LblName;
         private Label LblUserName;
+        private ErrorProvider ErrorProviderApp;
     }
 }

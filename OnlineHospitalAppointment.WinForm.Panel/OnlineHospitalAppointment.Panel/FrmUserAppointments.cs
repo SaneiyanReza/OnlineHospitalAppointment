@@ -62,7 +62,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Pane
 
                 DapperHelper.ExecuteNonQuery(PanelScripts.SetCancelAppointment, new
                 {
-                    reservationLogId,
+                    AppointmentChartId = reservationLogId,
                     description,
                     TypeCanceled = 3
                 });

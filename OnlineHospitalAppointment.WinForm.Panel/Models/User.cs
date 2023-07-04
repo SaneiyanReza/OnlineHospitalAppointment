@@ -22,6 +22,8 @@ public partial class User
 
     public int Id { get; set; }
 
+    public int LoginLogId { get; set; }
+
     public string UserName { get; set; }
 
     public string NationalCode { get; set; }
@@ -49,6 +51,8 @@ public partial class User
     public virtual ICollection<AppointmentChart> AppointmentCharts { get; } = new List<AppointmentChart>();
 
     public virtual ICollection<Expert> Experts { get; } = new List<Expert>();
+
+    public virtual LoginLog LoginLog { get; set; }
 
     public virtual Role Role { get; set; }
 

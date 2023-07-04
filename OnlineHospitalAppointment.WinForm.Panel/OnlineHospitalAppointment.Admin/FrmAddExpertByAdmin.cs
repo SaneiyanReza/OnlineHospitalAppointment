@@ -1,5 +1,6 @@
 ﻿using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.Models;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 
@@ -28,6 +29,21 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         private void BtnSubmit_Click(object sender, EventArgs e)
         {
+            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberScript,
+                new
+                {
+                    NationalCode = TxtNationalCode.Text,
+                    PhoneNumber = TxtPhoneNumber.Text
+                });
+
+            if (result is not null)
+            {
+                MessageBox.Show("Phone Number or National Code Already exist please try another ",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
             bool isUniqueUserName = IdentityHelper.IsUniqueUserName(TxtUserName.Text.ToLower());
 
             if (!isUniqueUserName)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin.Models.Views;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
@@ -12,8 +13,8 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
         private readonly OnlineHospitalAppointmentDbContext _dbContext;
         private static AdminAppointmentChartView[] view = default;
         private readonly BindingSource bindingSource = new();
-        private static readonly int userId = FrmIdentity.userId;
         public static RoleId? roleId = default;
+        public static int expertId = default;
 
         public FrmExpertDashboard(OnlineHospitalAppointmentDbContext dbContext)
         {
@@ -21,13 +22,23 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             _dbContext = dbContext;
         }
 
-        private void FrmExpertDashboard_Load(object sender, EventArgs e)
+        private async void FrmExpertDashboard_Load(object sender, EventArgs e)
         {
+            int userid = FrmIdentity.userId;
+
+            expertId = await _dbContext.Experts
+                .Where(x => x.UserId == userid)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+
             DapperHelper.QueryMultiple(AdminScripts.GetExpertDashboard, grid =>
             {
-                LblFullName.Text = grid.ReadFirst<int>().ToString();
+                LblShowFullName.Text = grid.ReadFirst<string>();
                 LblShowReservation.Text = grid.ReadFirst<int>().ToString();
-                LblCancelReservation.Text = grid.ReadFirst<int>().ToString();
+                LblShowCanceledReserved.Text = grid.ReadFirst<int>().ToString();
+            }, new
+            {
+                expertId
             });
 
             BindGridViewSource(bindingSource);
@@ -49,7 +60,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
             AdminAppointmentChartDto[] experts = DapperHelper.Query<AdminAppointmentChartDto>(AdminScripts.GetAppointmentChart, new
             {
-                ExpertID = userId
+                expertId
             });
 
             view = mapper.Map<AdminAppointmentChartView[]>(experts);

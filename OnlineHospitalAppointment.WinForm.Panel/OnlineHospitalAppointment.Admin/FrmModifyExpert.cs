@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineHospitalAppointment.Dll.Tools.Helpers;
 using OnlineHospitalAppointment.WinForm.Panel.Models;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity;
 using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Enums;
+using OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Identity.Helpers;
 
 namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admin
 {
     public partial class FrmModifyExpert : Form
     {
-        private OnlineHospitalAppointmentDbContext _dbContext;
-        private static int expertId = FrmAdminDashboard.expertId;
-        private static RoleId roleId = (RoleId)(FrmAdminDashboard.roleId ?? FrmExpertDashboard.roleId);
+        private readonly OnlineHospitalAppointmentDbContext _dbContext;
 
         public FrmModifyExpert(OnlineHospitalAppointmentDbContext dbContext)
         {
@@ -18,6 +19,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         private void FrmModifyExpertByAdmin_Load(object sender, EventArgs e)
         {
+            int expertId = FrmAdminDashboard.expertId == 0 ? FrmExpertDashboard.expertId
+                : FrmAdminDashboard.expertId;
+
             SpecialistType[] specialists = _dbContext.SpecialistTypes
                 .ToArray();
             City[] cities = _dbContext.Cities
@@ -47,7 +51,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 .Select(x => x.Specialist)
                 .ToArray();
 
-            ComboSpecialistType.DisplayMember = specialists
+            ComboSpecialistType.SelectedItem = specialists
                 .Where(x => x.Id == expert.SpecialistTypeId)
                 .Select(x => x.Specialist)
                 .FirstOrDefault();
@@ -56,7 +60,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 .Select(x => x.Name)
                 .ToArray();
 
-            ComboCity.DisplayMember = cities
+            ComboCity.SelectedItem = cities
                 .Where(x => x.Id == expert.CityId)
                 .Select(x => x.Name)
                 .FirstOrDefault();
@@ -64,6 +68,11 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            int expertId = FrmAdminDashboard.expertId == 0 ? FrmExpertDashboard.expertId
+                : FrmAdminDashboard.expertId;
+
+            RoleId? roleId = (RoleId)(FrmAdminDashboard.roleId ?? FrmExpertDashboard.roleId);
+
             Expert expert = _dbContext.Experts
                 .Include(x => x.User)
                 .FirstOrDefault(x => x.Id == expertId);
@@ -71,6 +80,34 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             if (expert is null)
             {
                 MessageBox.Show("user not found");
+                return;
+            }
+
+            int userId = expert.UserId;
+
+            string result = DapperHelper.QueryFirstOrDefault<string>(IdentityScripts.IsUniqueNationalCodeOrPhoneNumberExpertScript,
+                new
+                {
+                    userId,
+                    NationalCode = TxtNationalCode.Text,
+                    PhoneNumber = TxtPhoneNumber.Text
+                });
+
+            if (result is not null)
+            {
+                MessageBox.Show("Phone Number or National Code Already exist please try another ",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
+            bool isUniqueUserName = IdentityHelper.CountSimilarUserName(userId, TxtUserName.Text.ToLower()) == 0;
+
+            if (!isUniqueUserName)
+            {
+                MessageBox.Show("Username Already exist please try another ",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -107,6 +144,14 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
             MessageBox.Show($"Successfully!", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             BackColor = Color.Empty;
+        }
+
+        private void TxtUserName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            (bool isValid, string errorMessage) = UserInfoValidationHelper.UserNameValidation(TxtUserName.Text);
+
+            e.Cancel = !isValid;
+            ErrorProviderApp.SetError(TxtUserName, errorMessage);
         }
     }
 }

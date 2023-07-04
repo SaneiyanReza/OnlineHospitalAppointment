@@ -14,13 +14,11 @@ namespace OnlineHospitalAppointment.Dll.Tools.Helpers
             using (MD5CryptoServiceProvider md5 = new())
             {
                 byte[] keys = md5.ComputeHash(Encoding.UTF8.GetBytes(hash));
-                using (TripleDESCryptoServiceProvider tripleDes = new()
-                { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
-                {
-                    ICryptoTransform transform = tripleDes.CreateEncryptor();
-                    byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
-                    encryptPassword = Convert.ToBase64String(results);
-                }
+                using TripleDESCryptoServiceProvider tripleDes = new()
+                { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 };
+                ICryptoTransform transform = tripleDes.CreateEncryptor();
+                byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
+                encryptPassword = Convert.ToBase64String(results);
             }
             return encryptPassword;
         }
