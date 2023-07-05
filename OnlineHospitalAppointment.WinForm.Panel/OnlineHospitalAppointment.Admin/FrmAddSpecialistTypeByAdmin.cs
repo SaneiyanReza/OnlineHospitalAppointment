@@ -27,7 +27,9 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                 return;
             }
 
-            SpecialistType specialistType = new(TxtSpecialistType.Text);
+            string specialist = string.Concat("متخصص", " ", TxtSpecialistType.Text);
+
+            SpecialistType specialistType = new(specialist);
 
             _dbContext.SpecialistTypes.Add(specialistType);
             _dbContext.SaveChanges();

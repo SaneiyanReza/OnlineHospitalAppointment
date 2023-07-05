@@ -43,7 +43,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 .FirstOrDefaultAsync(x => x.UserName == userName 
                     && x.IsDeleted == false && x.IsSuspended == false);
 
-            if (loginLog is null)
+            if (user is null)
                 throw new Exception("not found exeption");
 
             user.UpdateUserName(TxtUserName.Text);

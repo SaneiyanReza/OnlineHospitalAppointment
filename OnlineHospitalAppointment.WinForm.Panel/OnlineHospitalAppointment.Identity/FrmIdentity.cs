@@ -67,10 +67,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
                 }
                 else
                 {
-                    userId = loginLogsDto.UserId;
+                    userId = loginLogsDto.Id;
 
                     User user = await _dbContext.Users
-                        .FirstOrDefaultAsync(x => x.Id == loginLogsDto.UserId &&
+                        .FirstOrDefaultAsync(x => x.Id == loginLogsDto.Id &&
                             x.IsDeleted == false && x.IsSuspended == false);
 
                     if (user is null)

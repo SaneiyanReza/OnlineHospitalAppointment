@@ -59,7 +59,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             {
                 bool isAccess = await _dbcontext.Users
                     .AnyAsync(x => x.NationalCode == TxtNationalCode.Text
-                        && x.IsDeleted == true && x.IsSuspended == true);
+                        && (x.IsDeleted == true || x.IsSuspended == true));
 
                 if (isAccess)
                 {
@@ -86,7 +86,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Iden
             {
                 bool isAccess = await _dbcontext.Users
                   .AnyAsync(x => x.PhoneNumber == TxtPhoneNumber.Text
-                      && x.IsDeleted == true && x.IsSuspended == true);
+                      && (x.IsDeleted == true || x.IsSuspended == true));
 
                 if (isAccess)
                 {
