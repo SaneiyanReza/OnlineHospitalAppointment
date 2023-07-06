@@ -66,7 +66,7 @@ namespace OnlineHospitalAppointment.WinForm.Panel.OnlineHospitalAppointment.Admi
                     bool isMale = RbIsMale.Checked;
                     string birthDay = DateOfBirthTimePicker.Value.Date.ToString("yyyy/MM/dd");
 
-                    User user = new(TxtUserName.Text, TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
+                    User user = new(loginLog.Id, TxtUserName.Text, TxtNationalCode.Text, TxtName.Text, TxtLastName.Text,
                         isMale, TxtPhoneNumber.Text, birthDay, (int)RoleId.Expert);
 
                     _dbContext.Users.Add(user);

@@ -66,7 +66,7 @@
               JOIN dbo.SpecialistTypes st ON st.Id = e.SpecialistTypeId
               JOIN dbo.Cities c ON c.Id = e.CityId
               LEFT JOIN dbo.Provinces p ON p.Id = c.ProvinceId
-                WHERE rl.UserId = 15
+                WHERE rl.UserId = @UserId
                 ORDER BY rl.IsCanceled";
 
         public static string SetCancelAppointment =>

@@ -4,9 +4,10 @@ namespace OnlineHospitalAppointment.WinForm.Panel.Models;
 
 public partial class User
 {
-    public User(string userName, string nationalCode, string name, string lastName, bool isMale,
+    public User(int loginLogId, string userName, string nationalCode, string name, string lastName, bool isMale,
         string phoneNumber, string birthDay, int roleId)
     {
+        LoginLogId = loginLogId;
         UserName = userName;
         NationalCode = nationalCode;
         Name = name;
